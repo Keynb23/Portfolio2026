@@ -1,0 +1,204 @@
+/* ========================================
+   DESIGN SYSTEM - CSS VARIABLES
+   Premium Minimalist Portfolio
+   ======================================== */
+
+:root {
+  /* ===== MAIN BRAND COLORS ===== */
+  --color-primary: #00356b; /* Yale Blue - Primary actions, links */
+  --color-secondary: #d21f3c; /* Cherry Rose - Accents, hover states */
+  --color-tertiary: #008080; /* Teal - Success states, special tags */
+
+  /* ===== NEUTRAL PALETTE ===== */
+  --bg-main: #121212; /* Carbon Black - Primary background */
+  --bg-surface: #181717; /* Shadow Grey - Cards, elevated surfaces */
+  --bg-light: #fcf5e5; /* Parchment - Light mode sections, high contrast */
+
+  --text-main: #f8f8ff; /* Ghost White - Primary text on dark */
+  --text-muted: #708090; /* Slate Grey - Secondary text, icons */
+  --text-dark: #121212; /* Carbon Black - Text on light backgrounds */
+
+  --border-subtle: rgba(242, 242, 242, 0.1); /* Alabaster Grey with opacity */
+  --border-medium: rgba(242, 242, 242, 0.2);
+
+  /* ===== TYPOGRAPHY ===== */
+  --font-main: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  --font-display: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --font-size-xs: 0.75rem; /* 12px */
+  --font-size-sm: 0.875rem; /* 14px */
+  --font-size-base: 1rem; /* 16px */
+  --font-size-lg: 1.125rem; /* 18px */
+  --font-size-xl: 1.25rem; /* 20px */
+  --font-size-2xl: 1.5rem; /* 24px */
+  --font-size-3xl: 1.875rem; /* 30px */
+  --font-size-4xl: 2.25rem; /* 36px */
+  --font-size-5xl: 3rem; /* 48px */
+  --font-size-6xl: 3.75rem; /* 60px */
+  --font-size-7xl: 4.5rem; /* 72px */
+
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+
+  /* ===== SPACING ===== */
+  --space-xs: 0.25rem; /* 4px */
+  --space-sm: 0.5rem; /* 8px */
+  --space-md: 1rem; /* 16px */
+  --space-lg: 1.5rem; /* 24px */
+  --space-xl: 2rem; /* 32px */
+  --space-2xl: 3rem; /* 48px */
+  --space-3xl: 4rem; /* 64px */
+  --space-4xl: 6rem; /* 96px */
+  --space-5xl: 8rem; /* 128px */
+
+  /* ===== BORDER RADIUS ===== */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 24px;
+  --radius-full: 9999px;
+
+  /* ===== SHADOWS ===== */
+  --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.3);
+  --shadow-medium: 0 8px 30px rgba(0, 0, 0, 0.4);
+  --shadow-hard: 0 12px 40px rgba(0, 0, 0, 0.5);
+  --shadow-glow-primary: 0 0 20px rgba(0, 53, 107, 0.4);
+  --shadow-glow-secondary: 0 0 20px rgba(210, 31, 60, 0.4);
+
+  /* ===== TRANSITIONS ===== */
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-fast: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+  /* ===== LAYOUT ===== */
+  --max-width-text: 750px; /* Constrained text column */
+  --max-width-content: 1200px; /* Main content container */
+  --max-width-wide: 1440px; /* Wide sections */
+
+  /* ===== Z-INDEX LAYERS ===== */
+  --z-base: 1;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-modal: 300;
+  --z-tooltip: 400;
+}
+
+/* ========================================
+   GLOBAL RESET & BASE STYLES
+   ======================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-main);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+  color: var(--text-main);
+  background-color: var(--bg-main);
+  overflow-x: hidden;
+}
+
+/* ===== TYPOGRAPHY DEFAULTS ===== */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  margin-bottom: var(--space-md);
+}
+
+h1 {
+  font-size: var(--font-size-6xl);
+}
+
+h2 {
+  font-size: var(--font-size-4xl);
+}
+
+h3 {
+  font-size: var(--font-size-3xl);
+}
+
+h4 {
+  font-size: var(--font-size-2xl);
+}
+
+p {
+  margin-bottom: var(--space-md);
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: var(--transition-smooth);
+}
+
+a:hover {
+  color: var(--color-secondary);
+}
+
+/* ===== UTILITY CLASSES ===== */
+
+.container {
+  width: 100%;
+  max-width: var(--max-width-content);
+  margin: 0 auto;
+  padding: 0 var(--space-lg);
+}
+
+.container-wide {
+  max-width: var(--max-width-wide);
+}
+
+.text-column {
+  max-width: var(--max-width-text);
+}
+
+.section {
+  padding: var(--space-4xl) 0;
+}
+
+/* ===== RESPONSIVE TYPOGRAPHY ===== */
+
+@media (max-width: 768px) {
+  :root {
+    --font-size-6xl: 2.5rem; /* 40px */
+    --font-size-5xl: 2rem; /* 32px */
+    --font-size-4xl: 1.75rem; /* 28px */
+  }
+
+  .section {
+    padding: var(--space-3xl) 0;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --font-size-6xl: 2rem; /* 32px */
+    --font-size-5xl: 1.75rem; /* 28px */
+  }
+}

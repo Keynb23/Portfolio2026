@@ -1,0 +1,9 @@
+/* ========================================
+   APP COMPONENT STYLES
+   ======================================== */
+
+.app {
+  min-height: 100vh;
+  background-color: var(--bg-main);
+  position: relative;
+}
