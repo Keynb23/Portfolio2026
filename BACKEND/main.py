@@ -49,14 +49,22 @@ async def send_email(form: ContactForm):
     msg["Reply-To"] = form.email  # Crucial: Allows you to click 'Reply' in Gmail
 
     try:
-        # Switch from SMTP_SSL (465) to standard SMTP (587)
-        server = smtplib.SMTP("smtp.gmail.com", 587)
-        server.starttls()  # Secure the connection
-        server.login(my_email, password)
-        server.sendmail(my_email, my_email, msg.as_string())
-        server.quit()
-
-        return {"status": "success", "message": "Email sent successfully"}
-    except Exception as e:
-        print(f"SMTP Error: {e}")  # This will show up in Render logs
-        raise HTTPException(status_code=500, detail=str(e))
+            # 1. Standardize the connection
+            server = smtplib.SMTP("smtp.gmail.com", 587, timeout=30)
+            server.set_debuglevel(1) # This will print extra details to Render logs
+            
+            # 2. Identify ourselves to the server
+            server.ehlo() 
+            
+            # 3. Secure the connection
+            server.starttls()
+            
+            # 4. Identify again over the secure connection
+            server.ehlo()
+            
+            # 5. Login and Send
+            server.login(my_email, password)
+            server.sendmail(my_email, my_email, msg.as_string())
+            server.quit()
+            
+            return {"status": "success", "message": "Email sent successfully"}
