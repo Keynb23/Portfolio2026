@@ -1,3 +1,4 @@
+// src/components/Footer/Footer.jsx
 import { useEffect, useRef, useState } from "react";
 import "./Footer.css";
 
