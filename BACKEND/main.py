@@ -8,20 +8,22 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], 
+    allow_origins=["*"],
     allow_methods=["POST"],
     allow_headers=["*"],
 )
+
 
 class ContactForm(BaseModel):
     name: str
     email: EmailStr
     message: str
 
+
 @app.post("/send-email")
 async def send_email(form: ContactForm):
     api_key = os.getenv("RESEND_API_KEY")
-    
+
     if not api_key:
         raise HTTPException(status_code=500, detail="Missing API Key")
 
@@ -34,12 +36,12 @@ async def send_email(form: ContactForm):
                 "Content-Type": "application/json",
             },
             json={
-                "from": "onboarding@resend.dev", # Note: Resend requires this for free accounts
-                "to": "keynb50@gmail.com", # Your email
+                "from": "onboarding@resend.dev",
+                "to": "keynb1999@gmail.com",  # Your GitHub/Resend account email
                 "subject": f"Portfolio Lead: {form.name}",
-                "reply_to": form.email,
+                "reply_to": form.email,  # This allows you to hit 'Reply' in Gmail
                 "text": f"From: {form.name} ({form.email})\n\nMessage: {form.message}",
-            }
+            },
         )
 
     if response.status_code != 200:
