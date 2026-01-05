@@ -68,3 +68,7 @@ async def send_email(form: ContactForm):
             server.quit()
             
             return {"status": "success", "message": "Email sent successfully"}
+    except Exception as e:
+        print(f"SMTP Error: {e}")  # This will show up in Render logs
+        raise HTTPException(status_code=500, detail=str(e))
+        
