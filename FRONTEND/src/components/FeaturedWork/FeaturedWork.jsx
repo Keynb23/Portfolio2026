@@ -151,16 +151,17 @@ const FeaturedWork = () => {
               <div className="project-card__body">
                 <div className="project-card__description">
                   {formatText(project.description)}
-                </div>
-
-                {/* THE TOGGLE BUTTON - Only appears on the Bionic Project Card */}
+                                  {/* THE TOGGLE BUTTON - Only appears on the Bionic Project Card */}
                 {project.id === 1 && (
                   <button onClick={toggleBionic} className="bionic-toggle-btn">
                     {isBionicMode
-                      ? "Disable Bionic Mode"
-                      : "Enable Site-wide Bionic Reading"}
+                      ? "Ouch!"
+                      : "DON'T PUSH ME"}
                   </button>
                 )}
+                </div>
+
+
 
                 <div className="project-card__highlights">
                   <h4 className="project-card__highlights-title">

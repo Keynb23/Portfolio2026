@@ -121,32 +121,51 @@
 }
 
 /* ======buttons===== */
-
 .bionic-toggle-btn {
-  cursor: pointer;
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  margin-bottom: var(--space-xl);
+  /* 1. Remove Absolute Positioning */
+  position: relative;
+  left: auto;
+  transform: none;
+  
+  /* 2. Layout & Centering */
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: var(--space-sm);
-  padding: var(--space-md);
-  border-radius: var(--radius-full);
+  width: 100%; /* Spans width of card on mobile */
+  margin: var(--space-lg) 0; /* Adds breathing room top and bottom */
+  
+  /* 3. Modern Styling */
+  cursor: pointer;
+  border-radius: var(--radius-lg); /* Slightly less round for a "card" look */
   border: 1px solid var(--border-medium);
   background-color: var(--bg-surface);
-  box-shadow: var(--shadow-medium);
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
+  box-shadow: var(--shadow-small);
+  font-weight: var(--font-weight-semibold);
   color: var(--text-main);
   transition: var(--transition-smooth);
+
+  /* 4. Responsive Clamping */
+  /* Fluid font size: starts at 0.85rem, scales up to 1rem */
+  font-size: clamp(0.85rem, 2vw, 1rem);
+  /* Fluid padding: smaller on mobile, larger on desktop */
+  padding: clamp(0.6rem, 2vw, 0.8rem) clamp(1rem, 3vw, 1.5rem);
+  gap: var(--space-sm);
 }
 
 .bionic-toggle-btn:hover {
   background-color: var(--color-secondary);
-  color: var(--bg-light); 
+  color: var(--bg-light);
+  border-color: var(--color-secondary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-medium);
+}
+
+/* Optional: Make it slightly narrower on large screens so it doesn't look like a giant bar */
+@media (min-width: 768px) {
+  .bionic-toggle-btn {
+    width: fit-content;
+    margin: var(--space-xl) 0;
+  }
 }
 
 /* ===== HIGHLIGHTS ===== */
