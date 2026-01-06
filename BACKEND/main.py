@@ -9,7 +9,11 @@ app = FastAPI()
 # CORS configuration - Allows your React frontend to talk to this API
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # For production, replace "*" with your Vercel URL
+    allow_origins=[
+        "https://your-new-site.netlify.app", # Add your specific Netlify URL here
+        "http://localhost:3000",             # Keep this for local testing
+        "http://localhost:5173"              # Vite local testing
+    ], 
     allow_methods=["POST", "OPTIONS"],
     allow_headers=["*"],
 )
