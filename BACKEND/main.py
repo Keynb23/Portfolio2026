@@ -6,16 +6,17 @@ from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
-# CORS configuration - Allows your React frontend to talk to this API
+# Update this section specifically
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "https://your-new-site.netlify.app", # Add your specific Netlify URL here
-        "http://localhost:3000",             # Keep this for local testing
-        "http://localhost:5173"              # Vite local testing
-    ], 
-    allow_methods=["POST", "OPTIONS"],
-    allow_headers=["*"],
+        "https://keynb.netlify.app",        # Your new Netlify production URL
+        "http://localhost:5173",             # Local development
+        "http://localhost:3000"
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],                     # Allows POST, OPTIONS, etc.
+    allow_headers=["*"],                     # Allows Content-Type, Authorization, etc.
 )
 
 class ContactForm(BaseModel):
