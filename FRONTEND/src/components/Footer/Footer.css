@@ -1,15 +1,20 @@
 /* ========================================
    FOOTER SECTION STYLES
    ======================================== */
-
 .footer {
-background: #121212;
-background: -webkit-linear-gradient(180deg, rgba(18, 18, 18, 1) 0%, rgba(0, 17, 33, 1) 18%, rgba(18, 18, 18, 1) 53%, rgba(51, 0, 8, 1) 75%, rgba(18, 18, 18, 1) 100%);
-background: -moz-linear-gradient(180deg, rgba(18, 18, 18, 1) 0%, rgba(0, 17, 33, 1) 18%, rgba(18, 18, 18, 1) 53%, rgba(51, 0, 8, 1) 75%, rgba(18, 18, 18, 1) 100%);
-background: linear-gradient(180deg, rgba(18, 18, 18, 1) 0%, rgba(0, 17, 33, 1) 18%, rgba(18, 18, 18, 1) 53%, rgba(51, 0, 8, 1) 75%, rgba(18, 18, 18, 1) 100%);
-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#121212", endColorstr="#121212", GradientType=0);
-position: relative;
-  padding: var(--space-5xl) 0 var(--space-2xl);
+  /* We want the gradient to end at #121212 to match the Sammy_IMG container */
+  background: linear-gradient(
+    180deg,
+    rgba(18, 18, 18, 1) 0%,      /* Matches the section above the footer */
+    rgba(51, 0, 8, 1) 40%,       /* Your Cherry Rose/Shadow accent */
+    rgba(18, 18, 18, 1) 100%     /* Fades back to Carbon Black at the bottom */
+  );
+  
+  /* Ensure there is no gap between footer and image */
+  margin-bottom: 0;
+  padding: var(--space-4xl) 0 var(--space-2xl);
+  position: relative;
+  z-index: 10;
 }
 
 /* ===== CONTACT SECTION ===== */

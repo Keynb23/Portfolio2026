@@ -1,0 +1,132 @@
+[
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "httpx",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "httpx",
+        "description": "httpx",
+        "detail": "httpx",
+        "documentation": {}
+    },
+    {
+        "label": "FastAPI",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "HTTPException",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "BaseModel",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "EmailStr",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "CORSMiddleware",
+        "importPath": "fastapi.middleware.cors",
+        "description": "fastapi.middleware.cors",
+        "isExtraImport": true,
+        "detail": "fastapi.middleware.cors",
+        "documentation": {}
+    },
+    {
+        "label": "json",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "json",
+        "description": "json",
+        "detail": "json",
+        "documentation": {}
+    },
+    {
+        "label": "ContactForm",
+        "kind": 6,
+        "importPath": "BACKEND.main",
+        "description": "BACKEND.main",
+        "peekOfCode": "class ContactForm(BaseModel):\n    name: str\n    email: EmailStr\n    message: str\n@app.get(\"/\")\ndef read_root():\n    return {\"status\": \"API is running\"}\n@app.post(\"/send-email\")\nasync def send_email(form: ContactForm):\n    api_key = os.getenv(\"RESEND_API_KEY\")",
+        "detail": "BACKEND.main",
+        "documentation": {}
+    },
+    {
+        "label": "read_root",
+        "kind": 2,
+        "importPath": "BACKEND.main",
+        "description": "BACKEND.main",
+        "peekOfCode": "def read_root():\n    return {\"status\": \"API is running\"}\n@app.post(\"/send-email\")\nasync def send_email(form: ContactForm):\n    api_key = os.getenv(\"RESEND_API_KEY\")\n    # 1. Check if API Key exists in Render Environment Variables\n    if not api_key:\n        print(\"CRITICAL ERROR: RESEND_API_KEY is not set in Render Environment Variables.\")\n        raise HTTPException(status_code=500, detail=\"Server configuration error.\")\n    # 2. Prepare the request to Resend",
+        "detail": "BACKEND.main",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "BACKEND.main",
+        "description": "BACKEND.main",
+        "peekOfCode": "app = FastAPI()\n# Update this section specifically\napp.add_middleware(\n    CORSMiddleware,\n    allow_origins=[\n        \"https://keynb.netlify.app\",        # Your new Netlify production URL\n        \"http://localhost:5173\",             # Local development\n        \"http://localhost:3000\"\n    ],\n    allow_credentials=True,",
+        "detail": "BACKEND.main",
+        "documentation": {}
+    },
+    {
+        "label": "_Known",
+        "kind": 6,
+        "importPath": "FRONTEND.node_modules.flatted.python.flatted",
+        "description": "FRONTEND.node_modules.flatted.python.flatted",
+        "peekOfCode": "class _Known:\n    def __init__(self):\n        self.key = []\n        self.value = []\nclass _String:\n    def __init__(self, value):\n        self.value = value\ndef _array_keys(value):\n    keys = []\n    i = 0",
+        "detail": "FRONTEND.node_modules.flatted.python.flatted",
+        "documentation": {}
+    },
+    {
+        "label": "_String",
+        "kind": 6,
+        "importPath": "FRONTEND.node_modules.flatted.python.flatted",
+        "description": "FRONTEND.node_modules.flatted.python.flatted",
+        "peekOfCode": "class _String:\n    def __init__(self, value):\n        self.value = value\ndef _array_keys(value):\n    keys = []\n    i = 0\n    for _ in value:\n        keys.append(i)\n        i += 1\n    return keys",
+        "detail": "FRONTEND.node_modules.flatted.python.flatted",
+        "documentation": {}
+    },
+    {
+        "label": "parse",
+        "kind": 2,
+        "importPath": "FRONTEND.node_modules.flatted.python.flatted",
+        "description": "FRONTEND.node_modules.flatted.python.flatted",
+        "peekOfCode": "def parse(value, *args, **kwargs):\n    json = _json.loads(value, *args, **kwargs)\n    wrapped = []\n    for value in json:\n        wrapped.append(_wrap(value))\n    input = []\n    for value in wrapped:\n        if isinstance(value, _String):\n            input.append(value.value)\n        else:",
+        "detail": "FRONTEND.node_modules.flatted.python.flatted",
+        "documentation": {}
+    },
+    {
+        "label": "stringify",
+        "kind": 2,
+        "importPath": "FRONTEND.node_modules.flatted.python.flatted",
+        "description": "FRONTEND.node_modules.flatted.python.flatted",
+        "peekOfCode": "def stringify(value, *args, **kwargs):\n    known = _Known()\n    input = []\n    output = []\n    i = int(_index(known, input, value))\n    while i < len(input):\n        output.append(_transform(known, input, input[i]))\n        i += 1\n    return _json.dumps(output, *args, **kwargs)",
+        "detail": "FRONTEND.node_modules.flatted.python.flatted",
+        "documentation": {}
+    }
+]
