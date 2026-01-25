@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import "./Navbar.css";
 
 const Navbar = () => {
@@ -39,7 +39,7 @@ const Navbar = () => {
           className="navbar__logo"
           onClick={(e) => scrollToSection(e, "#hero")}
         >
-          <span className="navbar__logo-text">Key'n Brosdahl</span>
+          <img src="/key-chain.png" alt="Key Chain Logo" className="w-10 h-10 object-contain saturate-250 brightness-100 contrast-100" />
         </a>
 
         {/* Desktop Navigation */}

@@ -17,7 +17,7 @@ const SammyBG = () => {
 
 function App() {
   return (
-    <div className="app">
+    <div className="h-screen w-full min-h-dvh relative overflow-x-hidden ">
       <Navbar />
       <Hero />
 

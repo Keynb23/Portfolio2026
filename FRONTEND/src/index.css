@@ -2,6 +2,8 @@
    DESIGN SYSTEM - CSS VARIABLES
    Premium Minimalist Portfolio
    ======================================== */
+@import "tailwindcss";
+
 
 :root {
   /* ===== MAIN BRAND COLORS ===== */
@@ -113,8 +115,8 @@ body {
   font-size: var(--font-size-base);
   line-height: var(--line-height-normal);
   color: var(--text-main);
-  background-color: var(--bg-main);
   overflow-x: hidden;
+  @apply bg-gray-900;
 }
 
 /* ===== TYPOGRAPHY DEFAULTS ===== */
