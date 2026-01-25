@@ -46,6 +46,20 @@ const Experience = () => {
       ],
       tech: ["React", "TypeScript", "CSS3", "Git", "Figma"],
     },
+    {
+      id: 2,
+      company: "Acellus Academy",
+      role: "Frotend Software Engineer",
+      period: "January 2026 - Present",
+      location: "Kansas City, MO",
+      description:
+        "Working with the frontend team to enhance user interface and user experience across the Acellus learning platform. While rebuilding an active react codebase that serves 10s of thousands of active users.",
+      achievements: [
+        "Implemented workload automation tools to improve Manual Test Case writing.",
+        "Helped organize restructuring of frontend codebase to improve scalability and maintainability.",
+      ],
+      tech: ["React", "TypeScript", "Tailwind CSS", "Gitlabs"],
+    }
   ];
 
   return (
