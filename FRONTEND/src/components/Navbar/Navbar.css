@@ -8,7 +8,6 @@
   left: 0;
   right: 0;
   z-index: var(--z-sticky);
-  background-color: transparent;
   transition: var(--transition-smooth);
   padding: var(--space-lg) 0;
 }

@@ -31,7 +31,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className={`navbar ${isScrolled ? "navbar--scrolled" : ""}`}>
+    <nav className={`navbar bg-slate-950 ${isScrolled ? "navbar--scrolled" : ""}`}>
       <div className="navbar__container">
         {/* Logo */}
         <a

@@ -130,7 +130,7 @@ const FeaturedWork = () => {
           {projects.map((project, index) => (
             <article
               key={project.id}
-              className="project-card"
+              className="project-card hover:shadow-[2px_-5px_7px_4px_#48ACF0] brightness-100 saturate-100 hover:brightness-150 hover:saturate-150 transition-all duration-300"
               style={{ "--delay": `${index * 0.2}s` }}
             >
               <div className="project-card__header">

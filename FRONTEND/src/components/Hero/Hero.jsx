@@ -1,7 +1,7 @@
 import  { useEffect, useRef } from "react";
 import "./Hero.css";
 import heroBG from '../../assets/BG_Hero.jpg';
-
+import bgv from '../../assets/bg-vid.mp4';
 
 const Hero = () => {
   const heroRef = useRef(null);
@@ -32,15 +32,22 @@ const Hero = () => {
 
   return (
     <section id="hero" className="hero" ref={heroRef}>
-      <img src={heroBG} alt="Hero Background" className="bg-[value] min-h-dvh min-w-full bg-center absolute left-0 top-0 blur-xs invert brightness-90" />
+      <img src={heroBG} alt="Hero Background" className="bg-[value] min-h-dvh min-w-full bg-center absolute left-0 top-0 blur-lg invert brightness-90" />
       <div className="hero__container">
         <div className="hero__content relative min-h-dvh flex flex-col justify-center overflow-hidden rounded-xl">
   
   {/* 1. The Base Image */}
-  <img 
+  {/* <img 
     src={heroBG} 
     alt="Hero Background" 
     className="absolute inset-0 h-full w-full object-cover blur-none invert-0 brightness-60 contrast-150 saturate-10 z-0" 
+  /> */}
+
+  <video 
+    src={bgv} 
+    autoPlay
+    muted
+    className="absolute inset-0 h-full w-full object-cover blur-none brightness-100 contrast-100 saturate-250 z-0"
   />
 
   {/* 2. The Grid Overlay Snippet (Tailwind-ified) */}
@@ -52,8 +59,7 @@ const Hero = () => {
   />
 
   {/* 3. The Glassmorphism Layer & Actual Content */}
-  <div className="relative z-20 m-8 p-12 rounded-lg border border-white/10
-                  bg-stone-900/30 backdrop-blur-sm backdrop-saturate-200 
+  <div className="relative z-20 m-8 p-12 rounded-lg backdrop-blur-xs backdrop-saturate-200 
                   bg-clip-padding">
      {/* Your text/buttons go here */}
      <h1 className="text-white text-5xl font-bold">Key'n Brosdahl</h1>
@@ -70,12 +76,12 @@ const Hero = () => {
           {/* Main Headline */}
           <h1 className="hero__headline">
             Translating design intent into{" "}
-            <span className="hero__highlight invert brightness-100 saturate-150 ">polished</span>,{" "}
-            <span className="hero__highlight brightness-100 saturate-150">intelligent</span> UI
+            <span className="hero__highlight">polished</span>,{" "}
+            <span className="hero__highlight">intelligent</span> UI
           </h1>
 
           {/* Subheadline */}
-          <p className="hero__subheadline">
+          <p className="hero__subheadline text-2xl font-bold text-shadow-md text-shadow-yellow-800">
             Specializing in <strong>React, Python, and Machine Learning</strong>
             . Bridging the gap between <strong>UX/UI design</strong> and robust
             engineering with{" "}
