@@ -7,9 +7,9 @@
 
 :root {
   /* ===== MAIN BRAND COLORS ===== */
-  --color-primary: #00356b; /* Yale Blue - Primary actions, links */
-  --color-secondary: #d21f3c; /* Cherry Rose - Accents, hover states */
-  --color-tertiary: #008080; /* Teal - Success states, special tags */
+  --color-primary: #0a1363; /* Yale Blue - Primary actions, links */
+  --color-secondary: #e6bc12; /* Cherry Rose - Accents, hover states */
+  --color-tertiary: #050a27f5; /* Teal - Success states, special tags */
 
   /* ===== NEUTRAL PALETTE ===== */
   --bg-main: #121212; /* Carbon Black - Primary background */
@@ -154,14 +154,14 @@ p {
 }
 
 a {
-  color: var(--color-primary);
+  /* color: var(--color-primary); */
   text-decoration: none;
   transition: var(--transition-smooth);
 }
 
-a:hover {
+/* a:hover {
   color: var(--color-secondary);
-}
+} */
 
 /* ===== UTILITY CLASSES ===== */
 

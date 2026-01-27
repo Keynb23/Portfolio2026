@@ -16,7 +16,6 @@
 }
 
 .hero__container {
-  max-width: var(--max-width-content);
   width: 100%;
   position: relative;
   z-index: var(--z-base);
@@ -176,7 +175,7 @@
   transition: var(--transition-smooth);
   cursor: pointer;
 }
-
+/* 
 .hero__cta-primary {
   background: linear-gradient(
     135deg,
@@ -202,7 +201,7 @@
   border-color: var(--color-secondary);
   color: var(--color-secondary);
   transform: translateY(-2px);
-}
+} */
 
 /* ===== DECORATIVE ELEMENTS ===== */
 
