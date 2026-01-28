@@ -1,0 +1,27 @@
+/* Work.css */
+
+/* CRITICAL: Overwrite the global smooth scroll for GSAP compatibility */
+html {
+  scroll-behavior: auto !important;
+}
+
+#work {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  overflow: hidden; /* Keeps the horizontal track from spilling out */
+  background-color: #0b1220;
+}
+
+.horizontal-track {
+  display: flex;
+  flex-wrap: nowrap;
+  height: 100%;
+  align-items: center;
+  will-change: transform;
+}
+
+/* Ensure cards don't shrink when the track gets long */
+.project-card-wrapper {
+  flex-shrink: 0;
+}
