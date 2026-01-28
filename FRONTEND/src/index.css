@@ -12,7 +12,7 @@
   --color-tertiary: #050a27f5; /* Teal - Success states, special tags */
 
   /* ===== NEUTRAL PALETTE ===== */
-  --bg-main: #121212; /* Carbon Black - Primary background */
+  --bg-main: #071022; /* Carbon Black - Primary background */
   --bg-surface: #181717; /* Shadow Grey - Cards, elevated surfaces */
   --bg-light: #fcf5e5; /* Parchment - Light mode sections, high contrast */
 
@@ -116,7 +116,8 @@ body {
   line-height: var(--line-height-normal);
   color: var(--text-main);
   overflow-x: hidden;
-  @apply bg-gray-900;
+  background-color: var(--bg-main);
+  /* @apply bg-gray-900; */
 }
 
 /* ===== TYPOGRAPHY DEFAULTS ===== */
@@ -203,4 +204,13 @@ a {
     --font-size-6xl: 2rem; /* 32px */
     --font-size-5xl: 1.75rem; /* 28px */
   }
+}
+
+/* Utility to hide scrollbars for horizontal carousels */
+.hide-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
 }

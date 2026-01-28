@@ -1,12 +1,41 @@
 /* ========================================
    APP COMPONENT STYLES
    ======================================== */
+/* 1. REMOVE scroll-behavior: smooth; it breaks GSAP ScrollTrigger */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  /* Remove scroll-behavior: smooth if it's there */
+  overflow-x: hidden; 
+}
 
-/* .app {
-  min-height: 100vh;
-  background-color: var(--bg-main);
+/* 2. Fix the App wrapper */
+.w-full.bg-bgmain {
+  display: block; /* Ensures children define the height naturally */
   position: relative;
-} */
+  width: 100%;
+}
+
+/* 3. Ensure the horizontal track doesn't cause a horizontal scrollbar */
+section {
+  max-width: 100vw;
+}
+
+/* Ensure the section takes up the full viewport correctly */
+section#work {
+  margin: 0;
+  padding: 0;
+  height: auto; /* Important: Let ScrollTrigger define the spacer height */
+}
+
+/* Ensure the cards have enough room in the track */
+.will-change-transform {
+  align-items: center; /* This centers the cards vertically within the track */
+}
+
+
+
 
 /* Container to hold both image and text */
 .Sammy_container {

@@ -1,9 +1,8 @@
-// src/components/Footer/Footer.jsx
 import { useEffect, useRef, useState } from "react";
-import "./Footer.css";
 
 const Footer = () => {
   const sectionRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -12,23 +11,16 @@ const Footer = () => {
   });
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("footer--visible");
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    const currentRef = sectionRef.current;
-    if (currentRef) observer.observe(currentRef);
-
-    return () => {
-      if (currentRef) observer.unobserve(currentRef);
-    };
+    const el = sectionRef.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setIsVisible(true);
+        obs.disconnect();
+      }
+    }, { threshold: 0.1 });
+    obs.observe(el);
+    return () => obs.disconnect();
   }, []);
 
   const handleChange = (e) => {
@@ -41,130 +33,142 @@ const Footer = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-
     try {
-      // Replace with your actual live Python API URL once hosted
       const response = await fetch("https://portfolioapi-j4dx.onrender.com/send-email", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
-
       if (response.ok) {
-        alert("Awesome! I've received your message and will get back to you soon.");
-        setFormData({ name: "", email: "", message: "" }); // Clear form
+        alert("Awesome! I've received your message.");
+        setFormData({ name: "", email: "", message: "" });
       } else {
         throw new Error("Failed to send");
       }
-    } catch (error) {
-      console.error("Error sending email:", error);
-      alert("Oops! Something went wrong. Please try emailing me directly at keynb50@gmail.com.");
+    } catch {
+      alert("Oops! Something went wrong. Email me at keynb50@gmail.com.");
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  const socialLinks = [
-    { name: "GitHub", url: "https://github.com/Keynb23" },
-    { name: "LinkedIn", url: "https://www.linkedin.com/in/key-n-brosdahl-5320b3353/" },
-    { name: "Email", url: "mailto:keynb50@gmail.com" },
-  ];
-
   return (
-    <footer id="contact" className="footer" ref={sectionRef}>
-      <div className="container">
-        <div className="footer__contact">
-          <div className="footer__contact-header">
-            <h2 className="footer__title">Let's Work Together</h2>
-            <p className="footer__subtitle">
-              Have a project in mind or want to discuss opportunities? I'd love to hear from you.
-            </p>
-          </div>
+    <footer 
+      id="contact" 
+      ref={sectionRef} 
+      className="relative min-h-[100dvh] w-full flex flex-col justify-between bg-[#121212] overflow-hidden"
+    >
+      {/* Background Gradient Layer */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#071022] via-[#050a13] to-[#000000] opacity-100" />
 
-          <div className="footer__content">
-            <form className="footer__form" onSubmit={handleSubmit}>
-              <div className="footer__form-group">
-                <label htmlFor="name" className="footer__form-label">Name</label>
+      {/* Main Content Container */}
+      <div className="container relative z-10 mx-auto px-6 pt-32 pb-20 flex-grow flex flex-col justify-center">
+        
+        {/* Header Section */}
+        <div className={`max-w-4xl mb-16 transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
+          <h2 className="text-6xl md:text-8xl font-extrabold text-white mb-6 tracking-tighter leading-none">
+            LET'S <span className="text-[#FDB927]">WORK</span> <br /> TOGETHER.
+          </h2>
+          <p className="text-slate-400 text-xl md:text-2xl max-w-2xl leading-relaxed font-medium">
+            Currently available for freelance work and full-time opportunities. 
+            Have a project in mind? Let's build something iconic.
+          </p>
+        </div>
+
+        {/* Form and Info Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+          
+          {/* Form Section */}
+          <form 
+            className={`lg:col-span-7 space-y-8 transition-all duration-1000 delay-200 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`} 
+            onSubmit={handleSubmit}
+          >
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="group">
+                <label className="block text-[#FDB927] text-xs font-bold uppercase tracking-[0.2em] mb-4 group-focus-within:text-white transition-colors">Your Name</label>
                 <input
                   type="text"
-                  id="name"
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
-                  className="footer__form-input"
-                  placeholder="Your name"
+                  placeholder="John Doe"
                   required
+                  className="w-full bg-transparent border-b-2 border-slate-700 py-4 text-white text-lg focus:outline-none focus:border-[#FDB927] transition-all placeholder:text-slate-600"
                 />
               </div>
-
-              <div className="footer__form-group">
-                <label htmlFor="email" className="footer__form-label">Email</label>
+              <div className="group">
+                <label className="block text-[#FDB927] text-xs font-bold uppercase tracking-[0.2em] mb-4 group-focus-within:text-white transition-colors">Email Address</label>
                 <input
                   type="email"
-                  id="email"
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className="footer__form-input"
-                  placeholder="your.email@example.com"
+                  placeholder="john@example.com"
                   required
+                  className="w-full bg-transparent border-b-2 border-slate-700 py-4 text-white text-lg focus:outline-none focus:border-[#FDB927] transition-all placeholder:text-slate-600"
                 />
               </div>
+            </div>
 
-              <div className="footer__form-group">
-                <label htmlFor="message" className="footer__form-label">Message</label>
-                <textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  className="footer__form-textarea"
-                  placeholder="Tell me about your project..."
-                  rows="5"
-                  required
-                ></textarea>
-              </div>
+            <div className="group">
+              <label className="block text-[#FDB927] text-xs font-bold uppercase tracking-[0.2em] mb-4 group-focus-within:text-white transition-colors">Tell me about the project</label>
+              <textarea
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
+                placeholder="What are we building?"
+                rows="4"
+                required
+                className="w-full bg-transparent border-b-2 border-slate-700 py-4 text-white text-lg focus:outline-none focus:border-[#FDB927] transition-all resize-none placeholder:text-slate-600"
+              ></textarea>
+            </div>
 
-              <button 
-                type="submit" 
-                className="footer__form-submit" 
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? "Sending..." : "Send Message"}
-              </button>
-            </form>
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="group relative inline-flex items-center justify-center px-10 py-5 font-bold text-[#002D62] transition-all duration-300 bg-[#FDB927] rounded-full hover:bg-white hover:text-black overflow-hidden disabled:opacity-50"
+            >
+              <span className="relative z-10 text-lg uppercase tracking-widest">{isSubmitting ? "Sending..." : "Send Inquiry"}</span>
+            </button>
+          </form>
 
-            <div className="footer__info">
-              <div className="footer__info-card">
-                <h3 className="footer__info-title">Get In Touch</h3>
-                <p className="footer__info-text">
-                  I'm currently available for freelance work and full-time
-                  opportunities. Let's create something amazing together.
-                </p>
+          {/* Contact Details Card */}
+          <div className={`lg:col-span-4 lg:col-start-9 space-y-12 transition-all duration-1000 delay-400 ${isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-10"}`}>
+            <div>
+              <h4 className="text-[#FDB927] text-xs font-bold uppercase tracking-[0.2em] mb-6">Contact Details</h4>
+              <a href="mailto:keynb50@gmail.com" className="text-2xl md:text-3xl text-white font-medium hover:text-[#FDB927] transition-colors break-words">
+                keynb50@gmail.com
+              </a>
+            </div>
 
-                <div className="footer__social">
-                  {socialLinks.map((link) => (
-                    <a
-                      key={link.name}
-                      href={link.url}
-                      className="footer__social-link"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {link.name}
-                    </a>
-                  ))}
-                </div>
+            <div>
+              <h4 className="text-[#FDB927] text-xs font-bold uppercase tracking-[0.2em] mb-6">Socials</h4>
+              <div className="flex flex-wrap gap-6">
+                {["GitHub", "LinkedIn", "Instagram"].map((social) => (
+                  <a 
+                    key={social} 
+                    href="#" 
+                    className="text-white text-lg font-semibold hover:text-[#FDB927] transition-colors relative group"
+                  >
+                    {social}
+                    <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-[#FDB927] transition-all group-hover:w-full"></span>
+                  </a>
+                ))}
               </div>
             </div>
           </div>
         </div>
+      </div>
 
-        <div className="footer__bottom">
-          <p className="footer__copyright">
-            © {new Date().getFullYear()} Key'n Brosdahl. All rights reserved.
+      {/* Credits Bottom Bar */}
+      <div className="relative z-10 w-full border-t border-white/5 py-10 bg-black/20 backdrop-blur-md">
+        <div className="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-slate-200 text-sm font-medium tracking-widest uppercase">
+            © {new Date().getFullYear()} Key'n Brosdahl
           </p>
-          <p className="footer__built">Written & Directed by Key'n Brosdahl</p>
+          <p className="text-slate-200 text-sm font-bold tracking-widest uppercase">
+            Written & Directed by Key'n Brosdahl
+          </p>
         </div>
       </div>
     </footer>

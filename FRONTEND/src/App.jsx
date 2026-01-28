@@ -17,22 +17,24 @@ const SammyBG = () => {
 
 function App() {
   return (
-    <div className="h-screen w-full min-h-dvh relative overflow-x-hidden ">
+    <>
       <Navbar />
-      <Hero />
-
-      <FeaturedWork />
-      <Experience />
-      <Skills />
-      <Footer />
-      <div className="Sammy_container">
-        <SammyBG />
-        <h1 className="MILKY">GOT MILK?</h1>
+      {/* REMOVED: h-screen (causes overflow issues) 
+          REMOVED: p-12 (squeezes internal containers)
+      */}
+      <div className="w-full bg-bgmain relative overflow-x-hidden flex flex-col">
+        <Hero />
+        <FeaturedWork />
+        <Experience />
+        <Skills />
+        <Footer />
+        <div className="Sammy_container">
+          <SammyBG />
+          <h1 className="MILKY">GOT MILK?</h1>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
-export default App;
-
-// filler comment to delete later
+export default App; 
