@@ -1,214 +1,201 @@
 /* ========================================
-   DESIGN SYSTEM - CSS VARIABLES
-   Premium Minimalist Portfolio
+   GLOBAL STYLES & TAILWIND CONFIG
    ======================================== */
 @import "tailwindcss";
 
-:root {
-  /* ===== MAIN BRAND COLORS ===== */
-  --color-primary: #0a1363; /* Yale Blue - Primary actions, links */
-  --color-secondary: #e6bc12; /* Cherry Rose - Accents, hover states */
-  --color-tertiary: #050a27f5; /* Teal - Success states, special tags */
+@theme {
+  /* Indiana Pacers Color Palette */
+  --color-pacers-navy-light: #1a4a7a;
+  --color-pacers-navy: #002d62;
+  --color-pacers-navy-dark: #001a3d;
 
-  /* ===== NEUTRAL PALETTE ===== */
-  --bg-main: #071022; /* Carbon Black - Primary background */
-  --bg-surface: #181717; /* Shadow Grey - Cards, elevated surfaces */
-  --bg-light: #fcf5e5; /* Parchment - Light mode sections, high contrast */
+  --color-pacers-gold-light: #ffd167;
+  --color-pacers-gold: #fdb927;
+  --color-pacers-gold-dark: #c88e1c;
 
-  --text-main: #f8f8ff; /* Ghost White - Primary text on dark */
-  --text-muted: #708090; /* Slate Grey - Secondary text, icons */
-  --text-dark: #121212; /* Carbon Black - Text on light backgrounds */
+  --color-pacers-silver-light: #d9dbdc;
+  --color-pacers-silver: #bec0c2;
+  --color-pacers-silver-dark: #8d9093;
 
-  --border-subtle: rgba(242, 242, 242, 0.1); /* Alabaster Grey with opacity */
-  --border-medium: rgba(242, 242, 242, 0.2);
-
-  /* ===== TYPOGRAPHY ===== */
+  /* Typography Tokens */
   --font-main:
     "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-display: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
 
-  --font-size-xs: 0.75rem; /* 12px */
-  --font-size-sm: 0.875rem; /* 14px */
-  --font-size-base: 1rem; /* 16px */
-  --font-size-lg: 1.125rem; /* 18px */
-  --font-size-xl: 1.25rem; /* 20px */
-  --font-size-2xl: 1.5rem; /* 24px */
-  --font-size-3xl: 1.875rem; /* 30px */
-  --font-size-4xl: 2.25rem; /* 36px */
-  --font-size-5xl: 3rem; /* 48px */
-  --font-size-6xl: 3.75rem; /* 60px */
-  --font-size-7xl: 4.5rem; /* 72px */
-
-  --font-weight-normal: 400;
-  --font-weight-medium: 500;
-  --font-weight-semibold: 600;
-  --font-weight-bold: 700;
-
-  --line-height-tight: 1.2;
-  --line-height-normal: 1.5;
-  --line-height-relaxed: 1.75;
-
-  /* ===== SPACING ===== */
-  --space-xs: 0.25rem; /* 4px */
-  --space-sm: 0.5rem; /* 8px */
-  --space-md: 1rem; /* 16px */
-  --space-lg: 1.5rem; /* 24px */
-  --space-xl: 2rem; /* 32px */
-  --space-2xl: 3rem; /* 48px */
-  --space-3xl: 4rem; /* 64px */
-  --space-4xl: 6rem; /* 96px */
-  --space-5xl: 8rem; /* 128px */
-
-  /* ===== BORDER RADIUS ===== */
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-xl: 16px;
-  --radius-2xl: 24px;
-  --radius-full: 9999px;
-
-  /* ===== SHADOWS ===== */
-  --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.3);
-  --shadow-medium: 0 8px 30px rgba(0, 0, 0, 0.4);
-  --shadow-hard: 0 12px 40px rgba(0, 0, 0, 0.5);
-  --shadow-glow-primary: 0 0 20px rgba(0, 53, 107, 0.4);
-  --shadow-glow-secondary: 0 0 20px rgba(210, 31, 60, 0.4);
-
-  /* ===== TRANSITIONS ===== */
-  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-fast: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-
-  /* ===== LAYOUT ===== */
-  --max-width-text: 750px; /* Constrained text column */
-  --max-width-content: 1200px; /* Main content container */
-  --max-width-wide: 1440px; /* Wide sections */
-
-  /* ===== Z-INDEX LAYERS ===== */
-  --z-base: 1;
-  --z-dropdown: 100;
-  --z-sticky: 200;
-  --z-modal: 300;
-  --z-tooltip: 400;
+  /* Modern Glassmorphism & Effects */
+  --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  --border-glass: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* ========================================
-   GLOBAL RESET & BASE STYLES
-   ======================================== */
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-body {
-  font-family: var(--font-main);
-  font-size: var(--font-size-base);
-  line-height: var(--line-height-normal);
-  color: var(--text-main);
-  overflow-x: hidden;
-  background-color: var(--bg-main);
-  /* @apply bg-gray-900; */
-}
-
-/* ===== TYPOGRAPHY DEFAULTS ===== */
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: var(--font-display);
-  font-weight: var(--font-weight-bold);
-  line-height: var(--line-height-tight);
-  margin-bottom: var(--space-md);
-}
-
-h1 {
-  font-size: var(--font-size-6xl);
-}
-
-h2 {
-  font-size: var(--font-size-4xl);
-}
-
-h3 {
-  font-size: var(--font-size-3xl);
-}
-
-h4 {
-  font-size: var(--font-size-2xl);
-}
-
-p {
-  margin-bottom: var(--space-md);
-}
-
-a {
-  /* color: var(--color-primary); */
-  text-decoration: none;
-  transition: var(--transition-smooth);
-}
-
-/* a:hover {
-  color: var(--color-secondary);
-} */
-
-/* ===== UTILITY CLASSES ===== */
-
-.container {
-  width: 100%;
-  max-width: var(--max-width-content);
-  margin: 0 auto;
-  padding: 0 var(--space-lg);
-}
-
-.container-wide {
-  max-width: var(--max-width-wide);
-}
-
-.text-column {
-  max-width: var(--max-width-text);
-}
-
-.section {
-  padding: var(--space-4xl) 0;
-}
-
-/* ===== RESPONSIVE TYPOGRAPHY ===== */
-
-@media (max-width: 768px) {
-  :root {
-    --font-size-6xl: 2.5rem; /* 40px */
-    --font-size-5xl: 2rem; /* 32px */
-    --font-size-4xl: 1.75rem; /* 28px */
+@layer base {
+  /* Reset and Base Styles */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
   }
 
-  .section {
-    padding: var(--space-3xl) 0;
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: auto; /* GSAP handles scrolling */
+    cursor:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 24 24' fill='none' stroke='%23FDB927' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='m21 2-2 2h-2v2h-2v2l-3 3.5a5.5 5.5 0 1 0 3 3l3-3.5V7h2V5h2l2-2'/><circle cx='7.5' cy='15.5' r='.5' fill='%23FDB927'/></svg>")
+        0 0,
+      auto;
+  }
+
+  body {
+    font-family: var(--font-main);
+    background-color: #071022; /* Primary Dark Background */
+    color: #f8f8ff; /* Ghost White Text */
+    overflow-x: hidden;
+  }
+
+  /* Ensure all interactive elements keep the custom key cursor */
+  a,
+  button,
+  [role="button"] {
+    cursor:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 24 24' fill='none' stroke='%23FDB927' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='m21 2-2 2h-2v2h-2v2l-3 3.5a5.5 5.5 0 1 0 3 3l3-3.5V7h2V5h2l2-2'/><circle cx='7.5' cy='15.5' r='.5' fill='%23FDB927'/></svg>")
+        0 0,
+      pointer;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display);
+    line-height: 1.2;
   }
 }
 
-@media (max-width: 480px) {
-  :root {
-    --font-size-6xl: 2rem; /* 32px */
-    --font-size-5xl: 1.75rem; /* 28px */
+@layer utilities {
+  /* Custom Scrollbar Utilities */
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Glassmorphism Utility */
+  .glass-panel {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: var(--border-glass);
+    box-shadow: var(--shadow-glass);
+  }
+
+  /* Custom Animations */
+  .animate-color-shift {
+    animation: colorShift 6s ease-in-out infinite;
+  }
+
+  .animate-float {
+    animation: float 8s ease-in-out infinite;
+  }
+
+  /* Sophisticated Custom Scrollbar */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(253, 185, 39, 0.2);
+    border-radius: 10px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(253, 185, 39, 0.4);
   }
 }
 
-/* Utility to hide scrollbars for horizontal carousels */
-.hide-scrollbar {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+@keyframes colorShift {
+  0%,
+  100% {
+    color: #fdb927;
+    text-shadow: 0 0 10px rgba(0, 45, 98, 0.8);
+  }
+  50% {
+    color: #ffd167;
+    text-shadow: 0 0 20px rgba(0, 45, 98, 0.4);
+  }
 }
-.hide-scrollbar::-webkit-scrollbar {
-  display: none; /* Safari and Chrome */
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-30px) scale(1.05);
+  }
+}
+
+/* Print Utilities for PDF Generation */
+@media print {
+  /* Set white background for the printed page */
+  body,
+  html,
+  .prose-invert,
+  #hero,
+  .bg-zinc-900 {
+    background: white !important;
+    background-color: white !important;
+    color: black !important;
+  }
+
+  /* Force high contrast for all text elements */
+  .print\:text-black {
+    color: #000000 !important;
+  }
+
+  .print\:text-zinc-700,
+  .text-zinc-400,
+  .text-zinc-500,
+  .text-zinc-300,
+  .text-zinc-200 {
+    color: #1a1a1a !important; /* Force to dark grey/black */
+  }
+
+  .print\:text-pacers-navy,
+  .text-pacers-gold,
+  .text-pacers-gold-light {
+    color: #002d62 !important; /* Switch gold to Navy for better contrast on white */
+  }
+
+  .print\:border-black\/20,
+  .border-white\/10,
+  .border-white\/5 {
+    border-color: #d1d5db !important;
+  }
+
+  /* Ensure we use bold/proper weights */
+  .font-bold,
+  .font-black,
+  .font-semibold {
+    font-weight: 700 !important;
+  }
+
+  /* Hide UI elements not needed in document */
+  .no-print,
+  button,
+  .hero__scroll-indicator,
+  nav {
+    display: none !important;
+  }
+
+  /* Reset layout for print */
+  .grow,
+  .overflow-y-auto {
+    overflow: visible !important;
+    height: auto !important;
+  }
 }

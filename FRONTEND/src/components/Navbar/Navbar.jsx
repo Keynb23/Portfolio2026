@@ -1,6 +1,12 @@
 import { useState, useEffect, useRef } from "react";
 import { useButton } from "react-aria";
+import { Key } from "lucide-react"; // Keyhole icon for the menu
+import NavMenu from "./NavMenu"; // Reorganized menu component
 
+/**
+ * Navbar component with scroll detection and a key-themed side drawer.
+ * Removed blur effect for a cleaner, higher-contrast look.
+ */
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isBeigeSection, setIsBeigeSection] = useState(false);
@@ -8,6 +14,8 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
+
+    // Observer for sectional contrast
     const observer = new IntersectionObserver(
       ([entry]) => setIsBeigeSection(entry.isIntersecting),
       { rootMargin: "-80px 0px -90% 0px", threshold: 0 }
@@ -31,29 +39,20 @@ const Navbar = () => {
     ref
   );
 
-  const navLinks = [
-    { name: "Work", href: "#work" },
-    { name: "Experience", href: "#experience" },
-    { name: "Skills", href: "#skills" },
-    { name: "Contact", href: "#contact" },
-  ];
-
-  // Logic: Ensure the X is dark so it shows up against the slate drawer background
-  const barColor = isBeigeSection ? "bg-[#002D62]" : "bg-white";
-  const activeBarColor = isMenuOpen ? "bg-[#002D62]" : barColor;
+  // Dynamic colors for the keyhole button
+  const iconColor =
+    isMenuOpen || isBeigeSection ? "text-pacers-navy" : "text-white";
 
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 w-full z-[100] transition-all duration-300 ${
-          isScrolled
-            ? "py-6 backdrop-blur-md bg-black/10"
-            : "bg-transparent py-8"
+        className={`fixed top-0 left-0 w-full z-100 transition-all duration-300 ${
+          isScrolled ? "py-6 bg-black/5" : "bg-transparent py-8"
         }`}
       >
         <div className="w-full px-10 md:px-16 flex justify-between items-center">
           {/* Logo */}
-          <a href="#hero" className="z-[110] p-2">
+          <a href="#hero" className="z-110 p-2">
             <img
               src="/key-chain.png"
               alt="Logo"
@@ -61,65 +60,27 @@ const Navbar = () => {
             />
           </a>
 
-          {/* Hamburger Button: z-[110] keeps it above the drawer (z-[105]) */}
+          {/* Special Keyhole Menu Toggle */}
           <button
             {...buttonProps}
             ref={ref}
-            className="group relative z-[110] flex flex-col justify-between h-4 w-8 p-2 outline-none"
+            className={`group relative z-110 p-3 rounded-full transition-all duration-300 hover:scale-110 active:scale-95 outline-none ${
+              isMenuOpen
+                ? "bg-pacers-gold rotate-90 shadow-xl"
+                : "bg-transparent"
+            }`}
           >
-            {/* Top Bar: Rotates to form part of the X */}
-            <span
-              className={`h-[2px] w-full transition-all duration-300 transform ${activeBarColor} ${
-                isMenuOpen ? "rotate-45 translate-y-[7px]" : ""
-              }`}
-            ></span>
-
-            {/* Middle Bar: Fades out */}
-            <span
-              className={`h-[2px] w-full transition-all duration-300 ${activeBarColor} ${
-                isMenuOpen ? "opacity-0" : "opacity-100"
-              }`}
-            ></span>
-
-            {/* Bottom Bar: Rotates to form other part of the X */}
-            <span
-              className={`h-[2px] w-full transition-all duration-300 transform ${activeBarColor} ${
-                isMenuOpen ? "-rotate-45 -translate-y-[7px]" : ""
-              }`}
-            ></span>
+            <Key
+              size={32}
+              className={`transition-colors duration-300 ${iconColor} ${!isMenuOpen && "hover:text-pacers-gold"}`}
+              strokeWidth={3}
+            />
           </button>
         </div>
       </nav>
 
-      {/* Backdrop */}
-      <div
-        className={`fixed inset-0 bg-black/40 backdrop-blur-sm z-[101] transition-opacity duration-500 ${
-          isMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
-        }`}
-        onClick={() => setIsMenuOpen(false)}
-      />
-
-      {/* Side Drawer */}
-      <div
-        className={`fixed top-0 right-0 h-full w-[320px] md:w-[25vw] bg-slate-200 shadow-2xl z-[105] 
-        flex flex-col px-12 justify-center transition-transform duration-500 ease-in-out ${
-          isMenuOpen ? "translate-x-0" : "translate-x-full"
-        }`}
-      >
-        <ul className="flex flex-col gap-12 items-center">
-          {navLinks.map((link) => (
-            <li key={link.name}>
-              <a
-                href={link.href}
-                className="text-2xl font-bold text-[#002D62] hover:text-[#ebaf0b] transition-colors block"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                {link.name}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
+      {/* Reorganized side menu component */}
+      <NavMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
     </>
   );
 };

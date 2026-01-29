@@ -2,37 +2,41 @@ import { ListBox, ListBoxItem } from "react-aria-components";
 import ProjectCard from "./fwCards";
 
 /**
- * Carousel: The horizontal carousel component.
- * Uses React Aria ListBox for accessibility and semantic structure.
- * The .horizontal-track class handles the scroll-driven animation logic in Work.css.
+ * Carousel Component - The horizontal sliding container for project cards.
+ * Uses React Aria ListBox for superior accessibility and semantic structure.
+ * Animation is driven by vertical scroll progress translated to horizontal movement.
  */
 const Carousel = ({ projects, formatText, toggleBionic, isBionicMode }) => {
   return (
-    /* CAROUSEL VIEWPORT: Crops the sliding track */
-    <div className="h-full w-full flex items-center overflow-hidden">
+    /* 
+       CAROUSEL VIEWPORT 
+       Maintains full height and width while clipping the overflowing track.
+    */
+    <div className="carousel-viewport h-full w-full flex items-center overflow-hidden">
       {/* 
-          SLIDING TRACK: This element moves horizontally based on scroll.
-          We use ListBox for accessibility, but style it to be the flex-track.
-          The horizontal translation is driven by the --section-scroll timeline.
+          SLIDING TRACK 
+          This element moves horizontally based on the --scroll-progress variable.
       */}
       <ListBox
         items={projects}
         aria-label="Featured projects carousel"
         orientation="horizontal"
-        className="horizontal-track gap-16 outline-none flex items-center"
+        className="horizontal-track gap-20 outline-none flex items-center"
         style={{
           paddingLeft: "calc(50vw - 240px)",
           paddingRight: "calc(50vw - 240px)",
         }}
       >
         {(project) => (
-          /* CAROUSEL SLIDE: Individual project container */
+          /* individual CAROUSEL SLIDE */
           <ListBoxItem
             key={project.id}
             textValue={project.title}
-            className="outline-none focus:ring-0 focus:outline-none"
+            className="outline-none focus:ring-0 focus:outline-none shrink-0"
           >
-            {/* WRAPPER: Prevents flex items from collapsing during animation */}
+            {/* 
+                CARD WRAPPER 
+            */}
             <div className="project-card-wrapper">
               <ProjectCard
                 project={project}

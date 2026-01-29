@@ -1,140 +1,250 @@
 import { useEffect, useRef, useState } from "react";
-import "./Hero.css";
+import { motion, AnimatePresence } from "framer-motion";
+import { X, FileText, Download } from "lucide-react";
+import { useReactToPrint } from "react-to-print"; // Library for generating PDF via print dialog
+import { Button } from "../ui/Button";
+import { RESUME } from "./RESUME";
 import heroBG from "../../assets/BG_Hero.jpg";
 import bgv from "../../assets/bg-vid.mp4";
 
+/**
+ * Hero section component - The primary landing view of the portfolio.
+ */
 const Hero = () => {
   const heroRef = useRef(null);
+  const resumeRef = useRef(null); // Ref for the resume content to be printed/saved
+  const [isVisible, setIsVisible] = useState(false);
+  const [isResumeOpen, setIsResumeOpen] = useState(false);
 
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setVisible(true), 3000);
-    return () => clearTimeout(timer);
-  }, []);
+  // Logic to handle PDF Generation (via Browser Print Context)
+  const handlePrint = useReactToPrint({
+    contentRef: resumeRef,
+    documentTitle: "Keyn_Brosdahl_Resume",
+  });
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("hero--visible");
-          }
-        });
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
       },
-      { threshold: 0.1 },
+      { threshold: 0.1 }
     );
 
     const currentRef = heroRef.current;
-    if (currentRef) {
-      observer.observe(currentRef);
-    }
+    if (currentRef) observer.observe(currentRef);
 
     return () => {
-      if (currentRef) {
-        observer.unobserve(currentRef);
-      }
+      if (currentRef) observer.unobserve(currentRef);
     };
   }, []);
 
+  const containerVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8, ease: "easeOut", staggerChildren: 0.2 },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: "easeOut" },
+    },
+  };
+
   return (
-    <section id="hero" className="hero" ref={heroRef}>
+    <section
+      id="hero"
+      className="hero min-h-screen relative flex flex-col justify-center items-center overflow-hidden px-6 md:px-12 py-32"
+      ref={heroRef}
+    >
       <img
         src={heroBG}
         alt="Hero Background"
-        className="bg-[value] min-h-dvh min-w-full bg-center absolute left-0 top-0 blur-lg invert brightness-90"
+        className="absolute inset-0 w-full h-full object-cover blur-lg invert brightness-90 z-[-1]"
       />
 
-      <div className="hero__container">
-        <div className="hero__content relative min-h-dvh flex flex-col justify-center overflow-hidden rounded-xl">
+      <motion.div
+        className="hero__container relative w-full max-w-7xl z-10"
+        initial="hidden"
+        animate={isVisible ? "visible" : "hidden"}
+        variants={containerVariants}
+      >
+        <div className="hero__content relative min-h-[80vh] flex flex-col justify-center overflow-hidden rounded-2xl glass-panel p-8 md:p-16">
           <div
-            className="absolute inset-0 z-1 opacity-2
+            className="absolute inset-0 z-0 opacity-10
             bg-[linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)]
-            bg-[size:20px_30px]
-            [mask-image:radial-gradient(ellipse_70%_60%_at_50%_100%,#000_60%,transparent_100%)]"
+            bg-[size:20px_30px]"
           />
 
           <video
             src={bgv}
             autoPlay
             muted
-            className="absolute inset-0 h-full w-full object-cover blur-none brightness-100 contrast-100 saturate-250 z-0"
+            loop
+            playsInline
+            className="absolute inset-0 h-full w-full object-cover blur-none brightness-75 contrast-125 saturate-150 z-[-1]"
           />
 
-          <div className="relative z-20 m-8 p-12 rounded-lg backdrop-blur-xs backdrop-saturate-200 bg-clip-padding">
-            <h1 className="text-white text-5xl font-bold">Key'n Brosdahl</h1>
-          </div>
+          <motion.div
+            variants={itemVariants}
+            className="relative z-20 mb-8 inline-block"
+          >
+            <h1 className="text-white text-4xl md:text-5xl font-black tracking-tight uppercase">
+              Key'n Brosdahl
+            </h1>
+          </motion.div>
 
-          <div className="hero__eyebrow z-2">
-            <span className="hero__eyebrow-text z-2 font-weight-700">
+          <motion.div variants={itemVariants} className="hero__eyebrow mb-6">
+            <span className="hero__eyebrow-text inline-block text-lg md:text-xl uppercase tracking-[0.2em] font-bold animate-color-shift">
               Software Engineer & Designer
             </span>
-          </div>
-          {/* text bubble */}
+          </motion.div>
 
-          <div className="flex justify-end mb-4">
-            <div
-              className="
-      max-w-[70%] 
-      px-5 py-4 z-1000
-      wrap-text
-      
-      bg-black 
-      text-purple-400           
-      text-sm leading-relaxed
-      border border-purple-700/40   /* subtle purple border so it doesn't look flat */
-      shadow-lg shadow-purple-900/30   /* soft glow/shadow to make it stand out */
-      font-bold
-    "
+          <motion.div
+            variants={itemVariants}
+            className="flex justify-end mb-8 relative z-30"
+          >
+            <button
+              onClick={() => setIsResumeOpen(true)}
+              className="max-w-[80%] md:max-w-[60%] px-6 py-4 bg-black/80 text-pacers-gold hover:text-white border-2 border-pacers-gold/30 hover:border-pacers-gold transition-all shadow-2xl shadow-pacers-gold/10 font-bold rounded-3xl rounded-tr-none flex items-center gap-3 active:scale-95"
             >
-              Hi, Key'n here. Currently working on some new features! Every
-              feature I add breaks an old one lol. So enjoy the broken Portfolio
-              lol.
-            </div>
-          </div>
+              <FileText size={18} />
+              <span>
+                if you don't want to go through the motions, click here!
+              </span>
+            </button>
+          </motion.div>
 
-          <h1 className="hero__headline z-2">
+          <motion.h2
+            variants={itemVariants}
+            className="hero__headline text-4xl md:text-7xl font-black leading-tight text-white mb-8 max-w-4xl uppercase tracking-tighter"
+          >
             Translating design intent into{" "}
-            <span className="hero__highlight">polished</span>,{" "}
-            <span className="hero__highlight">intelligent</span> UI
-          </h1>
+            <span className="text-pacers-gold">polished</span>,{" "}
+            <span className="text-pacers-gold">intelligent</span> UI
+          </motion.h2>
 
-          <p className="z-2 hero__subheadline text-2xl font-bold text-shadow-md text-shadow-yellow-800">
-            Specializing in <strong>React, Python, and Machine Learning</strong>
-            . Bridging the gap between <strong>UX/UI design</strong> and robust
-            engineering with{" "}
-            <strong>C#, AI tools, and Frontend Development</strong>—currently
-            scaling toward Full-Stack DevOps.
-          </p>
+          <motion.p
+            variants={itemVariants}
+            className="hero__subheadline text-xl md:text-2xl font-medium text-zinc-200 mb-12 max-w-2xl leading-relaxed opacity-75"
+          >
+            Specializing in{" "}
+            <strong className="text-pacers-gold">
+              React, Python, and Machine Learning
+            </strong>
+            . Bridging the gap between design and high-performance engineering.
+          </motion.p>
 
-          <div className="hero__cta z-2 flex gap-4 items-center">
-            <a
-              href="#work"
-              className="hero__cta-primary z-2 text-[#FDB927] bg-[#002D62] hover:bg-[#FDB927] hover:text-[#002D62] border-2 border-[#002D62] hover:border-[#FDB927] font-bold rounded-lg text-sm px-6 py-3 text-center transition-all duration-300 focus:outline-none"
+          <motion.div
+            variants={itemVariants}
+            className="hero__cta flex flex-wrap gap-6"
+          >
+            <Button size="lg" className="w-full md:w-auto rounded-full">
+              <a href="#work">Explore Work</a>
+            </Button>
+            <Button
+              variant="secondary"
+              size="lg"
+              className="w-full md:w-auto rounded-full"
             >
-              View My Work
-            </a>
-
-            <a
-              href="#contact"
-              className="hero__cta-secondary z-2 text-white bg-transparent hover:text-[#FDB927] font-bold rounded-lg text-sm px-6 py-3 text-center transition-colors duration-300 focus:outline-none"
-            >
-              Get In Touch
-            </a>
-          </div>
+              <a href="#contact">Get In Touch</a>
+            </Button>
+          </motion.div>
         </div>
 
-        <div className="hero__decoration">
-          <div className="hero__decoration-circle hero__decoration-circle--1"></div>
-          <div className="hero__decoration-circle hero__decoration-circle--2"></div>
-          <div className="hero__decoration-line"></div>
+        <div className="hero__decoration absolute top-0 right-0 w-1/2 h-full pointer-events-none opacity-20 hidden lg:block">
+          <div className="hero__decoration-circle--1 absolute w-96 h-96 top-10 right-10 rounded-full bg-pacers-navy blur-[150px] animate-float"></div>
+          <div className="hero__decoration-line absolute top-1/2 right-0 w-[2px] h-48 bg-linear-to-b from-transparent via-pacers-navy to-transparent -translate-y-1/2"></div>
         </div>
+      </motion.div>
+
+      <div className="hero__scroll-indicator absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40">
+        <span className="text-[8px] font-black uppercase tracking-[0.5em] text-white">
+          Scroll
+        </span>
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          className="w-px h-12 bg-linear-to-b from-pacers-gold to-transparent"
+        />
       </div>
 
-      <div className="hero__scroll-indicator">
-        <span className="hero__scroll-text">Scroll to explore</span>
-        <div className="hero__scroll-arrow"></div>
-      </div>
+      {/* Resume Modal Implementation */}
+      <AnimatePresence>
+        {isResumeOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-1000 flex items-center justify-center p-4 md:p-8 bg-black/90 backdrop-blur-xl"
+            onClick={() => setIsResumeOpen(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 20 }}
+              className="bg-zinc-900 border border-white/10 w-full max-w-4xl max-h-[90vh] rounded-4xl overflow-hidden flex flex-col relative"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="p-6 md:p-10 border-b border-white/5 flex justify-between items-center bg-zinc-900/50 sticky top-0 z-10">
+                <div className="flex items-center gap-4">
+                  <div className="p-3 bg-pacers-gold rounded-xl text-pacers-navy">
+                    <FileText size={24} />
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-black text-white uppercase tracking-tighter">
+                      My Résumé
+                    </h3>
+                    <p className="text-xs text-zinc-500 font-bold uppercase tracking-widest">
+                      Digital Curriculum Vitae
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-4 relative z-50">
+                  <button
+                    onClick={() => setIsResumeOpen(false)}
+                    className="p-3 rounded-full hover:bg-white/10 text-white transition-colors cursor-pointer"
+                    aria-label="Close modal"
+                  >
+                    <X size={24} />
+                  </button>
+                </div>
+              </div>
+
+              {/* Modal Body: This is the area that will be converted to PDF */}
+              <div className="grow overflow-y-auto p-8 md:p-16 custom-scrollbar bg-zinc-900 text-zinc-300">
+                <div
+                  ref={resumeRef}
+                  className="prose prose-invert max-w-none print:p-8 print:bg-white print:text-black"
+                >
+                  <RESUME />
+                </div>
+              </div>
+
+              <div className="p-6 bg-zinc-950 border-t border-white/5 flex justify-center">
+                <Button
+                  variant="primary"
+                  className="rounded-full px-12 gap-3 group"
+                  onClick={handlePrint}
+                >
+                  <Download
+                    size={18}
+                    className="group-hover:translate-y-1 transition-transform"
+                  />
+                  <span>Download PDF</span>
+                </Button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };

@@ -1,30 +1,22 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
+import { motion, useInView } from "framer-motion";
+import { Send, Github, Linkedin, Instagram } from "lucide-react";
+import { Button } from "../ui/Button";
 
+/**
+ * Footer Component - The final section of the portfolio containing the contact form
+ * and professional links. Styled with Indiana Pacers brand colors.
+ */
 const Footer = () => {
   const sectionRef = useRef(null);
-  const [isVisible, setIsVisible] = useState(false);
+  const isInView = useInView(sectionRef, { once: true, amount: 0.1 });
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     message: "",
   });
-
-  useEffect(() => {
-    const el = sectionRef.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          obs.disconnect();
-        }
-      },
-      { threshold: 0.1 }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
 
   const handleChange = (e) => {
     setFormData({
@@ -62,37 +54,38 @@ const Footer = () => {
     <footer
       id="contact"
       ref={sectionRef}
-      className="relative min-h-[100dvh] w-full flex flex-col justify-between bg-[#121212] overflow-hidden"
+      className="footer relative min-h-screen w-full flex flex-col justify-between bg-pacers-navy-dark overflow-hidden pt-32"
     >
-      {/* Background Gradient Layer */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#071022] via-[#050a13] to-[#000000] opacity-100" />
+      <div className="absolute inset-0 bg-linear-to-b from-pacers-navy-dark via-[#050a13] to-black opacity-100 pointer-events-none" />
 
-      {/* Main Content Container */}
-      <div className="container relative z-10 mx-auto px-10 pt-40 pb-24 flex-grow flex flex-col justify-center">
-        {/* Header Section */}
-        <div
-          className={`max-w-4xl mb-16 transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
+      <div className="container relative z-10 mx-auto px-10 md:px-20 py-24 grow flex flex-col justify-center">
+        <motion.div
+          className="max-w-4xl mb-24"
+          initial={{ opacity: 0, y: 40 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          <h2 className="text-6xl md:text-8xl font-extrabold text-white mb-6 tracking-tighter leading-none">
-            LET'S <span className="text-[#FDB927]">WORK</span> <br /> TOGETHER.
+          <h2 className="text-6xl md:text-9xl font-black text-white mb-8 tracking-tighter leading-none uppercase">
+            LET'S <span className="text-pacers-gold">WORK</span> <br />{" "}
+            TOGETHER.
           </h2>
-          <p className="text-slate-400 text-xl md:text-2xl max-w-2xl leading-relaxed font-medium">
+          <p className="text-pacers-silver text-xl md:text-2xl max-w-2xl leading-relaxed font-semibold opacity-60">
             Currently available for freelance work and full-time opportunities.
-            Have a project in mind? Let's build something iconic.
           </p>
-        </div>
+        </motion.div>
 
-        {/* Form and Info Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
-          {/* Form Section */}
-          <form
-            className={`lg:col-span-7 space-y-8 transition-all duration-1000 delay-200 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-20 items-start">
+          <motion.form
+            className="lg:col-span-7 space-y-10"
             onSubmit={handleSubmit}
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
               <div className="group">
-                <label className="block text-[#FDB927] text-xs font-bold uppercase tracking-[0.2em] mb-4 group-focus-within:text-white transition-colors">
-                  Your Name
+                <label className="block text-pacers-gold text-[10px] font-black uppercase tracking-[0.3em] mb-4">
+                  Your Full Name
                 </label>
                 <input
                   type="text"
@@ -101,11 +94,11 @@ const Footer = () => {
                   onChange={handleChange}
                   placeholder="John Doe"
                   required
-                  className="w-full bg-transparent border-b-2 border-slate-700 py-4 text-white text-lg focus:outline-none focus:border-[#FDB927] transition-all placeholder:text-slate-600"
+                  className="w-full bg-transparent border-b-2 border-white/10 py-5 text-white text-xl focus:outline-none focus:border-pacers-gold transition-all"
                 />
               </div>
               <div className="group">
-                <label className="block text-[#FDB927] text-xs font-bold uppercase tracking-[0.2em] mb-4 group-focus-within:text-white transition-colors">
+                <label className="block text-pacers-gold text-[10px] font-black uppercase tracking-[0.3em] mb-4">
                   Email Address
                 </label>
                 <input
@@ -115,82 +108,107 @@ const Footer = () => {
                   onChange={handleChange}
                   placeholder="john@example.com"
                   required
-                  className="w-full bg-transparent border-b-2 border-slate-700 py-4 text-white text-lg focus:outline-none focus:border-[#FDB927] transition-all placeholder:text-slate-600"
+                  className="w-full bg-transparent border-b-2 border-white/10 py-5 text-white text-xl focus:outline-none focus:border-pacers-gold transition-all"
                 />
               </div>
             </div>
 
             <div className="group">
-              <label className="block text-[#FDB927] text-xs font-bold uppercase tracking-[0.2em] mb-4 group-focus-within:text-white transition-colors">
-                Tell me about the project
+              <label className="block text-pacers-gold text-[10px] font-black uppercase tracking-[0.3em] mb-4">
+                Project Vision
               </label>
               <textarea
                 name="message"
                 value={formData.message}
                 onChange={handleChange}
-                placeholder="What are we building?"
+                placeholder="What iconic project are we bringing to life?"
                 rows="4"
                 required
-                className="w-full bg-transparent border-b-2 border-slate-700 py-4 text-white text-lg focus:outline-none focus:border-[#FDB927] transition-all resize-none placeholder:text-slate-600"
+                className="w-full bg-transparent border-b-2 border-white/10 py-5 text-white text-xl focus:outline-none focus:border-pacers-gold transition-all resize-none"
               ></textarea>
             </div>
 
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="group relative inline-flex items-center justify-center px-12 py-6 font-bold text-[#002D62] transition-all duration-300 bg-[#FDB927] rounded-full hover:bg-white hover:text-black shadow-xl shadow-yellow-500/10 active:scale-95 disabled:opacity-50"
-            >
-              <span className="relative z-10 text-xl uppercase tracking-widest">
-                {isSubmitting ? "Sending..." : "Send Inquiry"}
-              </span>
-            </button>
-          </form>
+            <div className="pt-4">
+              <Button
+                type="submit"
+                size="lg"
+                disabled={isSubmitting}
+                className="rounded-full px-16 group"
+              >
+                <span className="flex items-center gap-3 text-lg uppercase tracking-widest">
+                  {isSubmitting ? "Sending..." : "Send Message"}
+                  <Send
+                    size={18}
+                    className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"
+                  />
+                </span>
+              </Button>
+            </div>
+          </motion.form>
 
-          {/* Contact Details Card */}
-          <div
-            className={`lg:col-span-4 lg:col-start-9 space-y-12 transition-all duration-1000 delay-400 ${isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-10"}`}
+          <motion.div
+            className="lg:col-span-4 lg:col-start-9 space-y-16"
+            initial={{ opacity: 0, x: 20 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.4 }}
           >
             <div>
-              <h4 className="text-[#FDB927] text-xs font-bold uppercase tracking-[0.2em] mb-6">
-                Contact Details
+              <h4 className="text-pacers-gold text-[10px] font-black uppercase tracking-[0.3em] mb-8 opacity-50">
+                Direct Contact
               </h4>
               <a
                 href="mailto:keynb50@gmail.com"
-                className="text-2xl md:text-3xl text-white font-medium hover:text-[#FDB927] transition-colors break-words"
+                className="text-2xl md:text-3xl text-white font-bold hover:text-pacers-gold transition-colors underline decoration-white/10 underline-offset-8"
               >
                 keynb50@gmail.com
               </a>
             </div>
 
             <div>
-              <h4 className="text-[#FDB927] text-xs font-bold uppercase tracking-[0.2em] mb-6">
-                Socials
+              <h4 className="text-pacers-gold text-[10px] font-black uppercase tracking-[0.3em] mb-8 opacity-50">
+                Digital Presence
               </h4>
-              <div className="flex flex-wrap gap-6">
-                {["GitHub", "LinkedIn", "Instagram"].map((social) => (
+              <div className="flex flex-col gap-8">
+                {[
+                  { name: "GitHub", href: "https://github.com", icon: Github },
+                  {
+                    name: "LinkedIn",
+                    href: "https://linkedin.com",
+                    icon: Linkedin,
+                  },
+                  {
+                    name: "Instagram",
+                    href: "https://instagram.com",
+                    icon: Instagram,
+                  },
+                ].map((social) => (
                   <a
-                    key={social}
-                    href="#"
-                    className="text-white text-lg font-semibold hover:text-[#FDB927] transition-colors relative group"
+                    key={social.name}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-4 text-white text-xl font-bold hover:text-pacers-gold transition-all group"
                   >
-                    {social}
-                    <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-[#FDB927] transition-all group-hover:w-full"></span>
+                    <social.icon
+                      size={20}
+                      className="text-pacers-gold opacity-50 group-hover:opacity-100 transition-opacity"
+                    />
+                    <span>{social.name}</span>
                   </a>
                 ))}
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
 
-      {/* Credits Bottom Bar */}
-      <div className="relative z-10 w-full border-t border-white/5 py-14 bg-black/20 backdrop-blur-md">
-        <div className="container mx-auto px-10 flex flex-col md:flex-row justify-between items-center gap-6">
-          <p className="text-slate-200 text-xs font-bold tracking-[0.3em] uppercase">
+      <div className="relative z-10 w-full border-t border-white/5 py-12 bg-black/40 backdrop-blur-3xl">
+        <div className="container mx-auto px-10 md:px-20 flex flex-col md:flex-row justify-between items-center gap-8">
+          <p className="text-pacers-silver text-[10px] font-black tracking-[0.4em] uppercase opacity-40">
             © {new Date().getFullYear()} Key'n Brosdahl
           </p>
-          <p className="text-slate-200 text-xs font-black tracking-[0.3em] uppercase">
-            Written & Directed by Key'n Brosdahl
+          <p className="text-pacers-gold text-[10px] font-black tracking-[0.5em] uppercase">
+            <a href="https://www.instagram.com/keyn.r.b/">@keyn.r.b</a>
           </p>
         </div>
       </div>

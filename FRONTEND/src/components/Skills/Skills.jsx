@@ -1,6 +1,10 @@
-import { useEffect, useRef, useState } from "react";
-import { useButton } from "react-aria";
+import { useRef, useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion"; // For smoother tab switching
+import { Button } from "../ui/Button"; // Reusable Pacers-themed button
 
+/**
+ * Skill item configuration with emoji icons
+ */
 const skillItems = [
   { name: "HTML5", icon: "🟧" },
   { name: "CSS3", icon: "🟦" },
@@ -14,6 +18,9 @@ const skillItems = [
   { name: "C#", icon: "♯" },
 ];
 
+/**
+ * Tools and software configuration
+ */
 const toolsItems = [
   { name: "VS Code", icon: "🖥️" },
   { name: "Visual Studios", icon: "🖥️" },
@@ -27,28 +34,9 @@ const toolsItems = [
   { name: "Unreal Engine", icon: "🎮" },
 ];
 
-function TabButton({ children, isActive, onPress, ...props }) {
-  const ref = useRef(null);
-  const { buttonProps } = useButton({ ...props, onPress }, ref);
-
-  const primaryStyle =
-    "text-[#FDB927] bg-[#002D62] border-[#002D62] hover:bg-[#FDB927] hover:text-[#002D62] border-2 hover:border-[#FDB927]";
-  const secondaryStyle =
-    "text-white bg-transparent hover:text-[#FDB927] border-2 border-transparent";
-
-  return (
-    <button
-      {...buttonProps}
-      ref={ref}
-      className={`z-10 font-bold rounded-lg text-sm px-6 py-3 text-center transition-all duration-300 focus:outline-none ${
-        isActive ? primaryStyle : secondaryStyle
-      }`}
-    >
-      {children}
-    </button>
-  );
-}
-
+/**
+ * Skills Component - Showcases technical expertise and toolset.
+ */
 const Skills = () => {
   const sectionRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -71,92 +59,93 @@ const Skills = () => {
   }, []);
 
   const renderGrid = (items) => (
-    <div className="w-full">
+    <motion.div
+      initial={{ opacity: 0, x: 20 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -20 }}
+      transition={{ duration: 0.5 }}
+      className="w-full"
+    >
       <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-8 w-full">
         {items.map((item, i) => (
-          <div
+          <motion.div
             key={item.name}
-            className="aspect-square flex flex-col items-center justify-center p-6 rounded-2xl bg-slate-900/40 border border-slate-800 shadow-md transition-all duration-500 hover:border-[#FDB927]/50"
-            style={{
-              transform: isVisible ? "translateY(0)" : "translateY(20px)",
-              opacity: isVisible ? 1 : 0,
-              transitionDelay: `${100 + i * 40}ms`,
-            }}
+            className="aspect-square flex flex-col items-center justify-center p-6 rounded-3xl bg-pacers-navy/20 border border-white/5 shadow-xl transition-all duration-500 hover:border-pacers-gold/50 hover:bg-pacers-navy/40 group"
+            animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ delay: 0.1 + i * 0.04 }}
           >
-            <div className="text-4xl mb-4">{item.icon}</div>
-            <div className="text-xs text-slate-300 font-semibold text-center uppercase tracking-wider">
+            <div className="text-4xl mb-4 group-hover:-translate-y-2 transition-transform duration-300">
+              {item.icon}
+            </div>
+            <div className="text-[10px] text-pacers-silver font-black text-center uppercase tracking-[0.2em]">
               {item.name}
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
-    </div>
+    </motion.div>
   );
 
   return (
     <section
       id="skills"
       ref={sectionRef}
-      className="w-full min-h-[90vh] flex flex-col justify-center bg-[#071022] relative overflow-hidden pt-36"
+      className="skills w-full min-h-screen flex flex-col justify-center bg-pacers-navy-dark relative overflow-hidden pt-48 pb-24"
     >
-      <div className="container mx-auto px-10">
-        <div className="flex flex-col lg:flex-row items-start justify-between gap-24 lg:gap-32">
-          {/* LEFT CONTENT */}
+      <div className="container mx-auto px-10 md:px-20">
+        <div className="flex flex-col lg:flex-row items-start justify-between gap-16 lg:gap-32">
           <div
-            className={`flex-1 transition-all duration-700 ${isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10"}`}
+            className={`flex-1 transition-all duration-1000 ease-out ${isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-12"}`}
           >
             <div className="flex">
-              <div className="hidden md:flex flex-col items-center mr-12 pt-2">
-                <span className="rotate-180 [writing-mode:vertical-lr] text-[10px] tracking-[0.3em] uppercase text-slate-500 font-bold mb-8">
-                  All Skills
+              <div className="hidden md:flex flex-col items-center mr-16 pt-4">
+                <span className="rotate-180 [writing-mode:vertical-lr] text-[10px] tracking-[0.5em] uppercase text-pacers-silver/30 font-black mb-12">
+                  Technical Arsenal
                 </span>
-                <div className="w-[2px] h-32 bg-gradient-to-b from-[#002D62] to-[#FDB927]" />
+                <div className="w-px h-48 bg-linear-to-b from-pacers-navy to-pacers-gold opacity-50" />
               </div>
 
               <div>
-                <h2 className="text-6xl md:text-8xl font-black text-white leading-[0.95] tracking-tighter">
+                <h2 className="text-6xl md:text-8xl font-black text-white leading-[0.9] tracking-tighter uppercase">
                   Explore My
                   <br />
-                  Expertise &amp;
+                  <span className="text-pacers-gold">Expertise</span> &amp;
                   <br />
                   Tech Stack
                 </h2>
-                <p className="mt-12 text-slate-400 text-xl leading-relaxed max-w-xl font-medium">
+                <p className="mt-12 text-pacers-silver text-xl leading-relaxed max-w-xl font-medium opacity-80">
                   These are the tools and technologies that I use daily to
-                  develop applications. With a strong foundation in frontend, I
-                  focus on delivering clean, maintainable code.
+                  develop high-performance applications.
                 </p>
                 <div className="mt-16 flex gap-6">
-                  <TabButton
-                    isActive={activeTab === "skills"}
-                    onPress={() => setActiveTab("skills")}
+                  <Button
+                    variant={activeTab === "skills" ? "primary" : "secondary"}
+                    onClick={() => setActiveTab("skills")}
                   >
                     Skills
-                  </TabButton>
-                  <TabButton
-                    isActive={activeTab === "tools"}
-                    onPress={() => setActiveTab("tools")}
+                  </Button>
+                  <Button
+                    variant={activeTab === "tools" ? "primary" : "secondary"}
+                    onClick={() => setActiveTab("tools")}
                   >
                     Tools
-                  </TabButton>
+                  </Button>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* RIGHT GRID */}
           <div
             className={`flex-1 w-full transition-all duration-1000 ${isVisible ? "opacity-100" : "opacity-0"}`}
           >
-            {activeTab === "skills"
-              ? renderGrid(skillItems)
-              : renderGrid(toolsItems)}
+            <AnimatePresence mode="wait">
+              {activeTab === "skills"
+                ? renderGrid(skillItems)
+                : renderGrid(toolsItems)}
+            </AnimatePresence>
           </div>
         </div>
       </div>
-
-      {/* 20% Visual Spacer - Forces empty space at the bottom of the section */}
-      <div className="h-[20vh] w-full pointer-events-none"></div>
     </section>
   );
 };

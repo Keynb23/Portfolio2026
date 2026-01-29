@@ -1,60 +1,67 @@
+import { ExternalLink, Github } from "lucide-react"; // Icons for project links
+
 /**
- * ProjectCard: The individual project showcase item.
- * This is the content inside each carousel slide.
+ * ProjectCard component - Displays individual project details within the carousel.
+ * Features glassmorphism, hover effects, and Indiana Pacers themed accents.
  */
 const ProjectCard = ({ project, formatText, toggleBionic, isBionicMode }) => {
   return (
-    <article className="flex-shrink-0 w-[480px] h-[620px] bg-linear-to-br from-[#0f172a] to-[#020617] border border-white/5 rounded-[3rem] p-10 flex flex-col justify-between group transition-all duration-700 hover:border-blue-500/40 hover:shadow-[0_0_80px_-20px_rgba(59,130,246,0.12)] relative overflow-hidden backdrop-blur-xl">
-      {/* Background Decorative Glow */}
-      <div className="absolute -top-20 -right-20 w-64 h-64 bg-blue-600/5 rounded-full blur-[100px] opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+    /* Main card container with glassmorphism and smooth hover transitions */
+    <article className="project-card flex-shrink-0 w-[480px] h-[620px] bg-linear-to-br from-pacers-navy/90 to-pacers-navy-dark border border-white/10 rounded-[3rem] p-10 flex flex-col justify-between group transition-all duration-700 hover:border-pacers-gold/40 hover:shadow-[0_0_80px_-20px_rgba(253,185,39,0.15)] relative overflow-hidden backdrop-blur-xl">
+      {/* Dynamic Background Glow that appears on hover */}
+      <div className="absolute -top-20 -right-20 w-64 h-64 bg-pacers-gold/5 rounded-full blur-[100px] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
 
-      {/* TOP RIGHT NUMBER (Absolute for stability) */}
-      <span className="absolute top-8 right-10 text-7xl font-black text-white/5 select-none leading-none tracking-tighter group-hover:text-white/[0.07] transition-colors">
-        0{project.id}
+      {/* Decorative large project index number */}
+      <span className="absolute top-8 right-10 text-8xl font-black text-white/5 select-none leading-none tracking-tighter group-hover:text-pacers-gold/[0.07] transition-colors">
+        {"KEYNB"[project.id - 1] || project.id}
       </span>
 
-      {/* HEADER: Title and Tech Stack */}
-      <div className="flex flex-col gap-5 shrink-0 relative z-10 pr-16">
+      {/* Header section containing subtitle, title, and technology tags */}
+      <div className="flex flex-col gap-5 shrink-0 relative z-10 pr-16 text-left">
         <div className="flex flex-col gap-2">
-          <span className="text-[10px] font-bold text-blue-400 uppercase tracking-[0.3em]">
+          {/* Categorical label in Pacers Gold accent */}
+          <span className="text-[10px] font-bold text-pacers-gold uppercase tracking-[0.4em]">
             {formatText(project.subtitle)}
           </span>
-          <h3 className="text-3xl font-black text-white leading-tight tracking-tight mb-0! group-hover:text-blue-50">
+          {/* Project Title with bold typography */}
+          <h3 className="text-4xl font-black text-white leading-tight tracking-tight mb-0! group-hover:text-pacers-gold-light transition-colors">
             {formatText(project.title)}
           </h3>
         </div>
 
-        {/* TECH TAGS */}
+        {/* Horizontal list of technology tags used in the project */}
         <div className="flex flex-wrap gap-2">
           {project.tech &&
-            project.tech.map((t, i) => (
+            project.tech.map((tag, index) => (
               <span
-                key={i}
-                className="px-3 py-1 bg-blue-500/5 border border-white/5 rounded-full text-[9px] font-bold text-blue-300/80 uppercase tracking-widest whitespace-nowrap"
+                key={index}
+                className="px-4 py-1.5 bg-white/5 border border-white/10 rounded-full text-[10px] font-bold text-pacers-silver-light uppercase tracking-widest whitespace-nowrap group-hover:border-pacers-gold/20 transition-all"
               >
-                {t}
+                {tag}
               </span>
             ))}
         </div>
       </div>
 
-      {/* CONTENT: Description and Highlights */}
-      <div className="flex-grow flex flex-col justify-center gap-6 relative z-10 py-4">
-        <p className="text-slate-400 text-base leading-relaxed font-medium mb-0!">
+      {/* Content body with project description and highlighted features */}
+      <div className="flex-grow flex flex-col justify-center gap-8 relative z-10 py-4 text-left">
+        {/* Main project narrative */}
+        <p className="text-pacers-silver text-lg leading-relaxed font-medium mb-0!">
           {formatText(project.description)}
         </p>
 
-        {/* Highlights List */}
-        <div className="space-y-3">
-          <ul className="space-y-2.5">
-            {project.highlights.map((h, i) => (
+        {/* Feature status/highlights list with custom markers */}
+        <div className="space-y-4">
+          <ul className="space-y-3">
+            {project.highlights.map((highlight, index) => (
               <li
-                key={i}
-                className="text-sm text-slate-300 flex items-center gap-3"
+                key={index}
+                className="text-sm text-pacers-silver-light flex items-start gap-4"
               >
-                <span className="w-1.5 h-px bg-blue-500/50 shrink-0" />
-                <span className="leading-tight font-medium opacity-70 group-hover:opacity-100 transition-opacity">
-                  {formatText(h)}
+                {/* Visual marker in Pacers Gold */}
+                <span className="w-2 h-[2px] bg-pacers-gold/50 shrink-0 mt-2.5" />
+                <span className="leading-tight font-medium opacity-80 group-hover:opacity-100 transition-opacity">
+                  {formatText(highlight)}
                 </span>
               </li>
             ))}
@@ -62,37 +69,46 @@ const ProjectCard = ({ project, formatText, toggleBionic, isBionicMode }) => {
         </div>
       </div>
 
-      {/* FOOTER: Actions and Bionic Toggle */}
-      <div className="flex flex-col gap-6 shrink-0 relative z-10 pt-8 mt-auto border-t border-white/5">
+      {/* Footer area with action links and interactive toggles */}
+      <div className="flex flex-col gap-6 shrink-0 relative z-10 pt-8 mt-auto border-t border-white/10">
         <div className="flex items-center justify-between gap-4">
-          <div className="flex gap-8">
+          <div className="flex gap-10">
+            {/* Source code repository link */}
             <a
               href={project.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[11px] text-white/90 font-bold uppercase tracking-[0.2em] relative group/link inline-flex items-center gap-2"
+              className="text-[12px] text-white/90 font-bold uppercase tracking-[0.25em] relative group/link inline-flex items-center gap-2 hover:text-pacers-gold transition-colors"
             >
+              <Github size={14} className="stroke-3" />
               <span>Source</span>
-              <span className="absolute -bottom-1 left-0 w-0 h-px bg-blue-500 transition-all group-hover/link:w-full" />
+              <span className="absolute -bottom-2 left-0 w-0 h-[2px] bg-pacers-gold transition-all group-hover/link:w-full" />
             </a>
+
+            {/* Live deployment link, shown only if available */}
             {project.link && (
               <a
                 href={project.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[11px] text-white/90 font-bold uppercase tracking-[0.2em] relative group/link inline-flex items-center gap-2"
+                className="text-[12px] text-white/90 font-bold uppercase tracking-[0.25em] relative group/link inline-flex items-center gap-2 hover:text-pacers-gold transition-colors"
               >
+                <ExternalLink size={14} className="stroke-3" />
                 <span>Live</span>
-                <span className="absolute -bottom-1 left-0 w-0 h-px bg-blue-500 transition-all group-hover/link:w-full" />
+                <span className="absolute -bottom-2 left-0 w-0 h-[2px] bg-pacers-gold transition-all group-hover/link:w-full" />
               </a>
             )}
           </div>
 
-          {/* ACTION: Bionic Reading Toggle */}
+          {/* Interactive Bionic Reading toggle for accessibility demonstration */}
           {project.id === 1 && (
             <button
               onClick={toggleBionic}
-              className="px-4 py-2 bg-yellow-500/5 hover:bg-yellow-500 border border-yellow-500/20 text-yellow-500 hover:text-black text-[9px] font-black uppercase tracking-widest rounded transition-all active:scale-95 cursor-pointer"
+              className={`px-5 py-2.5 text-[10px] font-black uppercase tracking-widest rounded-xl transition-all active:scale-95 cursor-pointer border ${
+                isBionicMode
+                  ? "bg-pacers-gold text-pacers-navy border-pacers-gold"
+                  : "bg-white/5 text-pacers-gold border-pacers-gold/30 hover:bg-pacers-gold/10"
+              }`}
             >
               {isBionicMode ? "Bionic: ON" : "Bionic: OFF"}
             </button>
