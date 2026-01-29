@@ -4,7 +4,6 @@
    ======================================== */
 @import "tailwindcss";
 
-
 :root {
   /* ===== MAIN BRAND COLORS ===== */
   --color-primary: #0a1363; /* Yale Blue - Primary actions, links */
@@ -24,8 +23,8 @@
   --border-medium: rgba(242, 242, 242, 0.2);
 
   /* ===== TYPOGRAPHY ===== */
-  --font-main: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
-    sans-serif;
+  --font-main:
+    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-display: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
 
   --font-size-xs: 0.75rem; /* 12px */
@@ -105,7 +104,6 @@
 }
 
 html {
-  scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

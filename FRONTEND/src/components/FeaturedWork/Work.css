@@ -1,16 +1,18 @@
-/* Work.css */
-
-/* CRITICAL: Overwrite the global smooth scroll for GSAP compatibility */
-html {
-  scroll-behavior: auto !important;
+#work-container {
+  overflow: visible !important;
+  position: relative !important;
 }
 
 #work {
-  width: 100%;
-  height: 100vh;
-  position: relative;
-  overflow: hidden; /* Keeps the horizontal track from spilling out */
+  width: 100% !important;
+  height: 100vh !important;
+  position: sticky !important;
+  position: -webkit-sticky !important; /* Safari support */
+  top: 0 !important;
+  overflow: hidden !important;
   background-color: #0b1220;
+  display: flex !important;
+  flex-direction: column !important;
 }
 
 .horizontal-track {
@@ -19,7 +21,18 @@ html {
   height: 100%;
   align-items: center;
   will-change: transform;
+  width: max-content !important;
+  min-width: max-content !important;
+
+  /* 
+     Drive the motion using the scroll progress from JS.
+     - Start (progress 0): translateX(100vw) -> First card off-screen.
+     - End (progress 1): translateX(100vw - 100%) -> Last card centered at 50vw.
+  */
+  transform: translateX(calc(100vw - (var(--scroll-progress, 0) * 115%)));
 }
+
+/* We can remove the @keyframes move-horizontal if not using animation-timeline */
 
 /* Ensure cards don't shrink when the track gets long */
 .project-card-wrapper {

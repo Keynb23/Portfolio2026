@@ -2,12 +2,12 @@
    APP COMPONENT STYLES
    ======================================== */
 /* 1. REMOVE scroll-behavior: smooth; it breaks GSAP ScrollTrigger */
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   width: 100%;
-  /* Remove scroll-behavior: smooth if it's there */
-  overflow-x: hidden; 
+  /* Removed overflow-x: hidden to ensure sticky works on all mobile/desktop browsers */
 }
 
 /* 2. Fix the App wrapper */
@@ -17,25 +17,30 @@ html, body {
   width: 100%;
 }
 
-/* 3. Ensure the horizontal track doesn't cause a horizontal scrollbar */
+/* Ensure the horizontal track doesn't cause a horizontal scrollbar */
 section {
   max-width: 100vw;
 }
 
+#work-container {
+  overflow: clip; /* clip is safer than hidden for sticky */
+}
+
 /* Ensure the section takes up the full viewport correctly */
 section#work {
-  margin: 0;
-  padding: 0;
-  height: auto; /* Important: Let ScrollTrigger define the spacer height */
+  margin: 0 !important;
+  padding: 0 !important;
+  height: 100vh !important;
+  position: sticky !important;
+  position: -webkit-sticky !important;
+  top: 0 !important;
+  z-index: 10 !important;
 }
 
 /* Ensure the cards have enough room in the track */
 .will-change-transform {
   align-items: center; /* This centers the cards vertically within the track */
 }
-
-
-
 
 /* Container to hold both image and text */
 .Sammy_container {
@@ -58,8 +63,8 @@ section#work {
   width: 100%;
   height: 100%;
   z-index: 1;
-  filter: grayscale(.75) blur(.5px) brightness(.8) contrast(1.1);
-  -webkit-filter: grayscale(.75) blur(.5px) brightness(.8) contrast(1.1);
+  filter: grayscale(0.75) blur(0.5px) brightness(0.8) contrast(1.1);
+  -webkit-filter: grayscale(0.75) blur(0.5px) brightness(0.8) contrast(1.1);
 }
 
 .Sammy_IMG img {

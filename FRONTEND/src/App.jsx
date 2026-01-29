@@ -22,7 +22,7 @@ function App() {
       {/* REMOVED: h-screen (causes overflow issues) 
           REMOVED: p-12 (squeezes internal containers)
       */}
-      <div className="w-full bg-bgmain relative overflow-x-hidden flex flex-col">
+      <div className="w-full bg-bgmain relative flex flex-col">
         <Hero />
         <FeaturedWork />
         <Experience />
@@ -37,4 +37,4 @@ function App() {
   );
 }
 
-export default App; 
+export default App;

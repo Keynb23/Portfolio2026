@@ -31,8 +31,10 @@ function TabButton({ children, isActive, onPress, ...props }) {
   const ref = useRef(null);
   const { buttonProps } = useButton({ ...props, onPress }, ref);
 
-  const primaryStyle = "text-[#FDB927] bg-[#002D62] border-[#002D62] hover:bg-[#FDB927] hover:text-[#002D62] border-2 hover:border-[#FDB927]";
-  const secondaryStyle = "text-white bg-transparent hover:text-[#FDB927] border-2 border-transparent";
+  const primaryStyle =
+    "text-[#FDB927] bg-[#002D62] border-[#002D62] hover:bg-[#FDB927] hover:text-[#002D62] border-2 hover:border-[#FDB927]";
+  const secondaryStyle =
+    "text-white bg-transparent hover:text-[#FDB927] border-2 border-transparent";
 
   return (
     <button
@@ -55,19 +57,22 @@ const Skills = () => {
   useEffect(() => {
     const el = sectionRef.current;
     if (!el) return;
-    const obs = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) {
-        setIsVisible(true);
-        obs.disconnect();
-      }
-    }, { threshold: 0.12 });
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          obs.disconnect();
+        }
+      },
+      { threshold: 0.12 }
+    );
     obs.observe(el);
     return () => obs.disconnect();
   }, []);
 
   const renderGrid = (items) => (
     <div className="w-full">
-      <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-6 w-full">
+      <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-8 w-full">
         {items.map((item, i) => (
           <div
             key={item.name}
@@ -75,7 +80,7 @@ const Skills = () => {
             style={{
               transform: isVisible ? "translateY(0)" : "translateY(20px)",
               opacity: isVisible ? 1 : 0,
-              transitionDelay: `${100 + i * 40}ms`
+              transitionDelay: `${100 + i * 40}ms`,
             }}
           >
             <div className="text-4xl mb-4">{item.icon}</div>
@@ -89,12 +94,17 @@ const Skills = () => {
   );
 
   return (
-    <section id="skills" ref={sectionRef} className="w-full min-h-[80vh] flex flex-col justify-center bg-[#071022] relative overflow-hidden pt-24">
-      <div className="container mx-auto px-6">
-        <div className="flex flex-col lg:flex-row items-start justify-between gap-16 lg:gap-24">
-          
+    <section
+      id="skills"
+      ref={sectionRef}
+      className="w-full min-h-[90vh] flex flex-col justify-center bg-[#071022] relative overflow-hidden pt-36"
+    >
+      <div className="container mx-auto px-10">
+        <div className="flex flex-col lg:flex-row items-start justify-between gap-24 lg:gap-32">
           {/* LEFT CONTENT */}
-          <div className={`flex-1 transition-all duration-700 ${isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10"}`}>
+          <div
+            className={`flex-1 transition-all duration-700 ${isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10"}`}
+          >
             <div className="flex">
               <div className="hidden md:flex flex-col items-center mr-12 pt-2">
                 <span className="rotate-180 [writing-mode:vertical-lr] text-[10px] tracking-[0.3em] uppercase text-slate-500 font-bold mb-8">
@@ -104,25 +114,43 @@ const Skills = () => {
               </div>
 
               <div>
-                <h2 className="text-5xl md:text-7xl font-extrabold text-white leading-[1.1] tracking-tight">
-                  Explore My<br />Expertise &amp;<br />Tech Stack
+                <h2 className="text-6xl md:text-8xl font-black text-white leading-[0.95] tracking-tighter">
+                  Explore My
+                  <br />
+                  Expertise &amp;
+                  <br />
+                  Tech Stack
                 </h2>
-                <p className="mt-10 text-slate-400 text-lg leading-relaxed max-w-xl">
-                  These are the tools and technologies that I use daily to develop
-                  applications. With a strong foundation in frontend, I focus on
-                  delivering clean, maintainable code.
+                <p className="mt-12 text-slate-400 text-xl leading-relaxed max-w-xl font-medium">
+                  These are the tools and technologies that I use daily to
+                  develop applications. With a strong foundation in frontend, I
+                  focus on delivering clean, maintainable code.
                 </p>
-                <div className="mt-12 flex gap-4">
-                  <TabButton isActive={activeTab === "skills"} onPress={() => setActiveTab("skills")}>Skills</TabButton>
-                  <TabButton isActive={activeTab === "tools"} onPress={() => setActiveTab("tools")}>Tools</TabButton>
+                <div className="mt-16 flex gap-6">
+                  <TabButton
+                    isActive={activeTab === "skills"}
+                    onPress={() => setActiveTab("skills")}
+                  >
+                    Skills
+                  </TabButton>
+                  <TabButton
+                    isActive={activeTab === "tools"}
+                    onPress={() => setActiveTab("tools")}
+                  >
+                    Tools
+                  </TabButton>
                 </div>
               </div>
             </div>
           </div>
 
           {/* RIGHT GRID */}
-          <div className={`flex-1 w-full transition-all duration-1000 ${isVisible ? "opacity-100" : "opacity-0"}`}>
-            {activeTab === "skills" ? renderGrid(skillItems) : renderGrid(toolsItems)}
+          <div
+            className={`flex-1 w-full transition-all duration-1000 ${isVisible ? "opacity-100" : "opacity-0"}`}
+          >
+            {activeTab === "skills"
+              ? renderGrid(skillItems)
+              : renderGrid(toolsItems)}
           </div>
         </div>
       </div>

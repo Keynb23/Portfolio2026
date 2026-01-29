@@ -10,7 +10,7 @@ const Navbar = () => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
     const observer = new IntersectionObserver(
       ([entry]) => setIsBeigeSection(entry.isIntersecting),
-      { rootMargin: "-80px 0px -90% 0px", threshold: 0 },
+      { rootMargin: "-80px 0px -90% 0px", threshold: 0 }
     );
     const experienceSection = document.querySelector("#experience");
     if (experienceSection) observer.observe(experienceSection);
@@ -28,7 +28,7 @@ const Navbar = () => {
       onPress: () => setIsMenuOpen(!isMenuOpen),
       "aria-label": "Toggle Menu",
     },
-    ref,
+    ref
   );
 
   const navLinks = [
@@ -47,11 +47,11 @@ const Navbar = () => {
       <nav
         className={`fixed top-0 left-0 w-full z-[100] transition-all duration-300 ${
           isScrolled
-            ? "py-4 backdrop-bg-black/10"
-            : "bg-transparent py-6"
+            ? "py-6 backdrop-blur-md bg-black/10"
+            : "bg-transparent py-8"
         }`}
       >
-        <div className="w-full px-8 md:px-10 flex justify-between items-center">
+        <div className="w-full px-10 md:px-16 flex justify-between items-center">
           {/* Logo */}
           <a href="#hero" className="z-[110] p-2">
             <img
@@ -101,12 +101,12 @@ const Navbar = () => {
 
       {/* Side Drawer */}
       <div
-        className={`fixed top-0 right-0 h-full w-[280px] md:w-[20vw] bg-slate-300 shadow-2xl z-[105] 
-        flex flex-col pl-10 justify-center transition-transform duration-500 ease-in-out ${
+        className={`fixed top-0 right-0 h-full w-[320px] md:w-[25vw] bg-slate-200 shadow-2xl z-[105] 
+        flex flex-col px-12 justify-center transition-transform duration-500 ease-in-out ${
           isMenuOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        <ul className="flex flex-col gap-10 items-center">
+        <ul className="flex flex-col gap-12 items-center">
           {navLinks.map((link) => (
             <li key={link.name}>
               <a

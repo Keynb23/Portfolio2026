@@ -13,12 +13,15 @@ const Footer = () => {
   useEffect(() => {
     const el = sectionRef.current;
     if (!el) return;
-    const obs = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) {
-        setIsVisible(true);
-        obs.disconnect();
-      }
-    }, { threshold: 0.1 });
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          obs.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
     obs.observe(el);
     return () => obs.disconnect();
   }, []);
@@ -34,11 +37,14 @@ const Footer = () => {
     e.preventDefault();
     setIsSubmitting(true);
     try {
-      const response = await fetch("https://portfolioapi-j4dx.onrender.com/send-email", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        "https://portfolioapi-j4dx.onrender.com/send-email",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        }
+      );
       if (response.ok) {
         alert("Awesome! I've received your message.");
         setFormData({ name: "", email: "", message: "" });
@@ -53,39 +59,41 @@ const Footer = () => {
   };
 
   return (
-    <footer 
-      id="contact" 
-      ref={sectionRef} 
+    <footer
+      id="contact"
+      ref={sectionRef}
       className="relative min-h-[100dvh] w-full flex flex-col justify-between bg-[#121212] overflow-hidden"
     >
       {/* Background Gradient Layer */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#071022] via-[#050a13] to-[#000000] opacity-100" />
 
       {/* Main Content Container */}
-      <div className="container relative z-10 mx-auto px-6 pt-32 pb-20 flex-grow flex flex-col justify-center">
-        
+      <div className="container relative z-10 mx-auto px-10 pt-40 pb-24 flex-grow flex flex-col justify-center">
         {/* Header Section */}
-        <div className={`max-w-4xl mb-16 transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
+        <div
+          className={`max-w-4xl mb-16 transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
+        >
           <h2 className="text-6xl md:text-8xl font-extrabold text-white mb-6 tracking-tighter leading-none">
             LET'S <span className="text-[#FDB927]">WORK</span> <br /> TOGETHER.
           </h2>
           <p className="text-slate-400 text-xl md:text-2xl max-w-2xl leading-relaxed font-medium">
-            Currently available for freelance work and full-time opportunities. 
+            Currently available for freelance work and full-time opportunities.
             Have a project in mind? Let's build something iconic.
           </p>
         </div>
 
         {/* Form and Info Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
-          
           {/* Form Section */}
-          <form 
-            className={`lg:col-span-7 space-y-8 transition-all duration-1000 delay-200 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`} 
+          <form
+            className={`lg:col-span-7 space-y-8 transition-all duration-1000 delay-200 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
             onSubmit={handleSubmit}
           >
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="group">
-                <label className="block text-[#FDB927] text-xs font-bold uppercase tracking-[0.2em] mb-4 group-focus-within:text-white transition-colors">Your Name</label>
+                <label className="block text-[#FDB927] text-xs font-bold uppercase tracking-[0.2em] mb-4 group-focus-within:text-white transition-colors">
+                  Your Name
+                </label>
                 <input
                   type="text"
                   name="name"
@@ -97,7 +105,9 @@ const Footer = () => {
                 />
               </div>
               <div className="group">
-                <label className="block text-[#FDB927] text-xs font-bold uppercase tracking-[0.2em] mb-4 group-focus-within:text-white transition-colors">Email Address</label>
+                <label className="block text-[#FDB927] text-xs font-bold uppercase tracking-[0.2em] mb-4 group-focus-within:text-white transition-colors">
+                  Email Address
+                </label>
                 <input
                   type="email"
                   name="email"
@@ -111,7 +121,9 @@ const Footer = () => {
             </div>
 
             <div className="group">
-              <label className="block text-[#FDB927] text-xs font-bold uppercase tracking-[0.2em] mb-4 group-focus-within:text-white transition-colors">Tell me about the project</label>
+              <label className="block text-[#FDB927] text-xs font-bold uppercase tracking-[0.2em] mb-4 group-focus-within:text-white transition-colors">
+                Tell me about the project
+              </label>
               <textarea
                 name="message"
                 value={formData.message}
@@ -126,28 +138,39 @@ const Footer = () => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="group relative inline-flex items-center justify-center px-10 py-5 font-bold text-[#002D62] transition-all duration-300 bg-[#FDB927] rounded-full hover:bg-white hover:text-black overflow-hidden disabled:opacity-50"
+              className="group relative inline-flex items-center justify-center px-12 py-6 font-bold text-[#002D62] transition-all duration-300 bg-[#FDB927] rounded-full hover:bg-white hover:text-black shadow-xl shadow-yellow-500/10 active:scale-95 disabled:opacity-50"
             >
-              <span className="relative z-10 text-lg uppercase tracking-widest">{isSubmitting ? "Sending..." : "Send Inquiry"}</span>
+              <span className="relative z-10 text-xl uppercase tracking-widest">
+                {isSubmitting ? "Sending..." : "Send Inquiry"}
+              </span>
             </button>
           </form>
 
           {/* Contact Details Card */}
-          <div className={`lg:col-span-4 lg:col-start-9 space-y-12 transition-all duration-1000 delay-400 ${isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-10"}`}>
+          <div
+            className={`lg:col-span-4 lg:col-start-9 space-y-12 transition-all duration-1000 delay-400 ${isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-10"}`}
+          >
             <div>
-              <h4 className="text-[#FDB927] text-xs font-bold uppercase tracking-[0.2em] mb-6">Contact Details</h4>
-              <a href="mailto:keynb50@gmail.com" className="text-2xl md:text-3xl text-white font-medium hover:text-[#FDB927] transition-colors break-words">
+              <h4 className="text-[#FDB927] text-xs font-bold uppercase tracking-[0.2em] mb-6">
+                Contact Details
+              </h4>
+              <a
+                href="mailto:keynb50@gmail.com"
+                className="text-2xl md:text-3xl text-white font-medium hover:text-[#FDB927] transition-colors break-words"
+              >
                 keynb50@gmail.com
               </a>
             </div>
 
             <div>
-              <h4 className="text-[#FDB927] text-xs font-bold uppercase tracking-[0.2em] mb-6">Socials</h4>
+              <h4 className="text-[#FDB927] text-xs font-bold uppercase tracking-[0.2em] mb-6">
+                Socials
+              </h4>
               <div className="flex flex-wrap gap-6">
                 {["GitHub", "LinkedIn", "Instagram"].map((social) => (
-                  <a 
-                    key={social} 
-                    href="#" 
+                  <a
+                    key={social}
+                    href="#"
                     className="text-white text-lg font-semibold hover:text-[#FDB927] transition-colors relative group"
                   >
                     {social}
@@ -161,12 +184,12 @@ const Footer = () => {
       </div>
 
       {/* Credits Bottom Bar */}
-      <div className="relative z-10 w-full border-t border-white/5 py-10 bg-black/20 backdrop-blur-md">
-        <div className="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-slate-200 text-sm font-medium tracking-widest uppercase">
+      <div className="relative z-10 w-full border-t border-white/5 py-14 bg-black/20 backdrop-blur-md">
+        <div className="container mx-auto px-10 flex flex-col md:flex-row justify-between items-center gap-6">
+          <p className="text-slate-200 text-xs font-bold tracking-[0.3em] uppercase">
             © {new Date().getFullYear()} Key'n Brosdahl
           </p>
-          <p className="text-slate-200 text-sm font-bold tracking-widest uppercase">
+          <p className="text-slate-200 text-xs font-black tracking-[0.3em] uppercase">
             Written & Directed by Key'n Brosdahl
           </p>
         </div>
