@@ -6,6 +6,7 @@ import {
   Briefcase,
   Code,
   Mail,
+  X,
 } from "lucide-react";
 import profilePic from "../../assets/profile_pic.jpg";
 
@@ -54,7 +55,16 @@ const NavMenu = ({ isOpen, onClose }) => {
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        <div className="flex flex-col h-full overflow-y-auto custom-scrollbar">
+        <div className="flex flex-col h-full overflow-y-auto custom-scrollbar relative">
+          {/* Explicit Close Button */}
+          <button
+            onClick={onClose}
+            className="absolute top-6 right-6 p-2 rounded-full hover:bg-pacers-navy/10 text-pacers-navy transition-all z-20 cursor-pointer"
+            aria-label="Close menu"
+          >
+            <X size={28} strokeWidth={3} />
+          </button>
+
           {/* Profile Section */}
           <div className="p-8 md:p-12 pb-8 border-b border-pacers-navy/10 mt-20 md:mt-0 shrink-0">
             <div className="flex flex-col gap-6 items-center text-center">
