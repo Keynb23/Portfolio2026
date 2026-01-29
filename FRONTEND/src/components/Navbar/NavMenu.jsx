@@ -54,74 +54,76 @@ const NavMenu = ({ isOpen, onClose }) => {
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        {/* Profile Section */}
-        <div className="p-12 pb-8 border-b border-pacers-navy/10 mt-16 md:mt-0">
-          <div className="flex flex-col gap-6 items-center text-center">
-            <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-pacers-navy/20 p-1 bg-white">
-              <img
-                src={profilePic}
-                alt="Key'n Brosdahl"
-                className="w-full h-full object-cover rounded-full"
-              />
-            </div>
-            <div>
-              <h2 className="text-3xl font-black text-pacers-navy tracking-tighter uppercase mb-2">
-                Key'n Brosdahl
-              </h2>
-              <p className="text-[10px] font-black tracking-widest text-pacers-gold uppercase bg-pacers-navy px-3 py-1 rounded-full inline-block mb-4">
-                Frontend @ Acellus Academy
-              </p>
-              <p className="text-sm font-bold text-pacers-navy/70 leading-relaxed px-4">
-                Aside from coding, I like basketball, working on projects in
-                blender, and prentending to be good at guitar.
-              </p>
-              <p className="text-xs font-medium text-pacers-navy/50 mt-4 italic">
-                SE / Frontend / React / UI / (Learning - ML / C# / .NET)
-              </p>
+        <div className="flex flex-col h-full overflow-y-auto custom-scrollbar">
+          {/* Profile Section */}
+          <div className="p-8 md:p-12 pb-8 border-b border-pacers-navy/10 mt-20 md:mt-0 shrink-0">
+            <div className="flex flex-col gap-6 items-center text-center">
+              <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-pacers-navy/20 p-1 bg-white">
+                <img
+                  src={profilePic}
+                  alt="Key'n Brosdahl"
+                  className="w-full h-full object-cover rounded-full"
+                />
+              </div>
+              <div>
+                <h2 className="text-3xl font-black text-pacers-navy tracking-tighter uppercase mb-2">
+                  Key'n Brosdahl
+                </h2>
+                <p className="text-[10px] font-black tracking-widest text-pacers-gold uppercase bg-pacers-navy px-3 py-1 rounded-full inline-block mb-4">
+                  Frontend @ Acellus Academy
+                </p>
+                <p className="text-sm font-bold text-pacers-navy/70 leading-relaxed px-4">
+                  Aside from coding, I like basketball, working on projects in
+                  blender, and prentending to be good at guitar.
+                </p>
+                <p className="text-xs font-medium text-pacers-navy/50 mt-4 italic">
+                  SE / Frontend / React / UI / (Learning - ML / C# / .NET)
+                </p>
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* Navigation Section */}
-        <nav className="grow flex flex-col py-8 px-12 justify-center">
-          <ul className="flex flex-col gap-6">
-            {navLinks.map((link) => (
-              <li key={link.name}>
-                <a
-                  href={link.href}
-                  className="group flex items-center gap-4 text-3xl font-black text-pacers-navy hover:text-pacers-gold transition-all"
-                  onClick={onClose}
-                >
-                  <link.icon className="w-6 h-6 stroke-3 opacity-20 group-hover:opacity-100 transition-opacity" />
-                  <span className="tracking-tighter uppercase">
-                    {link.name}
-                  </span>
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-
-        {/* Social Footer */}
-        <div className="p-12 pt-8 border-t border-pacers-navy/10 bg-pacers-navy/5">
-          <div className="flex justify-between items-center">
-            <div className="flex gap-6">
-              {socials.map((social) => (
-                <a
-                  key={social.label}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-3 bg-pacers-navy text-white rounded-xl hover:bg-pacers-gold hover:text-pacers-navy transition-all transform hover:-translate-y-1 shadow-lg shadow-pacers-navy/10"
-                  aria-label={social.label}
-                >
-                  <social.icon size={20} />
-                </a>
+          {/* Navigation Section */}
+          <nav className="grow flex flex-col py-8 px-12 justify-center">
+            <ul className="flex flex-col gap-6">
+              {navLinks.map((link) => (
+                <li key={link.name}>
+                  <a
+                    href={link.href}
+                    className="group flex items-center gap-4 text-3xl font-black text-pacers-navy hover:text-pacers-gold transition-all"
+                    onClick={onClose}
+                  >
+                    <link.icon className="w-6 h-6 stroke-3 opacity-20 group-hover:opacity-100 transition-opacity" />
+                    <span className="tracking-tighter uppercase">
+                      {link.name}
+                    </span>
+                  </a>
+                </li>
               ))}
+            </ul>
+          </nav>
+
+          {/* Social Footer */}
+          <div className="p-8 md:p-12 pt-8 border-t border-pacers-navy/10 bg-pacers-navy/5 shrink-0">
+            <div className="flex flex-col sm:flex-row justify-between items-center gap-8 sm:gap-4">
+              <div className="flex gap-4 md:gap-6">
+                {socials.map((social) => (
+                  <a
+                    key={social.label}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-3 bg-pacers-navy text-white rounded-xl hover:bg-pacers-gold hover:text-pacers-navy transition-all transform hover:-translate-y-1 shadow-lg shadow-pacers-navy/10"
+                    aria-label={social.label}
+                  >
+                    <social.icon size={20} />
+                  </a>
+                ))}
+              </div>
+              <p className="text-[10px] font-black text-pacers-navy/30 uppercase tracking-[0.3em] text-center sm:text-right">
+                KC Metro Area
+              </p>
             </div>
-            <p className="text-[10px] font-black text-pacers-navy/30 uppercase tracking-[0.3em]">
-              KC Metro Area
-            </p>
           </div>
         </div>
       </div>

@@ -41,16 +41,16 @@ const FeaturedWork = () => {
     <div
       id="work-container"
       ref={containerRef}
-      className="work-container relative h-[800vh] z-10 bg-pacers-navy-dark"
+      className="work-container relative h-[800vh] mt-20 z-10 bg-pacers-navy-dark"
     >
       {/* Sticky viewport section that stays fixed while the parent container scrolls */}
       <section
         id="work"
         className="sticky top-0 w-full h-screen overflow-hidden bg-pacers-navy-dark flex flex-col justify-center"
       >
-        {/* Absolute header for the section */}
-        <div className="container mx-auto px-10 md:px-20 absolute top-16 left-0 right-0 z-20">
-          <h2 className="text-5xl md:text-7xl font-black text-white tracking-tighter uppercase drop-shadow-2xl">
+        {/* Responsive header for the section */}
+        <div className="container mx-auto px-10 md:px-20 mb-12 relative z-20">
+          <h2 className="text-5xl md:text-8xl font-black text-white tracking-tighter uppercase drop-shadow-2xl">
             {/* Applies Bionic reading formatting if enabled */}
             {formatText("Featured Work")}
           </h2>

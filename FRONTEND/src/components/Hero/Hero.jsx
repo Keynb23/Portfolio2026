@@ -71,12 +71,12 @@ const Hero = () => {
       />
 
       <motion.div
-        className="hero__container relative w-full max-w-7xl z-10"
+        className="hero__container relative w-full max-w-[1600px] z-10"
         initial="hidden"
         animate={isVisible ? "visible" : "hidden"}
         variants={containerVariants}
       >
-        <div className="hero__content relative min-h-[80vh] flex flex-col justify-center overflow-hidden rounded-2xl glass-panel p-8 md:p-16">
+        <div className="hero__content relative min-h-[85vh] flex flex-col justify-center overflow-hidden rounded-2xl glass-panel p-8 md:p-20">
           <div
             className="absolute inset-0 z-0 opacity-10
             bg-[linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)]
@@ -89,7 +89,7 @@ const Hero = () => {
             muted
             loop
             playsInline
-            className="absolute inset-0 h-full w-full object-cover blur-none brightness-75 contrast-125 saturate-150 z-[-1]"
+            className="absolute inset-0 h-full w-full object-cover blur-none brightness-75 contrast-125 saturate-150 z-[-1] pointer-events-none"
           />
 
           <motion.div
