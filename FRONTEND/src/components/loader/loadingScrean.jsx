@@ -207,15 +207,26 @@ const LoadingScreen = ({ onFinished }) => {
 
   /**
    * @hook Audio_Suspense_Logic
-   * Handles the cross-fade/pause logic between the two audio tracks.
+   * Handles the cross-fade/pause logic between the tracks and the 7s exit fade-out.
    */
   useEffect(() => {
+    // Stage 1: The user un-locks the portfolio
     if (isUnlocking) {
-      cinematicAudioRef.current.pause();
-      lebronAudioRef.current.pause();
+      lebronAudioRef.current.pause(); // Kill lebron instantly
+
+      // Gradually fade out the cinematic music over 7 seconds
+      gsap.to(cinematicAudioRef.current, {
+        volume: 0,
+        duration: 7,
+        ease: "power1.out",
+        onComplete: () => {
+          cinematicAudioRef.current.pause();
+        },
+      });
       return;
     }
 
+    // Stage 2: Normal interaction logic
     if (isLebronHovered) {
       cinematicAudioRef.current.pause();
       lebronAudioRef.current.play().catch(() => {});
@@ -294,6 +305,7 @@ const LoadingScreen = ({ onFinished }) => {
   /**
    * @function handleUnlock_Action
    * Triggers the high-end GSAP exit transition when the user enters the experience.
+   * Delayed to allow for the 7s audio fade-out.
    */
   const handleUnlock = () => {
     setIsUnlocking(true);
@@ -304,6 +316,7 @@ const LoadingScreen = ({ onFinished }) => {
       },
     });
 
+    // Fade UI HUD out quickly
     tl.to(overlayRef.current, {
       opacity: 0,
       duration: 1.2,
@@ -314,6 +327,9 @@ const LoadingScreen = ({ onFinished }) => {
       { scale: 0.7, opacity: 0, duration: 1, ease: "power4.in" },
       "<"
     );
+
+    // Hold the component mounted for the remainder of the 7s audio fade
+    tl.to({}, { duration: 6.5 });
   };
 
   return (
