@@ -158,7 +158,7 @@ const ParticleField = ({ isUnlocking, isHovered }) => {
       <meshStandardMaterial
         color="#FFFFFF" // Use white base so instance colors show correctly
         emissive="#444444" // Neutral emissive to support all colors
-        emissiveIntensity={0.5}
+        emissiveIntensity={1}
         transparent
         roughness={0.03}
         metalness={1.0}
