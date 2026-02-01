@@ -7,7 +7,7 @@ import { ExternalLink, Github } from "lucide-react"; // Icons for project links
 const ProjectCard = ({ project, formatText, toggleBionic, isBionicMode }) => {
   return (
     /* Main card container with glassmorphism and smooth hover transitions */
-    <article className="project-card shrink-0 w-[85vw] md:w-[480px] h-[65vh] md:h-[620px] bg-linear-to-br from-pacers-navy/90 to-pacers-navy-dark border border-white/10 rounded-4xl md:rounded-[3rem] p-6 md:p-10 flex flex-col justify-between group transition-all duration-700 hover:border-pacers-gold/40 hover:shadow-[0_0_80px_-20px_rgba(253,185,39,0.15)] relative overflow-hidden backdrop-blur-xl">
+    <article className="project-card shrink-0 w-[85vw] md:w-[480px] h-[65vh] mb-10 md:h-[620px] bg-linear-to-br from-pacers-navy/90 to-pacers-navy-dark border border-white/10 rounded-4xl md:rounded-[3rem] p-6 md:p-10 flex flex-col justify-between group transition-all duration-700 hover:border-pacers-gold/40 hover:shadow-[0_0_80px_-20px_rgba(253,185,39,0.15)] relative overflow-hidden backdrop-blur-xl">
       {/* Dynamic Background Glow that appears on hover */}
       <div className="absolute -top-20 -right-20 w-64 h-64 bg-pacers-gold/5 rounded-full blur-[100px] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
 

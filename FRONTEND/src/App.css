@@ -53,7 +53,7 @@ section#work {
   width: max-content !important;
   min-width: max-content !important;
   /* Dynamic translation based on scroll progress from parent container */
-  transform: translateX(calc(100vw - (var(--scroll-progress, 0) * 115%)));
+  transform: translateX(calc(100vw - (var(--scroll-progress, 0) * 105%)));
 }
 
 .project-card-wrapper {

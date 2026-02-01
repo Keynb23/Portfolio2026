@@ -8,6 +8,9 @@ import Footer from "./components/Footer/Footer";
 import "./App.css";
 import Sammy from "./assets/Sammy.png";
 
+import LoadingScreen from "./components/loader/loadingScrean";
+import { useState } from "react";
+
 /**
  * Functional component for the Sammy background image
  * Implements a stylized grayscale filter for cinematic effect
@@ -26,9 +29,13 @@ const SammyBG = () => {
  * Orchestrates the portfolio layout and section ordering
  */
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
+
   // Returns the main application structure with Tailwind utility classes
   return (
     <>
+      {isLoading && <LoadingScreen onFinished={() => setIsLoading(false)} />}
+
       {/* Navigation header fixed to top */}
       <Navbar />
 

@@ -41,7 +41,7 @@ const FeaturedWork = () => {
     <div
       id="work-container"
       ref={containerRef}
-      className="work-container relative h-[800vh] mt-20 z-10 bg-pacers-navy-dark"
+      className="work-container relative h-[800vh] mt-20 mb-10 z-10 bg-pacers-navy-dark"
     >
       {/* Sticky viewport section that stays fixed while the parent container scrolls */}
       <section

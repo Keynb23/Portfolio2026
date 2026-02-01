@@ -87,9 +87,8 @@ const Hero = () => {
             src={bgv}
             autoPlay
             muted
-            loop
             playsInline
-            className="absolute inset-0 h-full w-full object-cover blur-none brightness-75 contrast-125 saturate-150 z-[-1] pointer-events-none"
+            className="absolute inset-0 h-full w-full object-cover blur-none brightness-100  z-[-1] pointer-events-none"
           />
 
           <motion.div
@@ -146,13 +145,13 @@ const Hero = () => {
             variants={itemVariants}
             className="hero__cta flex flex-wrap gap-6"
           >
-            <Button size="lg" className="w-full md:w-auto rounded-full">
+            <Button size="lg" className="w-full md:w-auto rounded-full z-1000 ">
               <a href="#work">Explore Work</a>
             </Button>
             <Button
               variant="secondary"
               size="lg"
-              className="w-full md:w-auto rounded-full"
+              className="w-full md:w-auto rounded-full z-1000 "
             >
               <a href="#contact">Get In Touch</a>
             </Button>
