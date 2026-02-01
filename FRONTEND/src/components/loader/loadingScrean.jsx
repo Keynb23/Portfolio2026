@@ -24,6 +24,7 @@ const PARTICLE_COUNT = 4000; // Adjusted for 3D geometry performance
  */
 const INITIAL_PARTICLES = (() => {
   const temp = [];
+  const colors = ["#FDB927", "#FFFFFF", "#3B82F6"]; // Pacers Gold, White, Vibrant Blue
   for (let i = 0; i < PARTICLE_COUNT; i++) {
     const t = Math.random() * 100;
     const factor = 20 + Math.random() * 100;
@@ -31,6 +32,7 @@ const INITIAL_PARTICLES = (() => {
     const xAngle = Math.random() * Math.PI;
     const yAngle = Math.random() * Math.PI;
     const zAngle = Math.random() * Math.PI;
+    const color = colors[Math.floor(Math.random() * colors.length)];
 
     temp.push({
       t,
@@ -39,10 +41,11 @@ const INITIAL_PARTICLES = (() => {
       xAngle,
       yAngle,
       zAngle,
+      color,
       pos: new THREE.Vector3().set(
         (Math.random() - 0.5) * 45,
         (Math.random() - 0.5) * 45,
-        (Math.random() - 0.5) * 30
+        (Math.random() - 0.5) * 30,
       ),
       vel: new THREE.Vector3(0, 0, 0),
       acc: new THREE.Vector3(0, 0, 0),
@@ -64,6 +67,17 @@ const ParticleField = ({ isUnlocking, isHovered }) => {
   const dummy = useMemo(() => new THREE.Object3D(), []);
   const particles = useMemo(() => INITIAL_PARTICLES, []);
 
+  // Initialize colors
+  useEffect(() => {
+    if (!meshRef.current) return;
+    const tempColor = new THREE.Color();
+    particles.forEach((particle, i) => {
+      tempColor.set(particle.color);
+      meshRef.current.setColorAt(i, tempColor);
+    });
+    meshRef.current.instanceColor.needsUpdate = true;
+  }, [particles]);
+
   /**
    * @hook useFrame_RenderLoop
    * Updates all 4,000 particle matrices per frame at 60fps.
@@ -82,12 +96,15 @@ const ParticleField = ({ isUnlocking, isHovered }) => {
       acc.z += Math.cos(time * speed + zAngle) * 0.0008;
 
       // --- INTERACTION: Mouse Repulsion ---
-      const dist = pos.distanceTo(new THREE.Vector3(mx, my, 0));
-      if (dist < 4) {
+      const mousePos = new THREE.Vector3(mx, my, 0);
+      const dist = pos.distanceTo(mousePos);
+
+      // Increased interaction radius and responsiveness
+      if (dist < 6) {
         const repulsion = new THREE.Vector3()
-          .subVectors(pos, new THREE.Vector3(mx, my, 0))
+          .subVectors(pos, mousePos)
           .normalize();
-        const force = (4 - dist) * 0.005; // Less snappy
+        const force = (6 - dist) * 0.008; // Stronger, wider repulsion
         acc.add(repulsion.multiplyScalar(force));
       }
 
@@ -101,7 +118,7 @@ const ParticleField = ({ isUnlocking, isHovered }) => {
 
       // --- PHYSICS INTEGRATION ---
       vel.add(acc);
-      vel.multiplyScalar(0.98); // Higher drag for smoother, slower stops
+      vel.multiplyScalar(0.98); // Drag
       pos.add(vel);
       acc.set(0, 0, 0);
 
@@ -131,7 +148,7 @@ const ParticleField = ({ isUnlocking, isHovered }) => {
     meshRef.current.material.opacity = THREE.MathUtils.lerp(
       meshRef.current.material.opacity,
       isUnlocking ? 0 : isHovered ? 0.2 : 0.7,
-      0.05
+      0.05,
     );
   });
 
@@ -139,9 +156,9 @@ const ParticleField = ({ isUnlocking, isHovered }) => {
     <instancedMesh ref={meshRef} args={[null, null, PARTICLE_COUNT]}>
       <icosahedronGeometry args={[0.1, 1]} />
       <meshStandardMaterial
-        color="#FDB927"
-        emissive="#FDB927"
-        emissiveIntensity={1} // Very subtle glow
+        color="#FFFFFF" // Use white base so instance colors show correctly
+        emissive="#444444" // Neutral emissive to support all colors
+        emissiveIntensity={0.5}
         transparent
         roughness={0.03}
         metalness={1.0}
@@ -168,6 +185,7 @@ const LoadingScreen = ({ onFinished }) => {
   const [isLebronHovered, setIsLebronHovered] = useState(false);
   const overlayRef = useRef();
   const buttonRef = useRef();
+  const containerRef = useRef();
 
   // Audio References
   const cinematicAudioRef = useRef(new Audio(cinematicMusic));
@@ -214,10 +232,10 @@ const LoadingScreen = ({ onFinished }) => {
     if (isUnlocking) {
       lebronAudioRef.current.pause(); // Kill lebron instantly
 
-      // Gradually fade out the cinematic music over 7 seconds
+      // Quickly fade out the cinematic music over 2 seconds
       gsap.to(cinematicAudioRef.current, {
         volume: 0,
-        duration: 7,
+        duration: 2,
         ease: "power1.out",
         onComplete: () => {
           cinematicAudioRef.current.pause();
@@ -305,7 +323,7 @@ const LoadingScreen = ({ onFinished }) => {
   /**
    * @function handleUnlock_Action
    * Triggers the high-end GSAP exit transition when the user enters the experience.
-   * Delayed to allow for the 7s audio fade-out.
+   * Delayed to allow for the audio fade-out.
    */
   const handleUnlock = () => {
     setIsUnlocking(true);
@@ -316,25 +334,43 @@ const LoadingScreen = ({ onFinished }) => {
       },
     });
 
-    // Fade UI HUD out quickly
-    tl.to(overlayRef.current, {
+    // Animate container to transparent to reveal underlying UI immediately
+    tl.to(containerRef.current, {
       opacity: 0,
-      duration: 1.2,
-      ease: "power3.inOut",
+      duration: 1.0,
+      ease: "power2.inOut",
+      onStart: () => {
+        if (containerRef.current)
+          containerRef.current.style.pointerEvents = "none";
+      },
     });
+
+    // Fade UI HUD out quickly in parallel
     tl.to(
-      buttonRef.current,
-      { scale: 0.7, opacity: 0, duration: 1, ease: "power4.in" },
-      "<"
+      overlayRef.current,
+      {
+        opacity: 0,
+        duration: 0.8,
+        ease: "power3.inOut",
+      },
+      "<",
     );
 
-    // Hold the component mounted for the remainder of the 7s audio fade
-    tl.to({}, { duration: 6.5 });
+    tl.to(
+      buttonRef.current,
+      { scale: 0.7, opacity: 0, duration: 0.6, ease: "power4.in" },
+      "<",
+    );
+
+    // Hold the component mounted slightly longer for audio fade (total 2s from start)
+    // The previous animations take ~1s. We wait another 1s.
+    tl.to({}, { duration: 1.0 });
   };
 
   return (
     // <!-- WRAPPER: Cinematic Container -->
     <div
+      ref={containerRef}
       className={`fixed inset-0 z-[9999] transition-colors duration-2000 overflow-hidden select-none ${
         isHovered ? "bg-black" : "bg-[#00050A]"
       }`}
@@ -436,7 +472,7 @@ const LoadingScreen = ({ onFinished }) => {
                   onClick={() =>
                     window.open(
                       "https://www.youtube.com/watch?v=vpXhz8MUwEw",
-                      "_blank"
+                      "_blank",
                     )
                   }
                   onMouseEnter={() => {
