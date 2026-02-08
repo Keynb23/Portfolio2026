@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { useBionic } from "../../context/BionicContext"; // Context for Bionic reading mode
+import { useBionic } from "../../hooks/useBionic"; // Hook for Bionic reading mode
 import Carousel from "./Carousel"; // Carousel component for project display
 import projects from "./projects"; // Project data provider
 

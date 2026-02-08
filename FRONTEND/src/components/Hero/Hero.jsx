@@ -4,6 +4,7 @@ import { X, FileText, Download } from "lucide-react";
 import { useReactToPrint } from "react-to-print"; // Library for generating PDF via print dialog
 import { Button } from "../ui/Button";
 import { RESUME } from "./RESUME";
+import { useBionic } from "../../hooks/useBionic";
 import heroBG from "../../assets/BG_Hero.jpg";
 import bgv from "../../assets/bg-vid.mp4";
 
@@ -11,6 +12,7 @@ import bgv from "../../assets/bg-vid.mp4";
  * Hero section component - The primary landing view of the portfolio.
  */
 const Hero = () => {
+  const { formatText } = useBionic();
   const heroRef = useRef(null);
   const resumeRef = useRef(null); // Ref for the resume content to be printed/saved
   const [isVisible, setIsVisible] = useState(false);
@@ -29,7 +31,7 @@ const Hero = () => {
           setIsVisible(true);
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     );
 
     const currentRef = heroRef.current;
@@ -96,13 +98,13 @@ const Hero = () => {
             className="relative z-20 mb-8 inline-block"
           >
             <h1 className="text-white text-4xl md:text-5xl font-black tracking-tight uppercase">
-              Key'n Brosdahl
+              {formatText("Key'n Brosdahl")}
             </h1>
           </motion.div>
 
           <motion.div variants={itemVariants} className="hero__eyebrow mb-6">
             <span className="hero__eyebrow-text inline-block text-lg md:text-xl uppercase tracking-[0.2em] font-bold animate-color-shift">
-              Software Engineer & Designer
+              {formatText("Software Engineer & Designer")}
             </span>
           </motion.div>
 
@@ -116,7 +118,9 @@ const Hero = () => {
             >
               <FileText size={18} />
               <span>
-                if you don't want to go through the motions, click here!
+                {formatText(
+                  "if you don't want to go through the motions, click here!",
+                )}
               </span>
             </button>
           </motion.div>
@@ -125,20 +129,26 @@ const Hero = () => {
             variants={itemVariants}
             className="hero__headline text-4xl md:text-7xl font-black leading-tight text-white mb-8 max-w-4xl uppercase tracking-tighter"
           >
-            Translating design intent into{" "}
-            <span className="text-pacers-gold">polished</span>,{" "}
-            <span className="text-pacers-gold">intelligent</span> UI
+            {formatText("Translating design intent into")}{" "}
+            <span className="text-pacers-gold">{formatText("polished")}</span>,{" "}
+            <span className="text-pacers-gold">
+              {formatText("intelligent")}
+            </span>{" "}
+            {formatText("UI")}
           </motion.h2>
 
           <motion.p
             variants={itemVariants}
             className="hero__subheadline text-xl md:text-2xl font-medium text-zinc-200 mb-12 max-w-2xl leading-relaxed opacity-75"
           >
-            Specializing in{" "}
+            {formatText("Specializing in")}{" "}
             <strong className="text-pacers-gold">
-              React, Python, and Machine Learning
+              {formatText("React, Python, and Machine Learning")}
             </strong>
-            . Bridging the gap between design and high-performance engineering.
+            .{" "}
+            {formatText(
+              "Bridging the gap between design and high-performance engineering.",
+            )}
           </motion.p>
 
           <motion.div

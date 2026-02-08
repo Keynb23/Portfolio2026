@@ -1,12 +1,14 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion"; // For smooth timeline entrance
 import { MapPin, Briefcase, ChevronRight } from "lucide-react"; // Icons for detail points
+import { useBionic } from "../../hooks/useBionic";
 
 /**
  * Experience Component - Chronicles professional history and key achievements.
  * Implements a vertical timeline with Pacers-themed accents and motion reveals.
  */
 const Experience = () => {
+  const { formatText } = useBionic();
   const sectionRef = useRef(null);
   // Motion hook to trigger animations when the section is in view
   const isInView = useInView(sectionRef, { once: true, amount: 0.1 });
@@ -97,26 +99,26 @@ const Experience = () => {
                       <div className="flex items-center gap-2 mb-2">
                         <Briefcase size={16} className="text-pacers-gold" />
                         <span className="text-xs font-black text-pacers-gold uppercase tracking-widest">
-                          {exp.period}
+                          {formatText(exp.period)}
                         </span>
                       </div>
                       <h3 className="text-2xl md:text-3xl font-black text-pacers-navy mb-1 group-hover:text-pacers-gold-dark transition-colors">
-                        {exp.role}
+                        {formatText(exp.role)}
                       </h3>
                       <p className="text-xl font-bold text-pacers-navy/40">
-                        {exp.company}
+                        {formatText(exp.company)}
                       </p>
                     </div>
 
                     {/* Metadata: Location */}
                     <div className="flex items-center gap-1.5 text-sm text-pacers-navy/50 font-bold uppercase tracking-widest mb-6">
                       <MapPin size={14} />
-                      {exp.location}
+                      {formatText(exp.location)}
                     </div>
 
                     {/* Description Paragraph */}
                     <p className="experience-card__description text-pacers-navy/70 leading-relaxed mb-8 font-medium">
-                      {exp.description}
+                      {formatText(exp.description)}
                     </p>
 
                     {/* Key Achievements List */}
@@ -134,7 +136,7 @@ const Experience = () => {
                               size={14}
                               className="mt-1 text-pacers-gold shrink-0"
                             />
-                            {achievement}
+                            {formatText(achievement)}
                           </li>
                         ))}
                       </ul>

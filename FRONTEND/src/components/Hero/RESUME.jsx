@@ -1,10 +1,12 @@
 import React from "react";
+import { useBionic } from "../../hooks/useBionic";
 
 /**
  * RESUME Component - A stylized display of professional qualifications.
  * Formatted for both digital dark-mode display and professional light-mode PDF export.
  */
 export const RESUME = () => {
+  const { formatText } = useBionic();
   return (
     <div className="space-y-10 print:text-black">
       {/* Header Info */}
@@ -39,12 +41,12 @@ export const RESUME = () => {
           Professional Summary
         </h2>
         <p className="text-zinc-200 print:text-zinc-900 leading-relaxed font-semibold">
-          Software Engineer with a strong front-end focus, specializing in
+          {formatText(`Software Engineer with a strong front-end focus, specializing in
           clean, responsive, and user-centered interfaces. Experienced with
           React, JavaScript/TypeScript, and C#, building scalable component
           architectures and integrating APIs across modern web applications.
           Known for translating design intent into polished, accessible UI while
-          continuously expanding technical depth.
+          continuously expanding technical depth.`)}
         </p>
       </section>
 
@@ -97,12 +99,13 @@ export const RESUME = () => {
         <div className="space-y-8">
           <div>
             <h3 className="text-base font-black text-white print:text-black uppercase tracking-tight mb-2">
-              AutoFiles | C# Desktop Scaffolding Tool
+              {formatText("AutoFiles | C# Desktop Scaffolding Tool")}
             </h3>
             <ul className="list-disc list-outside ml-4 space-y-1.5 text-zinc-400 print:text-zinc-700 text-[13px] font-bold">
               <li>
-                Engineered a lightweight C# CLI utility to automate complex
-                directory and file scaffolding.
+                {formatText(
+                  "Engineered a lightweight C# CLI utility to automate complex directory and file scaffolding.",
+                )}
               </li>
               <li>
                 Developed a modular architecture (InputParser, RootResolver) for
@@ -120,7 +123,7 @@ export const RESUME = () => {
           </div>
           <div>
             <h3 className="text-base font-black text-white print:text-black uppercase tracking-tight mb-2">
-              Bionic Reading App | React, Web Speech API
+              {formatText("Bionic Reading App | React, Web Speech API")}
             </h3>
             <ul className="list-disc list-outside ml-4 space-y-1.5 text-zinc-400 print:text-zinc-700 text-[13px] font-bold">
               <li>
@@ -139,7 +142,7 @@ export const RESUME = () => {
           </div>
           <div>
             <h3 className="text-base font-black text-white print:text-black uppercase tracking-tight mb-2">
-              NexusData | AI-Powered Entity Resolution Engine
+              {formatText("NexusData | AI-Powered Entity Resolution Engine")}
             </h3>
             <ul className="list-disc list-outside ml-4 space-y-1.5 text-zinc-400 print:text-zinc-700 text-[13px] font-bold">
               <li>
@@ -164,10 +167,10 @@ export const RESUME = () => {
           <div className="space-y-6">
             <div>
               <h3 className="text-sm font-black text-white print:text-black uppercase tracking-widest">
-                Acellus Academy
+                {formatText("Acellus Academy")}
               </h3>
               <p className="text-[10px] font-bold text-pacers-gold print:text-pacers-navy mb-2">
-                Software Engineer | Jan 2026 - Present
+                {formatText("Software Engineer | Jan 2026 - Present")}
               </p>
               <p className="text-xs text-zinc-400 print:text-zinc-700 font-bold leading-relaxed">
                 Developing and scaling educational platform features serving
@@ -176,7 +179,7 @@ export const RESUME = () => {
             </div>
             <div>
               <h3 className="text-sm font-black text-white print:text-black uppercase tracking-widest">
-                AstroSkills
+                {formatText("AstroSkills")}
               </h3>
               <p className="text-[10px] font-bold text-pacers-gold print:text-pacers-navy mb-2">
                 Frontend Intern | Aug 2025 - Sep 2025

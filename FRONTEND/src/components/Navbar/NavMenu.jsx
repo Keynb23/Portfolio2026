@@ -7,14 +7,17 @@ import {
   Code,
   Mail,
   X,
+  Eye, // Icon for Bionic toggle
 } from "lucide-react";
 import profilePic from "../../assets/profile_pic.jpg";
+import { useBionic } from "../../hooks/useBionic";
 
 /**
  * NavMenu Component - The content of the side drawer.
  * Includes profile info, navigation links, and social icons.
  */
 const NavMenu = ({ isOpen, onClose }) => {
+  const { isBionicMode, toggleBionic, formatText } = useBionic();
   // Navigation links
   const navLinks = [
     { name: "Home", href: "#hero", icon: Home },
@@ -105,7 +108,7 @@ const NavMenu = ({ isOpen, onClose }) => {
                   >
                     <link.icon className="w-6 h-6 stroke-3 opacity-20 group-hover:opacity-100 transition-opacity" />
                     <span className="tracking-tighter uppercase">
-                      {link.name}
+                      {formatText(link.name)}
                     </span>
                   </a>
                 </li>
@@ -114,7 +117,22 @@ const NavMenu = ({ isOpen, onClose }) => {
           </nav>
 
           {/* Social Footer */}
-          <div className="p-8 md:p-12 pt-8 border-t border-pacers-navy/10 bg-pacers-navy/5 shrink-0">
+          <div className="p-8 md:p-12 pt-8 border-t border-pacers-navy/10 bg-pacers-navy/5 shrink-0 flex flex-col gap-6">
+            {/* Bionic Toggle */}
+            <button
+              onClick={toggleBionic}
+              className={`w-full py-4 rounded-xl font-black uppercase tracking-widest text-xs flex items-center justify-center gap-3 transition-all ${
+                isBionicMode
+                  ? "bg-pacers-gold text-pacers-navy shadow-lg shadow-pacers-gold/20"
+                  : "bg-white text-pacers-navy hover:bg-pacers-gold/20 border border-pacers-navy/10"
+              }`}
+            >
+              <Eye size={18} />
+              <span>
+                {isBionicMode ? "Bionic Mode On" : "Enable Bionic Mode"}
+              </span>
+            </button>
+
             <div className="flex flex-col sm:flex-row justify-between items-center gap-8 sm:gap-4">
               <div className="flex gap-4 md:gap-6">
                 {socials.map((social) => (

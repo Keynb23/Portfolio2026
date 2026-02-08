@@ -1,14 +1,14 @@
 // src/hooks/useBionic.js
-import { useAtom } from 'jotai';
-import { bionicModeAtom } from '../store/bionicStore';
+import { useAtom } from "jotai";
+import { bionicModeAtom } from "../store/bionicStore";
 
 export const useBionic = () => {
   const [isBionicMode, setIsBionicMode] = useAtom(bionicModeAtom);
 
-  const toggleBionic = () => setIsBionicMode(prev => !prev);
+  const toggleBionic = () => setIsBionicMode((prev) => !prev);
 
   const formatText = (text) => {
-    if (!isBionicMode || typeof text !== 'string') return text;
+    if (!isBionicMode || typeof text !== "string") return text;
 
     return text.split(" ").map((word, i) => {
       if (!word.length) return null;
@@ -25,18 +25,11 @@ export const useBionic = () => {
       else if (word.length > 9) boldLength = Math.ceil(word.length * 0.4);
 
       return (
-        <span key={i} style={{ whiteSpace: 'nowrap' }}>
-          <strong style={{ 
-            fontWeight: '800', // Use 800 or 'black' for higher contrast
-            opacity: '1',
-            color: 'inherit' 
-          }}>
+        <span key={i}>
+          <strong style={{ fontWeight: "800" }}>
             {word.slice(0, boldLength)}
           </strong>
-          {/* Render the rest of the word */}
-          {word.slice(boldLength)}
-          {/* Add a regular space after the word to maintain natural sentence flow */}
-          {' '}
+          {word.slice(boldLength)}{" "}
         </span>
       );
     });
