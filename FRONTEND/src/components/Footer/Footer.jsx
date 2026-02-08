@@ -170,15 +170,15 @@ const Footer = () => {
               </h4>
               <div className="flex flex-col gap-8">
                 {[
-                  { name: "GitHub", href: "https://github.com", icon: Github },
+                  { name: "GitHub", href: "https://github.com/keynb23", icon: Github },
                   {
                     name: "LinkedIn",
-                    href: "https://linkedin.com",
+                    href: "https://www.linkedin.com/in/key-n-brosdahl-5320b3353/",
                     icon: Linkedin,
                   },
                   {
                     name: "Instagram",
-                    href: "https://instagram.com",
+                    href: "https://www.instagram.com/keyn.r.b/",
                     icon: Instagram,
                   },
                 ].map((social) => (
