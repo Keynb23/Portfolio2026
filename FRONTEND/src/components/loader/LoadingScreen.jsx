@@ -14,155 +14,151 @@ import { Lock } from "lucide-react";
  * High-End 3D Particle System
  * Uses InstancedMesh for performance and Curl-like noise for physics.
  */
-const PARTICLE_COUNT = 4000; // Adjusted for 3D geometry performance
+const PARTICLE_COUNT = 50000;
+const PARTICLE_BASE_SIZE = 0.02; // Adjust this to change the overall size
 
-// Pre-generate particle data for physics and performance (fixes random purity issues)
-/**
- * @function INITIAL_PARTICLES_GENERATOR
- * Pre-generates the 4,000 particle objects with unique physical properties
- * to ensure a pure React render and high-performance WebGL execution.
- */
 const INITIAL_PARTICLES = (() => {
   const temp = [];
-  const colors = ["#FDB927", "#FFFFFF", "#3B82F6"]; // Pacers Gold, White, Vibrant Blue
   for (let i = 0; i < PARTICLE_COUNT; i++) {
-    const t = Math.random() * 100;
-    const factor = 20 + Math.random() * 100;
-    const speed = 0.005 + Math.random() / 400; // Slower base speed
-    const xAngle = Math.random() * Math.PI;
-    const yAngle = Math.random() * Math.PI;
-    const zAngle = Math.random() * Math.PI;
-    const color = colors[Math.floor(Math.random() * colors.length)];
+    const x = (Math.random() - 0.5) * 60;
+    const y = (Math.random() - 0.5) * 40;
+    const z = (Math.random() - 0.5) * 20;
+
+    // Pacers gradient: Navy -> Silver -> Gold
+    const mix = (x + 30) / 60;
+    const color = new THREE.Color();
+    if (mix < 0.5) {
+      color.lerpColors(
+        new THREE.Color("#002D62"), // Navy
+        new THREE.Color("#BEC0C2"), // Silver
+        mix * 2,
+      );
+    } else {
+      color.lerpColors(
+        new THREE.Color("#e1e2e3ff"), // Silver
+        new THREE.Color("#FDB927"), // Gold
+        (mix - 0.5) * 2,
+      );
+    }
 
     temp.push({
-      t,
-      factor,
-      speed,
-      xAngle,
-      yAngle,
-      zAngle,
-      color,
-      pos: new THREE.Vector3().set(
-        (Math.random() - 0.5) * 45,
-        (Math.random() - 0.5) * 45,
-        (Math.random() - 0.5) * 30,
-      ),
+      pos: new THREE.Vector3(x, y, z),
+      basePos: new THREE.Vector3(x, y, z),
       vel: new THREE.Vector3(0, 0, 0),
       acc: new THREE.Vector3(0, 0, 0),
-      scale: 0.03 + Math.random() * 0.07, // Even smaller particles
+      speed: 0.2 + Math.random() * 0.5,
+      offset: Math.random() * Math.PI * 2,
+      scale: 0.1 + Math.random() * 0.3,
+      color: color.clone(),
+      baseColor: color.clone(),
+      isShimmer: i < 500, // Exactly 500 shimmering particles
+      shimmerSpeed: 2 + Math.random() * 4,
+      rotation: new THREE.Euler(
+        Math.random() * Math.PI,
+        Math.random() * Math.PI,
+        Math.random() * Math.PI,
+      ),
     });
   }
   return temp;
 })();
 
-/**
- * @component ParticleField
- * The 3D Engine that handles InstancedMesh logic, Curl Noise physics,
- * and interactive mouse repulsion.
- */
 const ParticleField = ({ isUnlocking, isHovered }) => {
   const meshRef = useRef();
   const { mouse, viewport } = useThree();
-
   const dummy = useMemo(() => new THREE.Object3D(), []);
+  const dummyColor = useMemo(() => new THREE.Color(), []);
   const particles = useMemo(() => INITIAL_PARTICLES, []);
 
-  // Initialize colors
   useEffect(() => {
     if (!meshRef.current) return;
-    const tempColor = new THREE.Color();
     particles.forEach((particle, i) => {
-      tempColor.set(particle.color);
-      meshRef.current.setColorAt(i, tempColor);
+      meshRef.current.setColorAt(i, particle.color);
     });
     meshRef.current.instanceColor.needsUpdate = true;
   }, [particles]);
 
-  /**
-   * @hook useFrame_RenderLoop
-   * Updates all 4,000 particle matrices per frame at 60fps.
-   */
   useFrame((state) => {
     const time = state.clock.getElapsedTime();
     const mx = (mouse.x * viewport.width) / 2;
     const my = (mouse.y * viewport.height) / 2;
 
     particles.forEach((particle, i) => {
-      let { pos, vel, acc, scale, speed, xAngle, yAngle, zAngle } = particle;
+      let { pos, basePos, vel, acc, scale, offset, rotation } = particle;
 
-      // --- APPLIED PHYSICS: Curl Drift ---
-      acc.x += Math.cos(time * speed + xAngle) * 0.0008;
-      acc.y += Math.sin(time * speed + yAngle) * 0.0008;
-      acc.z += Math.cos(time * speed + zAngle) * 0.0008;
+      // Subtle float movement
+      acc.x += Math.sin(time * 0.5 + offset) * 0.001;
+      acc.y += Math.cos(time * 0.4 + offset) * 0.001;
+      acc.z += Math.sin(time * 0.3 + offset) * 0.001;
 
-      // --- INTERACTION: Mouse Repulsion ---
+      // Interaction
       const mousePos = new THREE.Vector3(mx, my, 0);
       const dist = pos.distanceTo(mousePos);
-
-      // Increased interaction radius and responsiveness
-      if (dist < 6) {
+      if (dist < 8) {
         const repulsion = new THREE.Vector3()
           .subVectors(pos, mousePos)
           .normalize();
-        const force = (6 - dist) * 0.008; // Stronger, wider repulsion
+        const force = (8 - dist) * 0.01;
         acc.add(repulsion.multiplyScalar(force));
       }
 
-      // --- INTERACTION: Hover Dispersal ---
+      // Hover Dispersal
       if (isHovered) {
         const centerDist = pos.length();
         const dispersal = pos.clone().normalize();
-        const force = Math.max(0, (22 - centerDist) * 0.012);
+        const force = Math.max(0, (30 - centerDist) * 0.005);
         acc.add(dispersal.multiplyScalar(force));
       }
 
-      // --- PHYSICS INTEGRATION ---
+      // Return to base position (subtle)
+      const returnForce = new THREE.Vector3()
+        .subVectors(basePos, pos)
+        .multiplyScalar(0.005);
+      acc.add(returnForce);
+
       vel.add(acc);
-      vel.multiplyScalar(0.98); // Drag
+      vel.multiplyScalar(0.95);
       pos.add(vel);
       acc.set(0, 0, 0);
 
-      // --- BOUNDARY CHECK: Smooth Teleport ---
-      if (pos.x > 35) pos.x = -35;
-      if (pos.x < -35) pos.x = 35;
-      if (pos.y > 25) pos.y = -25;
-      if (pos.y < -25) pos.y = 25;
-      if (pos.z > 20) pos.z = -20;
-      if (pos.z < -20) pos.z = 20;
-
-      // --- TRANSFORM MESH INSTANCE ---
       dummy.position.copy(pos);
-      dummy.rotation.set(time * speed, time * speed, time * speed);
+      // Align rotation to movement or just subtle spin
+      dummy.rotation.set(
+        rotation.x + time * 0.2,
+        rotation.y + time * 0.1,
+        rotation.z + time * 0.15,
+      );
+
       const s = isUnlocking ? THREE.MathUtils.lerp(scale, 0, 0.1) : scale;
-      dummy.scale.set(s, s, s);
+      // Adjust size based on the base constant and individual random scale
+      const finalScale = PARTICLE_BASE_SIZE * s;
+      dummy.scale.set(finalScale, finalScale, finalScale);
       dummy.updateMatrix();
       meshRef.current.setMatrixAt(i, dummy.matrix);
+
+      // --- COLOR SHIMMER ANIMATION ---
+      if (particle.isShimmer) {
+        const shimmer =
+          Math.sin(time * particle.shimmerSpeed + particle.offset) * 0.5 + 0.5;
+        // Boost color intensity significantly to trigger Bloom emission
+        dummyColor.copy(particle.baseColor).multiplyScalar(1 + shimmer * 25);
+        meshRef.current.setColorAt(i, dummyColor);
+      }
     });
 
     meshRef.current.instanceMatrix.needsUpdate = true;
-
-    /**
-     * @animation Opacity_Lerp
-     * Smoothly transitions the material opacity based on hover/unlock states.
-     */
+    meshRef.current.instanceColor.needsUpdate = true;
     meshRef.current.material.opacity = THREE.MathUtils.lerp(
       meshRef.current.material.opacity,
-      isUnlocking ? 0 : isHovered ? 0.2 : 0.7,
+      isUnlocking ? 0 : 0.8,
       0.05,
     );
   });
 
   return (
     <instancedMesh ref={meshRef} args={[null, null, PARTICLE_COUNT]}>
-      <icosahedronGeometry args={[0.1, 1]} />
-      <meshStandardMaterial
-        color="#FFFFFF" // Use white base so instance colors show correctly
-        emissive="#444444" // Neutral emissive to support all colors
-        emissiveIntensity={1}
-        transparent
-        roughness={0.03}
-        metalness={1.0}
-      />
+      <sphereGeometry args={[1, 4, 4]} />
+      <meshBasicMaterial transparent opacity={0.8} />
     </instancedMesh>
   );
 };
@@ -371,9 +367,7 @@ const LoadingScreen = ({ onFinished }) => {
     // <!-- WRAPPER: Cinematic Container -->
     <div
       ref={containerRef}
-      className={`fixed inset-0 z-[9999] transition-colors duration-2000 overflow-hidden select-none ${
-        isHovered ? "bg-black" : "bg-[#00050A]"
-      }`}
+      className={`fixed inset-0 z-[9999] transition-colors duration-2000 overflow-hidden select-none bg-black`}
     >
       {/* <!-- ELEMENT: 3D Scene Layer --> */}
       <div className="absolute inset-0">
@@ -382,10 +376,7 @@ const LoadingScreen = ({ onFinished }) => {
           gl={{ antialias: false, powerPreference: "high-performance" }}
           style={{ touchAction: "none" }}
         >
-          <color
-            attach="background"
-            args={isHovered ? ["#000000"] : ["#00050A"]}
-          />
+          <color attach="background" args={["#000000"]} />
           <ambientLight intensity={0.2} />
           <pointLight position={[10, 10, 10]} intensity={2} color="#FDB927" />
           <spotLight
@@ -393,7 +384,7 @@ const LoadingScreen = ({ onFinished }) => {
             angle={0.15}
             penumbra={1}
             intensity={5}
-            color="#white"
+            color="white"
           />
 
           <ParticleField isUnlocking={isUnlocking} isHovered={isHovered} />
@@ -427,7 +418,7 @@ const LoadingScreen = ({ onFinished }) => {
               <h1 className="text-white text-3xl font-black tracking-[0.5em] uppercase opacity-60 animate-pulse">
                 {isPausedAtCritical ? "Checking Core Vitals" : "Initializing"}
               </h1>
-              <div className="w-full h-px bg-white/5 rounded-full overflow-hidden">
+              <div className="w-full h-px bg-white/10 rounded-full overflow-hidden">
                 <div
                   className="h-full bg-pacers-gold transition-all duration-300 ease-out shadow-[0_0_15px_#FDB927]"
                   style={{ width: `${displayProgress}%` }}
@@ -449,7 +440,7 @@ const LoadingScreen = ({ onFinished }) => {
                   onClick={handleUnlock}
                   onMouseEnter={() => setIsHovered(true)}
                   onMouseLeave={() => setIsHovered(false)}
-                  className="group relative px-12 py-6 bg-white/2 border border-white/10 rounded-full backdrop-blur-3xl transition-all duration-700 hover:bg-pacers-gold/5 hover:border-pacers-gold/30 hover:scale-105 active:scale-95 cursor-pointer overflow-hidden shadow-2xl"
+                  className="group relative px-12 py-6 bg-white/5 border border-white/10 rounded-full backdrop-blur-3xl transition-all duration-700 hover:bg-pacers-gold/5 hover:border-pacers-gold/30 hover:scale-105 active:scale-95 cursor-pointer overflow-hidden shadow-2xl"
                 >
                   <div className="relative z-10 flex items-center gap-5">
                     <div className="p-3 bg-pacers-gold/10 rounded-full group-hover:bg-pacers-gold/20 transition-colors shadow-inner">
@@ -488,7 +479,6 @@ const LoadingScreen = ({ onFinished }) => {
                   <span className="relative z-10 text-sm font-bold tracking-[0.3em] uppercase">
                     2018 Lebron
                   </span>
-                  <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
                 </button>
               </div>
             </div>
@@ -501,8 +491,8 @@ const LoadingScreen = ({ onFinished }) => {
           <p className="text-white/40 text-[9px] font-mono tracking-tighter uppercase whitespace-pre leading-relaxed">
             Engine: R3F + PostProcessing{"\n"}
             Renderer: WebGL 2.0 / InstancedMesh{"\n"}
-            Physics: Curl Noise / Drag Vector{"\n"}
-            Volume: 4.0k Icosahedrons
+            Physics: Micro-Particles{"\n"}
+            Volume: {PARTICLE_COUNT / 1000}k Core Units
           </p>
         </div>
       </div>

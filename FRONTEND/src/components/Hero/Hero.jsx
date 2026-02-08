@@ -63,13 +63,23 @@ const Hero = () => {
   return (
     <section
       id="hero"
-      className="hero min-h-screen relative flex flex-col justify-center items-center overflow-hidden px-6 md:px-12 py-32"
+      className="hero min-h-dvh relative flex flex-col justify-center items-center overflow-hidden px-6 md:px-12 py-32"
       ref={heroRef}
     >
+      {/* VIDEO BACKGROUND - Now moved to the root of the section */}
+      <video
+        src={bgv}
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="absolute inset-0 h-full w-full object-cover z-[-1] pointer-events-none brightness-50"
+      />
+
       <img
         src={heroBG}
         alt="Hero Background"
-        className="absolute inset-0 w-full h-full object-cover blur-lg invert brightness-90 z-[-1]"
+        className="absolute inset-0 w-full h-full object-cover blur-lg invert brightness-90 z-[-2]"
       />
 
       <motion.div
@@ -78,19 +88,12 @@ const Hero = () => {
         animate={isVisible ? "visible" : "hidden"}
         variants={containerVariants}
       >
-        <div className="hero__content relative min-h-[85vh] flex flex-col justify-center overflow-hidden rounded-2xl glass-panel p-8 md:p-20">
+        {/* Removed min-h-[85vh] from here so it adapts to content */}
+        <div className="hero__content relative flex flex-col justify-center overflow-hidden rounded-2xl glass-panel p-8 md:p-20">
           <div
             className="absolute inset-0 z-0 opacity-10
             bg-[linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)]
             bg-[size:20px_30px]"
-          />
-
-          <video
-            src={bgv}
-            autoPlay
-            muted
-            playsInline
-            className="absolute inset-0 h-full w-full object-cover blur-none brightness-100  z-[-1] pointer-events-none"
           />
 
           <motion.div
@@ -192,7 +195,7 @@ const Hero = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-1000 flex items-center justify-center p-4 md:p-8 bg-black/90 backdrop-blur-xl"
+            className="fixed inset-0 z-[1000] flex items-center justify-center p-4 md:p-8 bg-black/90 backdrop-blur-xl"
             onClick={() => setIsResumeOpen(false)}
           >
             <motion.div

@@ -7,7 +7,7 @@ import Skills from "./components/Skills/Skills";
 import Footer from "./components/Footer/Footer";
 import "./App.css";
 import Sammy from "./assets/Sammy.png";
-import LoadingScreen from "./components/loader/loadingScrean";
+import LoadingScreen from "./components/loader/LoadingScreen";
 import { useState } from "react";
 
 const SammyBG = () => {
@@ -17,7 +17,6 @@ const SammyBG = () => {
     </div>
   );
 };
-
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
