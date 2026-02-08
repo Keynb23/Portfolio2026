@@ -1,11 +1,6 @@
 import { ListBox, ListBoxItem } from "react-aria-components";
 import ProjectCard from "./fwCards";
 
-/**
- * Carousel Component - The horizontal sliding container for project cards.
- * Uses React Aria ListBox for superior accessibility and semantic structure.
- * Animation is driven by vertical scroll progress translated to horizontal movement.
- */
 const Carousel = ({ projects, formatText, toggleBionic, isBionicMode }) => {
   return (
     /* 

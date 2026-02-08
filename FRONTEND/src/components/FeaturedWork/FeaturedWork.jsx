@@ -1,14 +1,13 @@
 import { useEffect, useRef } from "react";
-import { useBionic } from "../../hooks/useBionic"; // Hook for Bionic reading mode
-import Carousel from "./Carousel"; // Carousel component for project display
-import projects from "./projects"; // Project data provider
+import { useBionic } from "../../hooks/useBionic";
+import Carousel from "./Carousel";
+import projects from "./projects";
+import FW_Header from "./FW_Header";
 
-/**
- * FeaturedWork Component - A high-impact section showcasing portfolio projects.
- * Implements a sticky-scroll horizontal carousel driven by native vertical scroll progress.
- */
+//  * FeaturedWork Component - A high-impact section showcasing portfolio projects.
+//  * Implements a sticky-scroll horizontal carousel driven by native vertical scroll progress.
+
 const FeaturedWork = () => {
-  // Extract Bionic Reading utilities from context
   const { isBionicMode, toggleBionic, formatText } = useBionic();
   const containerRef = useRef(null);
   const projectData = projects();
@@ -41,28 +40,27 @@ const FeaturedWork = () => {
     <div
       id="work-container"
       ref={containerRef}
-      className="work-container relative h-[800vh] mt-20 mb-10 z-10 bg-pacers-navy-dark"
+      className="work-container relative h-[800vh] mt-10 mb-10 z-10 bg-pacers-navy-dark"
     >
       {/* Sticky viewport section that stays fixed while the parent container scrolls */}
       <section
         id="work"
-        className="sticky top-0 w-full h-screen overflow-hidden bg-pacers-navy-dark flex flex-col justify-center"
+        className="sticky top-0 w-full h-dvh overflow-hidden bg-pacers-navy-dark flex flex-col justify-center"
       >
-        {/* Responsive header for the section */}
-        <div className="container mx-auto px-10 md:px-20 mb-12 relative z-20">
-          <h2 className="text-5xl md:text-8xl font-black text-white tracking-tighter uppercase drop-shadow-2xl">
-            {/* Applies Bionic reading formatting if enabled */}
-            {formatText("Featured Work")}
-          </h2>
+        {/* Featured Work Header */}
+        <div className="flex justify-center self-auto mx-10 ">
+          <FW_Header />
         </div>
 
         {/* Project carousel component passing through Bionic state and logic */}
-        <Carousel
-          projects={projectData}
-          formatText={formatText}
-          toggleBionic={toggleBionic}
-          isBionicMode={isBionicMode}
-        />
+        <div className="flex-1 min-h-0 w-full">
+          <Carousel
+            projects={projectData}
+            formatText={formatText}
+            toggleBionic={toggleBionic}
+            isBionicMode={isBionicMode}
+          />
+        </div>
       </section>
     </div>
   );

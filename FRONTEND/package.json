@@ -20,6 +20,7 @@
     "gsap": "^3.14.2",
     "jotai": "^2.17.1",
     "lucide-react": "^0.563.0",
+    "motion": "^12.33.0",
     "postprocessing": "^6.38.2",
     "react": "^19.2.0",
     "react-aria-components": "^1.14.0",

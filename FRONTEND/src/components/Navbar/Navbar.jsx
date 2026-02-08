@@ -46,9 +46,7 @@ const Navbar = () => {
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 w-full z-100 transition-all duration-300 ${
-          isScrolled ? "py-6 bg-black/5" : "bg-transparent py-8"
-        }`}
+        className={`fixed top-0 left-0 w-full z-100 transition-all duration-300`}
       >
         <div className="w-full px-10 md:px-16 flex justify-between items-center">
           {/* Logo */}
@@ -56,7 +54,7 @@ const Navbar = () => {
             <img
               src="/key-chain.png"
               alt="Logo"
-              className={`w-10 h-10 transition-all ${isBeigeSection && !isMenuOpen ? "brightness-50" : ""}`}
+              className={`w-10 h-10 transition-all ${isBeigeSection && !isMenuOpen }`}
             />
           </a>
 
