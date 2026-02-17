@@ -26,9 +26,10 @@
     "react-aria-components": "^1.14.0",
     "react-dom": "^19.2.0",
     "react-to-print": "^3.2.0",
-    "tailwind-merge": "^3.4.0",
+    "tailwind-merge": "^3.4.1",
     "tailwindcss": "^4.1.18",
-    "three": "^0.182.0"
+    "tailwindcss-animate": "^1.0.7",
+    "three": "^0.167.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",

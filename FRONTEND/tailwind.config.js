@@ -20,9 +20,29 @@ export default {
             DEFAULT: "#BEC0C2",
             dark: "#8D9093",
           },
+           'dark-purple': '#28043f',
+           'light-burgundy': '#1e0505',
+           'warm-grey': '#c1baba',
+      },      
+      backgroundImage: {
+        'gradient-hero': 'linear-gradient(135deg, #1e0505 0%, #c1baba 50%, #28043f 100%)',
+      },
+      keyframes: {
+        gradient: {
+          '0%, 100%': { backgroundPosition: '0% 50%' },
+          '50%': { backgroundPosition: '100% 50%' },
         },
+        shimmer: {
+          '0%': { transform: 'translateX(-100%)' },
+          '100%': { transform: 'translateX(100%)' },
+        },
+      },
+      animation: {
+        gradient: 'gradient 8s ease infinite',
+        shimmer: 'shimmer 2.5s linear infinite',
       },
     },
   },
+
   plugins: [],
-};
+}};
