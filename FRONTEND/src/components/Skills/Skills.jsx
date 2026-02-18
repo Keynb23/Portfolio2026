@@ -52,7 +52,7 @@ const Skills = () => {
           obs.disconnect();
         }
       },
-      { threshold: 0.12 }
+      { threshold: 0.12 },
     );
     obs.observe(el);
     return () => obs.disconnect();
@@ -70,14 +70,14 @@ const Skills = () => {
         {items.map((item, i) => (
           <motion.div
             key={item.name}
-            className="aspect-square flex flex-col items-center justify-center p-6 rounded-3xl bg-pacers-navy/20 border border-white/5 shadow-xl transition-all duration-500 hover:border-pacers-gold/50 hover:bg-pacers-navy/40 group"
+            className="aspect-square flex flex-col items-center justify-center p-6 rounded-3xl bg-diner-dark-graphite/40 border border-white/5 shadow-xl transition-all duration-500 hover:border-diner-crimson/50 hover:bg-diner-dark-graphite/60 group"
             animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ delay: 0.1 + i * 0.04 }}
           >
             <div className="text-4xl mb-4 group-hover:-translate-y-2 transition-transform duration-300">
               {item.icon}
             </div>
-            <div className="text-[10px] text-pacers-silver font-black text-center uppercase tracking-[0.2em]">
+            <div className="text-[10px] text-diner-silver font-black text-center uppercase tracking-[0.2em]">
               {item.name}
             </div>
           </motion.div>
@@ -90,7 +90,7 @@ const Skills = () => {
     <section
       id="skills"
       ref={sectionRef}
-      className="skills w-full min-h-screen flex flex-col justify-center bg-pacers-navy-dark relative overflow-hidden pt-48 pb-24"
+      className="skills w-full min-h-screen flex flex-col justify-center bg-diner-black relative overflow-hidden pt-48 pb-24"
     >
       <div className="container mx-auto px-10 md:px-20">
         <div className="flex flex-col lg:flex-row items-start justify-between gap-16 lg:gap-32">
@@ -99,21 +99,21 @@ const Skills = () => {
           >
             <div className="flex">
               <div className="hidden md:flex flex-col items-center mr-16 pt-4">
-                <span className="rotate-180 [writing-mode:vertical-lr] text-[10px] tracking-[0.5em] uppercase text-pacers-silver/30 font-black mb-12">
+                <span className="rotate-180 [writing-mode:vertical-lr] text-[10px] tracking-[0.5em] uppercase text-diner-silver/30 font-black mb-12">
                   Technical Arsenal
                 </span>
-                <div className="w-px h-48 bg-linear-to-b from-pacers-navy to-pacers-gold opacity-50" />
+                <div className="w-px h-48 bg-linear-to-b from-diner-crimson to-diner-silver opacity-50" />
               </div>
 
               <div>
                 <h2 className="text-6xl md:text-8xl font-black text-white leading-[0.9] tracking-tighter uppercase">
                   Explore My
                   <br />
-                  <span className="text-pacers-gold">Expertise</span> &amp;
+                  <span className="text-diner-crimson">Expertise</span> &amp;
                   <br />
                   Tech Stack
                 </h2>
-                <p className="mt-12 text-pacers-silver text-xl leading-relaxed max-w-xl font-medium opacity-80">
+                <p className="mt-12 text-diner-silver text-xl leading-relaxed max-w-xl font-medium opacity-80">
                   These are the tools and technologies that I use daily to
                   develop high-performance applications.
                 </p>

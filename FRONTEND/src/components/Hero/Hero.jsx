@@ -117,7 +117,7 @@ const Hero = () => {
           >
             <button
               onClick={() => setIsResumeOpen(true)}
-              className="max-w-[80%] md:max-w-[60%] px-6 py-4 bg-black/80 text-pacers-gold hover:text-white border-2 border-pacers-gold/30 hover:border-pacers-gold transition-all shadow-2xl shadow-pacers-gold/10 font-bold rounded-3xl rounded-tr-none flex items-center gap-3 active:scale-95"
+              className="max-w-[80%] md:max-w-[60%] px-6 py-4 bg-black/80 text-diner-crimson hover:text-white border-2 border-diner-crimson/30 hover:border-diner-crimson transition-all shadow-2xl shadow-diner-crimson/10 font-bold rounded-3xl rounded-tr-none flex items-center gap-3 active:scale-95"
             >
               <FileText size={18} />
               <span>
@@ -133,8 +133,9 @@ const Hero = () => {
             className="hero__headline text-4xl md:text-7xl font-black leading-tight text-white mb-8 max-w-4xl uppercase tracking-tighter"
           >
             {formatText("Translating design intent into")}{" "}
-            <span className="text-pacers-gold">{formatText("polished")}</span>,{" "}
-            <span className="text-pacers-gold">
+            <span className="text-diner-crimson">{formatText("polished")}</span>
+            ,{" "}
+            <span className="text-diner-crimson">
               {formatText("intelligent")}
             </span>{" "}
             {formatText("UI")}
@@ -145,7 +146,7 @@ const Hero = () => {
             className="hero__subheadline text-xl md:text-2xl font-medium text-zinc-200 mb-12 max-w-2xl leading-relaxed opacity-75"
           >
             {formatText("Specializing in")}{" "}
-            <strong className="text-pacers-gold">
+            <strong className="text-diner-crimson">
               {formatText("React, Python, and Machine Learning")}
             </strong>
             .{" "}
@@ -172,8 +173,8 @@ const Hero = () => {
         </div>
 
         <div className="hero__decoration absolute top-0 right-0 w-1/2 h-full pointer-events-none opacity-20 hidden lg:block">
-          <div className="hero__decoration-circle--1 absolute w-96 h-96 top-10 right-10 rounded-full bg-pacers-navy blur-[150px] animate-float"></div>
-          <div className="hero__decoration-line absolute top-1/2 right-0 w-[2px] h-48 bg-linear-to-b from-transparent via-pacers-navy to-transparent -translate-y-1/2"></div>
+          <div className="hero__decoration-circle--1 absolute w-96 h-96 top-10 right-10 rounded-full bg-diner-crimson blur-[150px] animate-float"></div>
+          <div className="hero__decoration-line absolute top-1/2 right-0 w-[2px] h-48 bg-linear-to-b from-transparent via-diner-crimson to-transparent -translate-y-1/2"></div>
         </div>
       </motion.div>
 
@@ -184,7 +185,7 @@ const Hero = () => {
         <motion.div
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          className="w-px h-12 bg-linear-to-b from-pacers-gold to-transparent"
+          className="w-px h-12 bg-linear-to-b from-diner-crimson to-transparent"
         />
       </div>
 
@@ -207,7 +208,7 @@ const Hero = () => {
             >
               <div className="p-6 md:p-10 border-b border-white/5 flex justify-between items-center bg-zinc-900/50 sticky top-0 z-10">
                 <div className="flex items-center gap-4">
-                  <div className="p-3 bg-pacers-gold rounded-xl text-pacers-navy">
+                  <div className="p-3 bg-diner-crimson rounded-xl text-white">
                     <FileText size={24} />
                   </div>
                   <div>

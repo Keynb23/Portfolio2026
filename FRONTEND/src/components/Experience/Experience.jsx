@@ -52,7 +52,7 @@ const Experience = () => {
   return (
     <section
       id="experience"
-      className="experience py-32 bg-pacers-silver-light relative"
+      className="experience py-32 bg-diner-black relative"
       ref={sectionRef}
     >
       <div className="container mx-auto px-6 md:px-12">
@@ -63,18 +63,18 @@ const Experience = () => {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="experience__title text-5xl md:text-6xl font-black text-pacers-navy mb-4 uppercase tracking-tighter">
+          <h2 className="experience__title text-5xl md:text-6xl font-black text-white mb-4 uppercase tracking-tighter">
             Experience
           </h2>
-          <p className="experience__subtitle text-xl text-pacers-navy/60 max-w-2xl mx-auto font-medium">
+          <p className="experience__subtitle text-xl text-white/60 max-w-2xl mx-auto font-medium">
             Professional journey building polished, accessible user interfaces
           </p>
         </motion.div>
 
         {/* Timeline Container */}
         <div className="experience__timeline max-w-4xl mx-auto relative">
-          {/* Vertical timeline line - Pacers Navy */}
-          <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-1 md:-translate-x-1/2 bg-pacers-navy/10 rounded-full" />
+          {/* Vertical timeline line - Diner Crimson */}
+          <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-1 md:-translate-x-1/2 bg-diner-crimson/20 rounded-full" />
 
           {/* Individual Experience Cards */}
           <div className="space-y-20">
@@ -89,52 +89,52 @@ const Experience = () => {
                 transition={{ duration: 0.8, delay: index * 0.2 }}
               >
                 {/* Timeline Center Dot */}
-                <div className="absolute left-[-5px] md:left-1/2 top-1 md:-translate-x-1/2 w-4 h-4 rounded-full bg-pacers-gold border-4 border-pacers-navy z-10 shadow-lg shadow-pacers-gold/20" />
+                <div className="absolute left-[-5px] md:left-1/2 top-1 md:-translate-x-1/2 w-4 h-4 rounded-full bg-diner-crimson border-4 border-diner-black z-10 shadow-lg shadow-diner-crimson/40" />
 
                 {/* Content Side */}
                 <div className="w-full md:w-1/2 pl-8 md:pl-0">
-                  <div className="experience-card__content bg-white p-8 md:p-10 rounded-[2.5rem] shadow-xl shadow-pacers-navy/5 border border-white hover:shadow-2xl transition-all duration-500 group">
+                  <div className="experience-card__content bg-diner-dark-graphite p-8 md:p-10 rounded-[2.5rem] shadow-xl shadow-black/20 border border-white/5 hover:border-diner-crimson/30 hover:shadow-diner-crimson/5 transition-all duration-500 group">
                     {/* Header: Role and Company */}
                     <div className="flex flex-col mb-6">
                       <div className="flex items-center gap-2 mb-2">
-                        <Briefcase size={16} className="text-pacers-gold" />
-                        <span className="text-xs font-black text-pacers-gold uppercase tracking-widest">
+                        <Briefcase size={16} className="text-diner-crimson" />
+                        <span className="text-xs font-black text-diner-crimson uppercase tracking-widest">
                           {formatText(exp.period)}
                         </span>
                       </div>
-                      <h3 className="text-2xl md:text-3xl font-black text-pacers-navy mb-1 group-hover:text-pacers-gold-dark transition-colors">
+                      <h3 className="text-2xl md:text-3xl font-black text-white mb-1 group-hover:text-diner-crimson transition-colors">
                         {formatText(exp.role)}
                       </h3>
-                      <p className="text-xl font-bold text-pacers-navy/40">
+                      <p className="text-xl font-bold text-white/40">
                         {formatText(exp.company)}
                       </p>
                     </div>
 
                     {/* Metadata: Location */}
-                    <div className="flex items-center gap-1.5 text-sm text-pacers-navy/50 font-bold uppercase tracking-widest mb-6">
+                    <div className="flex items-center gap-1.5 text-sm text-white/50 font-bold uppercase tracking-widest mb-6">
                       <MapPin size={14} />
                       {formatText(exp.location)}
                     </div>
 
                     {/* Description Paragraph */}
-                    <p className="experience-card__description text-pacers-navy/70 leading-relaxed mb-8 font-medium">
+                    <p className="experience-card__description text-white/70 leading-relaxed mb-8 font-medium">
                       {formatText(exp.description)}
                     </p>
 
                     {/* Key Achievements List */}
                     <div className="experience-card__achievements mb-8">
-                      <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-pacers-navy/30 mb-4 px-2">
+                      <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-white/30 mb-4 px-2">
                         Key Achievements
                       </h4>
                       <ul className="space-y-3">
                         {exp.achievements.map((achievement, idx) => (
                           <li
                             key={idx}
-                            className="flex items-start gap-3 text-sm font-semibold text-pacers-navy/60 group-hover:text-pacers-navy transition-colors"
+                            className="flex items-start gap-3 text-sm font-semibold text-white/60 group-hover:text-white transition-colors"
                           >
                             <ChevronRight
                               size={14}
-                              className="mt-1 text-pacers-gold shrink-0"
+                              className="mt-1 text-diner-crimson shrink-0"
                             />
                             {formatText(achievement)}
                           </li>
@@ -143,11 +143,11 @@ const Experience = () => {
                     </div>
 
                     {/* Technical Stack Tags */}
-                    <div className="experience-card__tech flex flex-wrap gap-2 pt-6 border-t border-pacers-navy/5">
+                    <div className="experience-card__tech flex flex-wrap gap-2 pt-6 border-t border-white/5">
                       {exp.tech.map((tech, idx) => (
                         <span
                           key={idx}
-                          className="px-4 py-1.5 bg-pacers-navy/5 border border-pacers-navy/5 rounded-full text-[10px] font-bold text-pacers-navy/60 uppercase tracking-widest hover:border-pacers-gold/30 hover:text-pacers-gold transition-all"
+                          className="px-4 py-1.5 bg-white/5 border border-white/5 rounded-full text-[10px] font-bold text-white/60 uppercase tracking-widest hover:border-diner-crimson/30 hover:text-diner-crimson transition-all"
                         >
                           {tech}
                         </span>

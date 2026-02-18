@@ -8,18 +8,18 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  /* Indiana Pacers Color Palette */
-  --color-pacers-navy-light: #1a4a7a;
-  --color-pacers-navy: #002d62;
-  --color-pacers-navy-dark: #001a3d;
+  /* Futuristic 60s Diner at Night Palette */
+  --color-diner-black: #050505;
+  --color-diner-crimson: #e61919;
+  --color-diner-white: #f5f5f5;
+  --color-diner-silver: #bec0c2;
+  --color-diner-dark-graphite: #1a1a1a;
 
-  --color-pacers-gold-light: #ffd167;
-  --color-pacers-gold: #fdb927;
-  --color-pacers-gold-dark: #c88e1c;
-
-  --color-pacers-silver-light: #d9dbdc;
-  --color-pacers-silver: #bec0c2;
-  --color-pacers-silver-dark: #8d9093;
+  /* Semantic Aliases */
+  --color-primary-accent: var(--color-diner-crimson);
+  --color-secondary-accent: var(--color-diner-white);
+  --color-neutral-silver: var(--color-diner-silver);
+  --color-neutral-dark: var(--color-diner-dark-graphite);
 
   /* Typography Tokens */
   --font-main:
@@ -47,8 +47,8 @@
 
   body {
     font-family: var(--font-main);
-    background-color: #071022; /* Primary Dark Background */
-    color: #f8f8ff; /* Ghost White Text */
+    background-color: var(--color-diner-black);
+    color: var(--color-diner-white);
     overflow-x: hidden;
   }
 
@@ -106,23 +106,23 @@
     background: transparent;
   }
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: rgba(253, 185, 39, 0.2);
+    background: rgba(230, 25, 25, 0.4);
     border-radius: 10px;
   }
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: rgba(253, 185, 39, 0.4);
+    background: rgba(230, 25, 25, 0.7);
   }
 }
 
 @keyframes colorShift {
   0%,
   100% {
-    color: #fdb927;
-    text-shadow: 0 0 10px rgba(0, 45, 98, 0.8);
+    color: var(--color-diner-crimson);
+    text-shadow: 0 0 15px rgba(230, 25, 25, 0.8);
   }
   50% {
-    color: #ffd167;
-    text-shadow: 0 0 20px rgba(0, 45, 98, 0.4);
+    color: var(--color-diner-white);
+    text-shadow: 0 0 25px rgba(255, 255, 255, 0.4);
   }
 }
 

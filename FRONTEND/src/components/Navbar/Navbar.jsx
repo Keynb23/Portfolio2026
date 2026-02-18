@@ -8,26 +8,10 @@ import NavMenu from "./NavMenu"; // Reorganized menu component
  * Removed blur effect for a cleaner, higher-contrast look.
  */
 const Navbar = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isBeigeSection, setIsBeigeSection] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 50);
-
-    // Observer for sectional contrast
-    const observer = new IntersectionObserver(
-      ([entry]) => setIsBeigeSection(entry.isIntersecting),
-      { rootMargin: "-80px 0px -90% 0px", threshold: 0 }
-    );
-    const experienceSection = document.querySelector("#experience");
-    if (experienceSection) observer.observe(experienceSection);
-
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      if (experienceSection) observer.unobserve(experienceSection);
-    };
+    // Scroll handling or other listeners could go here if needed
   }, []);
 
   const ref = useRef();
@@ -36,12 +20,11 @@ const Navbar = () => {
       onPress: () => setIsMenuOpen(!isMenuOpen),
       "aria-label": "Toggle Menu",
     },
-    ref
+    ref,
   );
 
   // Dynamic colors for the keyhole button
-  const iconColor =
-    isMenuOpen || isBeigeSection ? "text-pacers-navy" : "text-white";
+  const iconColor = isMenuOpen ? "text-diner-black" : "text-white";
 
   return (
     <>
@@ -54,7 +37,7 @@ const Navbar = () => {
             <img
               src="/key-chain.png"
               alt="Logo"
-              className={`w-10 h-10 transition-all ${isBeigeSection && !isMenuOpen }`}
+              className={`w-10 h-10 transition-all`}
             />
           </a>
 
@@ -64,13 +47,13 @@ const Navbar = () => {
             ref={ref}
             className={`group relative z-110 p-3 rounded-full transition-all duration-300 hover:scale-110 active:scale-95 outline-none ${
               isMenuOpen
-                ? "bg-pacers-gold rotate-90 shadow-xl"
+                ? "bg-diner-crimson rotate-90 shadow-xl"
                 : "bg-transparent"
             }`}
           >
             <Key
               size={32}
-              className={`transition-colors duration-300 ${iconColor} ${!isMenuOpen && "hover:text-pacers-gold"}`}
+              className={`transition-colors duration-300 ${iconColor} ${!isMenuOpen && "hover:text-diner-crimson"}`}
               strokeWidth={3}
             />
           </button>

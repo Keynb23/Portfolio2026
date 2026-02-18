@@ -10,13 +10,13 @@ export const buttonVariants = cva(
     variants: {
       variant: {
         primary:
-          "bg-pacers-navy text-pacers-gold border-2 border-pacers-navy hover:bg-pacers-gold hover:text-pacers-navy hover:border-pacers-gold shadow-lg shadow-pacers-navy/20",
+          "bg-diner-crimson text-white border-2 border-diner-crimson hover:bg-white hover:text-diner-crimson hover:border-white shadow-lg shadow-diner-crimson/20",
         secondary:
-          "bg-transparent text-white border-2 border-white/20 hover:border-pacers-gold hover:text-pacers-gold",
-        gold: "bg-pacers-gold text-pacers-navy hover:bg-pacers-gold-dark shadow-lg shadow-gold/20",
+          "bg-transparent text-white border-2 border-white/20 hover:border-diner-crimson hover:text-diner-crimson",
+        gold: "bg-diner-crimson text-white hover:bg-diner-crimson/80 shadow-lg shadow-diner-crimson/20",
         outline:
-          "bg-transparent border-2 border-pacers-navy text-pacers-navy hover:bg-pacers-navy hover:text-white",
-        ghost: "bg-transparent hover:bg-pacers-navy/10 text-pacers-navy",
+          "bg-transparent border-2 border-diner-crimson text-diner-crimson hover:bg-diner-crimson hover:text-white",
+        ghost: "bg-transparent hover:bg-diner-crimson/10 text-diner-crimson",
       },
       size: {
         default: "px-6 py-3",
@@ -29,5 +29,5 @@ export const buttonVariants = cva(
       variant: "primary",
       size: "default",
     },
-  }
+  },
 );

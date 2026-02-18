@@ -803,9 +803,9 @@ export function useFluidSimulation(canvasRef, props) {
     }
 
     const THEME_COLORS = [
-      { r: 0.0, g: 0.176, b: 0.384 }, // Navy (#002D62)
-      { r: 0.992, g: 0.725, b: 0.153 }, // Gold (#FDB927)
+      { r: 0.902, g: 0.098, b: 0.098 }, // Crimson Red (#E61919)
       { r: 0.745, g: 0.753, b: 0.761 }, // Silver (#BEC0C2)
+      { r: 0.96, g: 0.96, b: 0.96 }, // Paper White (#F5F5F5)
     ];
 
     function generateColor() {

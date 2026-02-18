@@ -12,7 +12,7 @@ body {
 }
 
 /* Base structural layout for the application */
-.w-full.bg-pacers-navy-dark {
+.w-full.bg-diner-black {
   display: block;
   position: relative;
   width: 100%;

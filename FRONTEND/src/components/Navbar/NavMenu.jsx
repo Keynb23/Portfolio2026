@@ -53,7 +53,7 @@ const NavMenu = ({ isOpen, onClose }) => {
 
       {/* Side Drawer menu */}
       <div
-        className={`fixed top-0 right-0 h-full w-full sm:w-[400px] md:w-[450px] bg-pacers-silver shadow-2xl z-105 
+        className={`fixed top-0 right-0 h-full w-full sm:w-[400px] md:w-[450px] bg-diner-dark-graphite shadow-2xl z-105 
         flex flex-col transition-transform duration-500 ease-in-out ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
@@ -62,16 +62,16 @@ const NavMenu = ({ isOpen, onClose }) => {
           {/* Explicit Close Button */}
           <button
             onClick={onClose}
-            className="absolute top-6 right-6 p-2 rounded-full hover:bg-pacers-navy/10 text-pacers-navy transition-all z-20 cursor-pointer"
+            className="absolute top-6 right-6 p-2 rounded-full hover:bg-white/10 text-white transition-all z-20 cursor-pointer"
             aria-label="Close menu"
           >
             <X size={28} strokeWidth={3} />
           </button>
 
           {/* Profile Section */}
-          <div className="p-8 md:p-12 pb-8 border-b border-pacers-navy/10 mt-20 md:mt-0 shrink-0">
+          <div className="p-8 md:p-12 pb-8 border-b border-white/10 mt-20 md:mt-0 shrink-0">
             <div className="flex flex-col gap-6 items-center text-center">
-              <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-pacers-navy/20 p-1 bg-white">
+              <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-white/20 p-1 bg-diner-black">
                 <img
                   src={profilePic}
                   alt="Key'n Brosdahl"
@@ -79,17 +79,17 @@ const NavMenu = ({ isOpen, onClose }) => {
                 />
               </div>
               <div>
-                <h2 className="text-3xl font-black text-pacers-navy tracking-tighter uppercase mb-2">
+                <h2 className="text-3xl font-black text-white tracking-tighter uppercase mb-2">
                   Key'n Brosdahl
                 </h2>
-                <p className="text-[10px] font-black tracking-widest text-pacers-gold uppercase bg-pacers-navy px-3 py-1 rounded-full inline-block mb-4">
+                <p className="text-[10px] font-black tracking-widest text-diner-crimson uppercase bg-diner-black px-3 py-1 rounded-full inline-block mb-4">
                   Frontend @ Acellus Academy
                 </p>
-                <p className="text-sm font-bold text-pacers-navy/70 leading-relaxed px-4">
+                <p className="text-sm font-bold text-white/70 leading-relaxed px-4">
                   Aside from coding, I like basketball, working on projects in
                   blender, and prentending to be good at guitar.
                 </p>
-                <p className="text-xs font-medium text-pacers-navy/50 mt-4 italic">
+                <p className="text-xs font-medium text-white/50 mt-4 italic">
                   SE / Frontend / React / UI / (Learning - ML / C# / .NET)
                 </p>
               </div>
@@ -103,7 +103,7 @@ const NavMenu = ({ isOpen, onClose }) => {
                 <li key={link.name}>
                   <a
                     href={link.href}
-                    className="group flex items-center gap-4 text-3xl font-black text-pacers-navy hover:text-pacers-gold transition-all"
+                    className="group flex items-center gap-4 text-3xl font-black text-white hover:text-diner-crimson transition-all"
                     onClick={onClose}
                   >
                     <link.icon className="w-6 h-6 stroke-3 opacity-20 group-hover:opacity-100 transition-opacity" />
@@ -117,14 +117,14 @@ const NavMenu = ({ isOpen, onClose }) => {
           </nav>
 
           {/* Social Footer */}
-          <div className="p-8 md:p-12 pt-8 border-t border-pacers-navy/10 bg-pacers-navy/5 shrink-0 flex flex-col gap-6">
+          <div className="p-8 md:p-12 pt-8 border-t border-white/10 bg-diner-black/5 shrink-0 flex flex-col gap-6">
             {/* Bionic Toggle */}
             <button
               onClick={toggleBionic}
               className={`w-full py-4 rounded-xl font-black uppercase tracking-widest text-xs flex items-center justify-center gap-3 transition-all ${
                 isBionicMode
-                  ? "bg-pacers-gold text-pacers-navy shadow-lg shadow-pacers-gold/20"
-                  : "bg-white text-pacers-navy hover:bg-pacers-gold/20 border border-pacers-navy/10"
+                  ? "bg-diner-crimson text-white shadow-lg shadow-diner-crimson/20"
+                  : "bg-white/5 text-white hover:bg-diner-crimson/20 border border-white/10"
               }`}
             >
               <Eye size={18} />
@@ -141,14 +141,14 @@ const NavMenu = ({ isOpen, onClose }) => {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-3 bg-pacers-navy text-white rounded-xl hover:bg-pacers-gold hover:text-pacers-navy transition-all transform hover:-translate-y-1 shadow-lg shadow-pacers-navy/10"
+                    className="p-3 bg-white/5 text-white rounded-xl hover:bg-diner-crimson hover:text-white transition-all transform hover:-translate-y-1 shadow-lg shadow-black/20"
                     aria-label={social.label}
                   >
                     <social.icon size={20} />
                   </a>
                 ))}
               </div>
-              <p className="text-[10px] font-black text-pacers-navy/30 uppercase tracking-[0.3em] text-center sm:text-right">
+              <p className="text-[10px] font-black text-white/30 uppercase tracking-[0.3em] text-center sm:text-right">
                 KC Metro Area
               </p>
             </div>

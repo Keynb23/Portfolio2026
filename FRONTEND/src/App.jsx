@@ -24,7 +24,7 @@ function App() {
     <>
       {isLoading && <LoadingScreen onFinished={() => setIsLoading(false)} />}
       <Navbar />
-      <div className="w-full bg-pacers-navy-dark relative flex flex-col">
+      <div className="w-full bg-diner-black relative flex flex-col">
         <Hero />
         {/* Interactive horizontal scroll gallery */}
         <FeaturedWork />

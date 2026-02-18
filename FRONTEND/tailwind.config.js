@@ -4,45 +4,36 @@ export default {
   theme: {
     extend: {
       colors: {
-        pacers: {
-          navy: {
-            light: "#1A4A7A",
-            DEFAULT: "#002D62",
-            dark: "#001A3D",
-          },
-          gold: {
-            light: "#FFD167",
-            DEFAULT: "#FDB927",
-            dark: "#C88E1C",
-          },
-          silver: {
-            light: "#D9DBDC",
-            DEFAULT: "#BEC0C2",
-            dark: "#8D9093",
-          },
-           'dark-purple': '#28043f',
-           'light-burgundy': '#1e0505',
-           'warm-grey': '#c1baba',
-      },      
+        diner: {
+          black: "#050505",
+          crimson: "#E61919",
+          white: "#F5F5F5",
+          silver: "#BEC0C2",
+          graphite: "#1A1A1A",
+        },
+        "primary-accent": "#E61919",
+        "secondary-accent": "#F5F5F5",
+      },
       backgroundImage: {
-        'gradient-hero': 'linear-gradient(135deg, #1e0505 0%, #c1baba 50%, #28043f 100%)',
+        "gradient-hero":
+          "linear-gradient(135deg, #0e051eff 0%, #c1baba 50%, #0c0239ff 100%)",
       },
       keyframes: {
         gradient: {
-          '0%, 100%': { backgroundPosition: '0% 50%' },
-          '50%': { backgroundPosition: '100% 50%' },
+          "0%, 100%": { backgroundPosition: "0% 50%" },
+          "50%": { backgroundPosition: "100% 50%" },
         },
         shimmer: {
-          '0%': { transform: 'translateX(-100%)' },
-          '100%': { transform: 'translateX(100%)' },
+          "0%": { transform: "translateX(-100%)" },
+          "100%": { transform: "translateX(100%)" },
         },
       },
       animation: {
-        gradient: 'gradient 8s ease infinite',
-        shimmer: 'shimmer 2.5s linear infinite',
+        gradient: "gradient 8s ease infinite",
+        shimmer: "shimmer 2.5s linear infinite",
       },
     },
   },
 
   plugins: [],
-}};
+};

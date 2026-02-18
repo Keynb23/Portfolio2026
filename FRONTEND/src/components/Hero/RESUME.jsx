@@ -14,21 +14,21 @@ export const RESUME = () => {
         <h1 className="text-4xl font-black text-white print:text-black uppercase tracking-tighter mb-2">
           Key’n Brosdahl
         </h1>
-        <p className="text-xl font-bold text-pacers-gold print:text-pacers-navy uppercase tracking-widest mb-4">
+        <p className="text-xl font-bold text-diner-crimson print:text-black uppercase tracking-widest mb-4">
           Software Engineer
         </p>
         <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm font-bold text-zinc-400 print:text-zinc-700">
           <span>573-397-8946</span>
           <a
             href="mailto:keynb50@gmail.com"
-            className="hover:text-pacers-gold transition-colors"
+            className="hover:text-diner-crimson transition-colors"
           >
             keynb50@gmail.com
           </a>
           <span className="print:hidden text-zinc-600">|</span>
           <a
             href="https://keynb.netlify.app/"
-            className="hover:text-pacers-gold transition-colors"
+            className="hover:text-diner-crimson transition-colors"
           >
             keynb.netlify.app
           </a>
@@ -57,7 +57,7 @@ export const RESUME = () => {
         </h2>
         <div className="grid grid-cols-2 gap-x-12 gap-y-6">
           <div>
-            <h3 className="text-[10px] font-black text-pacers-gold print:text-pacers-navy uppercase tracking-widest mb-2">
+            <h3 className="text-[10px] font-black text-diner-crimson print:text-black uppercase tracking-widest mb-2">
               Languages
             </h3>
             <p className="text-zinc-300 print:text-zinc-800 font-bold">
@@ -65,7 +65,7 @@ export const RESUME = () => {
             </p>
           </div>
           <div>
-            <h3 className="text-[10px] font-black text-pacers-gold print:text-pacers-navy uppercase tracking-widest mb-2">
+            <h3 className="text-[10px] font-black text-diner-crimson print:text-black uppercase tracking-widest mb-2">
               Frameworks
             </h3>
             <p className="text-zinc-300 print:text-zinc-800 font-bold">
@@ -73,7 +73,7 @@ export const RESUME = () => {
             </p>
           </div>
           <div>
-            <h3 className="text-[10px] font-black text-pacers-gold print:text-pacers-navy uppercase tracking-widest mb-2">
+            <h3 className="text-[10px] font-black text-diner-crimson print:text-black uppercase tracking-widest mb-2">
               Tools
             </h3>
             <p className="text-zinc-300 print:text-zinc-800 font-bold">
@@ -81,7 +81,7 @@ export const RESUME = () => {
             </p>
           </div>
           <div>
-            <h3 className="text-[10px] font-black text-pacers-gold print:text-pacers-navy uppercase tracking-widest mb-2">
+            <h3 className="text-[10px] font-black text-diner-crimson print:text-black uppercase tracking-widest mb-2">
               Databases
             </h3>
             <p className="text-zinc-300 print:text-zinc-800 font-bold">
@@ -169,7 +169,7 @@ export const RESUME = () => {
               <h3 className="text-sm font-black text-white print:text-black uppercase tracking-widest">
                 {formatText("Acellus Academy")}
               </h3>
-              <p className="text-[10px] font-bold text-pacers-gold print:text-pacers-navy mb-2">
+              <p className="text-[10px] font-bold text-diner-crimson print:text-black mb-2">
                 {formatText("Software Engineer | Jan 2026 - Present")}
               </p>
               <p className="text-xs text-zinc-400 print:text-zinc-700 font-bold leading-relaxed">
@@ -181,7 +181,7 @@ export const RESUME = () => {
               <h3 className="text-sm font-black text-white print:text-black uppercase tracking-widest">
                 {formatText("AstroSkills")}
               </h3>
-              <p className="text-[10px] font-bold text-pacers-gold print:text-pacers-navy mb-2">
+              <p className="text-[10px] font-bold text-diner-crimson print:text-black mb-2">
                 Frontend Intern | Aug 2025 - Sep 2025
               </p>
               <p className="text-xs text-zinc-400 print:text-zinc-700 font-bold leading-relaxed">
@@ -199,7 +199,7 @@ export const RESUME = () => {
             <h3 className="text-sm font-black text-white print:text-black uppercase tracking-widest">
               Coding Temple
             </h3>
-            <p className="text-[10px] font-bold text-pacers-gold print:text-pacers-navy mb-2">
+            <p className="text-[10px] font-bold text-diner-crimson print:text-black mb-2">
               Software Engineering | 2025
             </p>
             <p className="text-xs text-zinc-400 print:text-zinc-700 font-bold leading-relaxed">

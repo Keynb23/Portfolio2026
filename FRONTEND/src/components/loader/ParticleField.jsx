@@ -1,6 +1,7 @@
-import { useRef, useMemo, useEffect } from "react";
+import { useRef, useMemo } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
+import { THEME_THREE } from "../../lib/themeConfig";
 
 const PARTICLE_COUNT = 500;
 const PARTICLE_BASE_SIZE = 0.025;
@@ -19,22 +20,10 @@ export const ParticleField = ({ isUnlocking, isHovered }) => {
       const y = (Math.random() - 0.5) * 40;
       const z = (Math.random() - 0.5) * 20;
 
-      // Pacers gradient calculation
+      // Diner theme gradient: Crimson Red to Chrome Silver
       const mix = (x + 30) / 60;
       const color = new THREE.Color();
-      if (mix < 0.5) {
-        color.lerpColors(
-          new THREE.Color("#002D62"),
-          new THREE.Color("#BEC0C2"),
-          mix * 2,
-        );
-      } else {
-        color.lerpColors(
-          new THREE.Color("#e1e2e3ff"),
-          new THREE.Color("#FDB927"),
-          (mix - 0.5) * 2,
-        );
-      }
+      color.lerpColors(THEME_THREE.crimson, THEME_THREE.silver, mix);
 
       temp.push({
         pos: new THREE.Vector3(x, y, z),
@@ -102,9 +91,14 @@ export const ParticleField = ({ isUnlocking, isHovered }) => {
       dummy.updateMatrix();
       meshRef.current.setMatrixAt(i, dummy.matrix);
 
-      // 4. Shimmer Effect
-      const shimmer = Math.sin(time * p.shimmerSpeed + p.offset) * 0.5 + 0.5;
-      dummyColor.copy(p.baseColor).multiplyScalar(1 + shimmer * 2);
+      // 4. Neon Flicker Effect
+      const baseShimmer =
+        Math.sin(time * p.shimmerSpeed + p.offset) * 0.5 + 0.5;
+      // Add a "neon flicker" - sharp spikes in intensity
+      const flicker = Math.random() > 0.98 ? Math.random() * 2 : 1;
+      dummyColor
+        .copy(p.baseColor)
+        .multiplyScalar(flicker * (1 + baseShimmer * 1.5));
       meshRef.current.setColorAt(i, dummyColor);
     });
 

@@ -35,7 +35,7 @@ const Footer = () => {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(formData),
-        }
+        },
       );
       if (response.ok) {
         alert("Awesome! I've received your message.");
@@ -54,9 +54,9 @@ const Footer = () => {
     <footer
       id="contact"
       ref={sectionRef}
-      className="footer relative min-h-screen w-full flex flex-col justify-between bg-pacers-navy-dark overflow-hidden pt-32"
+      className="footer relative min-h-screen w-full flex flex-col justify-between bg-diner-black overflow-hidden pt-32"
     >
-      <div className="absolute inset-0 bg-linear-to-b from-pacers-navy-dark via-[#050a13] to-black opacity-100 pointer-events-none" />
+      <div className="absolute inset-0 bg-linear-to-b from-diner-black via-diner-dark-graphite to-black opacity-100 pointer-events-none" />
 
       <div className="container relative z-10 mx-auto px-10 md:px-20 py-24 grow flex flex-col justify-center">
         <motion.div
@@ -66,10 +66,10 @@ const Footer = () => {
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
           <h2 className="text-6xl md:text-9xl font-black text-white mb-8 tracking-tighter leading-none uppercase">
-            LET'S <span className="text-pacers-gold">WORK</span> <br />{" "}
+            LET'S <span className="text-diner-crimson">WORK</span> <br />{" "}
             TOGETHER.
           </h2>
-          <p className="text-pacers-silver text-xl md:text-2xl max-w-2xl leading-relaxed font-semibold opacity-60">
+          <p className="text-diner-silver text-xl md:text-2xl max-w-2xl leading-relaxed font-semibold opacity-60">
             Currently available for freelance work and full-time opportunities.
           </p>
         </motion.div>
@@ -84,7 +84,7 @@ const Footer = () => {
           >
             <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
               <div className="group">
-                <label className="block text-pacers-gold text-[10px] font-black uppercase tracking-[0.3em] mb-4">
+                <label className="block text-diner-crimson text-[10px] font-black uppercase tracking-[0.3em] mb-4">
                   Your Full Name
                 </label>
                 <input
@@ -94,11 +94,11 @@ const Footer = () => {
                   onChange={handleChange}
                   placeholder="John Doe"
                   required
-                  className="w-full bg-transparent border-b-2 border-white/10 py-5 text-white text-xl focus:outline-none focus:border-pacers-gold transition-all"
+                  className="w-full bg-transparent border-b-2 border-white/10 py-5 text-white text-xl focus:outline-none focus:border-diner-crimson transition-all"
                 />
               </div>
               <div className="group">
-                <label className="block text-pacers-gold text-[10px] font-black uppercase tracking-[0.3em] mb-4">
+                <label className="block text-diner-crimson text-[10px] font-black uppercase tracking-[0.3em] mb-4">
                   Email Address
                 </label>
                 <input
@@ -108,13 +108,13 @@ const Footer = () => {
                   onChange={handleChange}
                   placeholder="john@example.com"
                   required
-                  className="w-full bg-transparent border-b-2 border-white/10 py-5 text-white text-xl focus:outline-none focus:border-pacers-gold transition-all"
+                  className="w-full bg-transparent border-b-2 border-white/10 py-5 text-white text-xl focus:outline-none focus:border-diner-crimson transition-all"
                 />
               </div>
             </div>
 
             <div className="group">
-              <label className="block text-pacers-gold text-[10px] font-black uppercase tracking-[0.3em] mb-4">
+              <label className="block text-diner-crimson text-[10px] font-black uppercase tracking-[0.3em] mb-4">
                 Project Vision
               </label>
               <textarea
@@ -124,7 +124,7 @@ const Footer = () => {
                 placeholder="What iconic project are we bringing to life?"
                 rows="4"
                 required
-                className="w-full bg-transparent border-b-2 border-white/10 py-5 text-white text-xl focus:outline-none focus:border-pacers-gold transition-all resize-none"
+                className="w-full bg-transparent border-b-2 border-white/10 py-5 text-white text-xl focus:outline-none focus:border-diner-crimson transition-all resize-none"
               ></textarea>
             </div>
 
@@ -153,12 +153,12 @@ const Footer = () => {
             transition={{ duration: 0.8, delay: 0.4 }}
           >
             <div>
-              <h4 className="text-pacers-gold text-[10px] font-black uppercase tracking-[0.3em] mb-8 opacity-50">
+              <h4 className="text-diner-crimson text-[10px] font-black uppercase tracking-[0.3em] mb-8 opacity-50">
                 Direct Contact
               </h4>
               <a
                 href="mailto:keynb50@gmail.com"
-                className="text-2xl md:text-3xl text-white font-bold hover:text-pacers-gold transition-colors underline decoration-white/10 underline-offset-8"
+                className="text-2xl md:text-3xl text-white font-bold hover:text-diner-crimson transition-colors underline decoration-white/10 underline-offset-8"
               >
                 keynb50@gmail.com
               </a>
@@ -170,7 +170,11 @@ const Footer = () => {
               </h4>
               <div className="flex flex-col gap-8">
                 {[
-                  { name: "GitHub", href: "https://github.com/keynb23", icon: Github },
+                  {
+                    name: "GitHub",
+                    href: "https://github.com/keynb23",
+                    icon: Github,
+                  },
                   {
                     name: "LinkedIn",
                     href: "https://www.linkedin.com/in/key-n-brosdahl-5320b3353/",
@@ -187,11 +191,11 @@ const Footer = () => {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-4 text-white text-xl font-bold hover:text-pacers-gold transition-all group"
+                    className="flex items-center gap-4 text-white text-xl font-bold hover:text-diner-crimson transition-all group"
                   >
                     <social.icon
                       size={20}
-                      className="text-pacers-gold opacity-50 group-hover:opacity-100 transition-opacity"
+                      className="text-diner-crimson opacity-50 group-hover:opacity-100 transition-opacity"
                     />
                     <span>{social.name}</span>
                   </a>
@@ -204,10 +208,10 @@ const Footer = () => {
 
       <div className="relative z-10 w-full border-t border-white/5 py-12 bg-black/40 backdrop-blur-3xl">
         <div className="container mx-auto px-10 md:px-20 flex flex-col md:flex-row justify-between items-center gap-8">
-          <p className="text-pacers-silver text-[10px] font-black tracking-[0.4em] uppercase opacity-40">
+          <p className="text-diner-silver text-[10px] font-black tracking-[0.4em] uppercase opacity-40">
             © {new Date().getFullYear()} Key'n Brosdahl
           </p>
-          <p className="text-pacers-gold text-[10px] font-black tracking-[0.5em] uppercase">
+          <p className="text-diner-crimson text-[10px] font-black tracking-[0.5em] uppercase">
             <a href="https://www.instagram.com/keyn.r.b/">@keyn.r.b</a>
           </p>
         </div>
