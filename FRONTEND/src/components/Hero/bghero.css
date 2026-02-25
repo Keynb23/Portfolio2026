@@ -1,0 +1,12 @@
+
+
+.scramble-item {
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.05);
+  transition: color 0.3s ease;
+  user-select: none;
+}
+
+/* Optional: Make them light up slightly when the scramble happens */
+.scramble-item:not([data-gsap-tween]) {
+  color: rgba(255, 255, 255, 0.329); /* Diner Crimson at low opacity */
+}

@@ -12,7 +12,7 @@ export const RESUME = () => {
       {/* Header Info */}
       <div className="border-b border-white/10 pb-8 print:border-black/20">
         <h1 className="text-4xl font-black text-white print:text-black uppercase tracking-tighter mb-2">
-          Key’n Brosdahl
+          Key'n Brosdahl
         </h1>
         <p className="text-xl font-bold text-diner-crimson print:text-black uppercase tracking-widest mb-4">
           Software Engineer
