@@ -18,8 +18,8 @@ const Carousel = ({ projects, formatText, toggleBionic, isBionicMode }) => {
         orientation="horizontal"
         className="horizontal-track gap-20 outline-none flex items-center"
         style={{
-          paddingLeft: "calc(50vw - 240px)",
-          paddingRight: "calc(50vw - 240px)",
+          // removed paddingLeft. Wasn't affecting anything.
+          paddingRight: "calc(100vw - 50px)",
         }}
       >
         {(project) => (

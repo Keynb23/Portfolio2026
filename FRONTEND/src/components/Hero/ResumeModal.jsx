@@ -1,5 +1,6 @@
+/* eslint-disable no-unused-vars */
 import { useRef } from "react";
-import { motion as Motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { X, FileText, Download } from "lucide-react";
 import { useReactToPrint } from "react-to-print";
 import { Button } from "../ui/Button";
@@ -24,7 +25,7 @@ export const ResumeModal = ({ isOpen, onClose }) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-[1000] flex items-center justify-center p-4 md:p-8 bg-black/90 backdrop-blur-xl"
+          className="fixed inset-0 z-1000 flex items-center justify-center p-4 md:p-8 bg-black/90 backdrop-blur-xl"
           onClick={onClose}
         >
           <Motion.div

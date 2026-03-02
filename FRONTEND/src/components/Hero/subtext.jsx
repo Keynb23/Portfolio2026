@@ -14,7 +14,9 @@ const Subtext = () => {
   const containerRef = useRef(null);
   const positions = useMemo(() => 
     skills.map(() => ({
+      // eslint-disable-next-line react-hooks/purity
       top: Math.floor(Math.random() * 90) + 5,
+      // eslint-disable-next-line react-hooks/purity
       left: Math.floor(Math.random() * 90) + 5,
     })),
     []

@@ -7,7 +7,7 @@ import { ExternalLink, Github } from "lucide-react"; // Icons for project links
 const ProjectCard = ({ project, formatText, toggleBionic, isBionicMode }) => {
   return (
     /* Main card container with glassmorphism and smooth hover transitions */
-    <article className="project-card shrink-0 w-[85vw] md:w-[480px] h-full md:h-[620px] bg-linear-to-br from-diner-dark-graphite to-diner-black border border-white/10 rounded-4xl md:rounded-[3rem] p-6 md:p-10 flex flex-col justify-between group transition-all duration-700 hover:border-diner-crimson/40 hover:shadow-[0_0_80px_-20px_rgba(230,25,25,0.15)] relative overflow-hidden backdrop-blur-xl">
+    <article className="project-card shrink-0 w-[85vw] md:w-120 h-full md:h-155 bg-linear-to-br from-diner-dark-graphite to-diner-black border border-white/10 rounded-4xl md:rounded-[3rem] p-6 md:p-10 flex flex-col justify-between group transition-all duration-700 hover:border-diner-crimson/40 hover:shadow-[0_0_80px_-20px_rgba(230,25,25,0.15)] relative overflow-hidden backdrop-blur-xl">
       {/* Dynamic Background Glow that appears on hover */}
       <div className="absolute -top-20 -right-20 w-64 h-64 bg-diner-crimson/5 rounded-full blur-[100px] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
 
@@ -44,7 +44,7 @@ const ProjectCard = ({ project, formatText, toggleBionic, isBionicMode }) => {
       </div>
 
       {/* Content body with project description and highlighted features */}
-      <div className="flex-grow flex flex-col justify-center gap-8 relative z-10 py-4 text-left">
+      <div className="grow flex flex-col justify-center gap-8 relative z-10 py-4 text-left">
         {/* Main project narrative */}
         <p className="text-diner-silver text-lg leading-relaxed font-medium mb-0!">
           {formatText(project.description)}
@@ -59,7 +59,7 @@ const ProjectCard = ({ project, formatText, toggleBionic, isBionicMode }) => {
                 className="text-sm text-diner-silver flex items-start gap-4"
               >
                 {/* Visual marker in Pacers Gold */}
-                <span className="w-2 h-[2px] bg-diner-crimson/50 shrink-0 mt-2.5" />
+                <span className="w-2 h-0.5 bg-diner-crimson/50 shrink-0 mt-2.5" />
                 <span className="leading-tight font-medium opacity-80 group-hover:opacity-100 transition-opacity">
                   {formatText(highlight)}
                 </span>
@@ -82,7 +82,7 @@ const ProjectCard = ({ project, formatText, toggleBionic, isBionicMode }) => {
             >
               <Github size={14} className="stroke-3" />
               <span>Source</span>
-              <span className="absolute -bottom-2 left-0 w-0 h-[2px] bg-diner-crimson transition-all group-hover/link:w-full" />
+              <span className="absolute -bottom-2 left-0 w-0 h-0.5 bg-diner-crimson transition-all group-hover/link:w-full" />
             </a>
 
             {/* Live deployment link, shown only if available */}
@@ -95,7 +95,7 @@ const ProjectCard = ({ project, formatText, toggleBionic, isBionicMode }) => {
               >
                 <ExternalLink size={14} className="stroke-3" />
                 <span>Live</span>
-                <span className="absolute -bottom-2 left-0 w-0 h-[2px] bg-diner-crimson transition-all group-hover/link:w-full" />
+                <span className="absolute -bottom-2 left-0 w-0 h-0.5 bg-diner-crimson transition-all group-hover/link:w-full" />
               </a>
             )}
           </div>

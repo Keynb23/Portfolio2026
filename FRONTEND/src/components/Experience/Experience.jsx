@@ -72,7 +72,7 @@ const Experience = () => {
         </motion.div>
 
         {/* Timeline Container */}
-        <div className="experience__timeline max-w-4xl mx-auto relative">
+        <div className="experience__timeline max-w-8xl mx-auto relative">
           {/* Vertical timeline line - Diner Crimson */}
           <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-1 md:-translate-x-1/2 bg-diner-crimson/20 rounded-full" />
 

@@ -8,7 +8,12 @@ import Footer from "./components/Footer/Footer";
 import "./App.css";
 import Sammy from "./assets/Sammy.png";
 import LoadingScreen from "./components/loader/LoadingScreen";
-import { useState } from "react";
+import { useState, useRef } from "react";
+import gsap from "gsap"; // 2. Import GSAP
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+
+// register ScrollToPlugin from GSAP
+gsap.registerPlugin(ScrollToPlugin);
 
 const SammyBG = () => {
   return (
@@ -20,15 +25,26 @@ const SammyBG = () => {
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
+
+  const experienceRef = useRef(null);
+
+  const ScrollToExperience = () => {
+    gsap.to(window, {
+      duration: 2.5, // Speed: High = Slower
+      scrollTo: experienceRef.current,
+      ease: "power3.inOut", // Smooth Acc/Dec
+    });
+  };
+
   return (
     <>
       {isLoading && <LoadingScreen onFinished={() => setIsLoading(false)} />}
       <Navbar />
       <div className="w-full bg-diner-black relative flex flex-col">
-        <Hero />
+        <Hero onScrollToWork={ScrollToExperience} />
         {/* Interactive horizontal scroll gallery */}
         <FeaturedWork />
-        <Experience />
+        <Experience ref={experienceRef} />
         <Skills />
         <Footer />
         <div className="Sammy_container relative w-full h-[80vh] flex items-center justify-center bg-[#121212] -mt-px overflow-hidden">

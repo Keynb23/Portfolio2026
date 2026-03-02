@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState } from "react";
 import { motion } from "framer-motion";
 import HeroButtons from "./HeroButtons";
@@ -5,7 +6,7 @@ import { ResumeModal } from "./ResumeModal";
 import Subtext from "./subtext";
 import "./bghero.css";
 
-const Hero = () => {
+const Hero = ({ onScrollToWork  }) => {
   const [isResumeOpen, setIsResumeOpen] = useState(false);
 
   return (
@@ -38,7 +39,8 @@ const Hero = () => {
 
         {/* The Buttons - Only render once! */}
         <div className="mt-10">
-          <HeroButtons onOpenResume={() => setIsResumeOpen(true)} />
+          <HeroButtons onOpenResume={() => setIsResumeOpen(true)}
+           onScrollToWork={onScrollToWork} />
         </div>
       </div>
 

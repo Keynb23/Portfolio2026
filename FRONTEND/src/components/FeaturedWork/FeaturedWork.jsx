@@ -48,7 +48,7 @@ const FeaturedWork = () => {
         className="sticky top-0 w-full h-dvh overflow-hidden bg-pacers-navy-dark flex flex-col justify-center"
       >
         {/* Featured Work Header */}
-        <div className="flex justify-center self-auto mx-10 ">
+        <div className="flex justify-center self-auto mt-35 ">
           <FW_Header />
         </div>
 

@@ -128,7 +128,7 @@ const LoadingScreen = ({ onFinished }) => {
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 z-[9999] bg-black overflow-hidden select-none"
+      className="fixed inset-0 z-9999 bg-black overflow-hidden select-none"
     >
       <div className="absolute inset-0">
         <Canvas
