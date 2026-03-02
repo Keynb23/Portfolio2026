@@ -30,9 +30,14 @@ function App() {
 
   const ScrollToExperience = () => {
     gsap.to(window, {
-      duration: 2.5, // Speed: High = Slower
-      scrollTo: experienceRef.current,
-      ease: "power3.inOut", // Smooth Acc/Dec
+      duration: 20.0, // Long duration for slow movement
+      scrollTo: {
+        y: experienceRef.current,
+        offsetY: 0, // Adjust if you have a sticky header
+      },
+      // Power4 is much more aggressive in its acceleration/deceleration
+      // It starts slow, speeds up fast, then slows down dramatically at the end.
+      ease: "power8.inOut",
     });
   };
 

@@ -54,8 +54,64 @@ section#work {
   min-width: max-content !important;
   /* Dynamic translation based on scroll progress from parent container */
   transform: translateX(calc(100vw - (var(--scroll-progress, 0) * 105%)));
+  position: relative;
+  z-index: 10; /* Middle layer for cards */
 }
 
 .project-card-wrapper {
   flex-shrink: 0;
+}
+
+html,
+body {
+  outline: none !important;
+}
+
+.pusher-video,
+.runner-video {
+  height: 450px; /* Matching card height better */
+  width: auto;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%); /* Only vertical centering needed now */
+  will-change: opacity;
+  transition: opacity 0.5s ease;
+  opacity: 0;
+  pointer-events: none;
+  border: none !important;
+  outline: none !important;
+}
+
+/* 
+   Positions relative to the start of the cards (K is at left: 0)
+   Card 5 (AutoFiles/B) ends at ~2720px.
+*/
+
+.pusher-video {
+  z-index: 5; /* BEHIND the cards (z-10) */
+  /* Hands touching the edge without covering text */
+  left: 2880px;
+}
+
+.runner-video {
+  z-index: 20; /* IN FRONT of the cards (z-10) */
+  /* Leading the pack by 20vw on scroll up */
+  left: calc(2720px + 20vw);
+}
+
+/* Toggle visibility based on scroll direction variable */
+#work-container[style*="--scroll-direction: 1"] .pusher-video {
+  opacity: 1 !important;
+}
+
+#work-container[style*="--scroll-direction: 1"] .runner-video {
+  opacity: 0 !important;
+}
+
+#work-container[style*="--scroll-direction: -1"] .runner-video {
+  opacity: 1 !important;
+}
+
+#work-container[style*="--scroll-direction: -1"] .pusher-video {
+  opacity: 0 !important;
 }

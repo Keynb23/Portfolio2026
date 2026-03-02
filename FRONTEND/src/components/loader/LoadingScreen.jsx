@@ -63,8 +63,10 @@ const LoadingScreen = ({ onFinished }) => {
       return;
     }
     isLebronHovered
-      ? (cinematicAudioRef.current.pause(), lebronAudioRef.current.play())
-      : (lebronAudioRef.current.pause(), cinematicAudioRef.current.play());
+      ? (cinematicAudioRef.current.pause(),
+        lebronAudioRef.current.play().catch(() => {}))
+      : (lebronAudioRef.current.pause(),
+        cinematicAudioRef.current.play().catch(() => {}));
   }, [isLebronHovered, isUnlocking]);
 
   // 3. Progress Orchestration
@@ -121,7 +123,7 @@ const LoadingScreen = ({ onFinished }) => {
     tl.to(
       [overlayRef.current, buttonRef.current],
       { opacity: 0, duration: 0.8 },
-      "<",
+      "<"
     );
   };
 

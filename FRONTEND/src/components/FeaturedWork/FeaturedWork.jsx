@@ -12,6 +12,9 @@ const FeaturedWork = () => {
   const containerRef = useRef(null);
   const projectData = projects();
 
+  const lastScrollY = useRef(0);
+  const scrollDirection = useRef("down"); // "down" or "up"
+
   // Effect to calculate and update scroll progress for the horizontal animation
   useEffect(() => {
     const container = containerRef.current;
@@ -26,8 +29,21 @@ const FeaturedWork = () => {
       const totalScrollable = rect.height - viewportHeight;
       const progress = Math.max(0, Math.min(1, -rect.top / totalScrollable));
 
+      // Determine scroll direction
+      const currentScrollY = window.scrollY;
+      if (currentScrollY > lastScrollY.current) {
+        scrollDirection.current = "down";
+      } else if (currentScrollY < lastScrollY.current) {
+        scrollDirection.current = "up";
+      }
+      lastScrollY.current = currentScrollY;
+
       // Update CSS variable to drive the horizontal track transformation
       container.style.setProperty("--scroll-progress", progress);
+      container.style.setProperty(
+        "--scroll-direction",
+        scrollDirection.current === "down" ? 1 : -1
+      );
     };
 
     window.addEventListener("scroll", handleScroll);

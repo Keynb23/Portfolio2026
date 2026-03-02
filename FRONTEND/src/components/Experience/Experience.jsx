@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { forwardRef } from "react";
 import { motion, useInView } from "framer-motion"; // For smooth timeline entrance
 import { MapPin, Briefcase, ChevronRight } from "lucide-react"; // Icons for detail points
 import { useBionic } from "../../hooks/useBionic";
@@ -7,11 +7,10 @@ import { useBionic } from "../../hooks/useBionic";
  * Experience Component - Chronicles professional history and key achievements.
  * Implements a vertical timeline with Pacers-themed accents and motion reveals.
  */
-const Experience = () => {
+const Experience = forwardRef((props, ref) => {
   const { formatText } = useBionic();
-  const sectionRef = useRef(null);
   // Motion hook to trigger animations when the section is in view
-  const isInView = useInView(sectionRef, { once: true, amount: 0.1 });
+  const isInView = useInView(ref, { once: true, amount: 0.1 });
 
   // Professional history dataset
   const experiences = [
@@ -53,7 +52,7 @@ const Experience = () => {
     <section
       id="experience"
       className="experience py-32 bg-diner-black relative"
-      ref={sectionRef}
+      ref={ref}
     >
       <div className="container mx-auto px-6 md:px-12">
         {/* Section Header with Pacers-themed typography */}
@@ -165,6 +164,6 @@ const Experience = () => {
       </div>
     </section>
   );
-};
+});
 
 export default Experience;
