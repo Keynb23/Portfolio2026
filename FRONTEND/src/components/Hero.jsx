@@ -16,7 +16,7 @@ export default function Hero({ onOpenResume }) {
       <div className="relative">
         <p className="rise mb-6 inline-flex items-center gap-2 text-sm font-medium text-sage md:text-base">
           <span className="h-1.5 w-1.5 rounded-full bg-sage" aria-hidden="true" />
-          {profile.title} at Acellus
+          {profile.title}
         </p>
 
         <h1
