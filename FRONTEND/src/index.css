@@ -1,308 +1,90 @@
-/* ========================================
-   GLOBAL STYLES & TAILWIND CONFIG
-   ======================================== */
-
-@plugin "tailwindcss-animate";
 @import "tailwindcss";
 
-@custom-variant dark (&:is(.dark *));
-
 @theme {
-  /* Futuristic 60s Diner at Night Palette */
-  --color-diner-black: #050505;
-  --color-diner-crimson: #e61919;
-  --color-diner-white: #f5f5f5;
-  --color-diner-silver: #bec0c2;
-  --color-diner-dark-graphite: #1a1a1a;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
-  /* Semantic Aliases */
-  --color-primary-accent: var(--color-diner-crimson);
-  --color-secondary-accent: var(--color-diner-white);
-  --color-neutral-silver: var(--color-diner-silver);
-  --color-neutral-dark: var(--color-diner-dark-graphite);
+  /* Black & white base */
+  --color-ink: #0a0a0a;
+  --color-paper: #fafaf8;
 
-  /* Typography Tokens */
-  --font-main:
-    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-display: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
-
-  /* Modern Glassmorphism & Effects */
-  --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-  --border-glass: 1px solid rgba(255, 255, 255, 0.1);
+  /* Earth-tone accents */
+  --color-forest: #2f5d3a;
+  --color-forest-dark: #234a2d;
+  --color-sage: #9cbfa3;
+  --color-sand: #f1eee7;
+  --color-stone: #e3ded3;
 }
 
 @layer base {
-  /* Reset and Base Styles */
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-
   html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 3rem;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    scroll-behavior: auto; /* GSAP handles scrolling */
+  }
+
+  html:has(dialog[open]) {
+    overflow: hidden;
   }
 
   body {
-    font-family: var(--font-main);
-    background-color: var(--color-diner-black);
-    color: var(--color-diner-white);
-    overflow-x: hidden;
+    @apply bg-ink font-sans text-white;
   }
 
-  /* Ensure all interactive elements keep the custom key cursor */
-  a,
-  button,
-  [role="button"] {
-    cursor: pointer;
+  ::selection {
+    @apply bg-forest text-white;
   }
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-family: var(--font-display);
-    line-height: 1.2;
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-sage;
   }
 }
 
-@layer utilities {
-  /* Custom Scrollbar Utilities */
-  .hide-scrollbar {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-  .hide-scrollbar::-webkit-scrollbar {
-    display: none;
-  }
+/* Scroll-in reveal (see components/Reveal.jsx) */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.9s cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
 
-  /* Glassmorphism Utility */
-  .glass-panel {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border: var(--border-glass);
-    box-shadow: var(--shadow-glass);
-  }
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
 
-  /* Custom Animations */
-  .animate-color-shift {
-    animation: colorShift 6s ease-in-out infinite;
+/* Hero entrance on first paint */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
   }
-
-  .animate-float {
-    animation: float 8s ease-in-out infinite;
-  }
-
-  /* Sophisticated Custom Scrollbar */
-  .custom-scrollbar::-webkit-scrollbar {
-    width: 6px;
-  }
-  .custom-scrollbar::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: rgba(230, 25, 25, 0.4);
-    border-radius: 10px;
-  }
-  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: rgba(230, 25, 25, 0.7);
+  to {
+    opacity: 1;
+    transform: none;
   }
 }
 
-@keyframes colorShift {
-  0%,
-  100% {
-    color: var(--color-diner-crimson);
-    text-shadow: 0 0 15px rgba(230, 25, 25, 0.8);
-  }
-  50% {
-    color: var(--color-diner-white);
-    text-shadow: 0 0 25px rgba(255, 255, 255, 0.4);
-  }
+.rise {
+  animation: rise 1s cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
 
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0) scale(1);
-  }
-  50% {
-    transform: translateY(-30px) scale(1.05);
-  }
+dialog::backdrop {
+  background: rgb(0 0 0 / 0.75);
+  backdrop-filter: blur(8px);
 }
 
-/* Print Utilities for PDF Generation */
-@media print {
-  /* Set white background for the printed page */
-  body,
-  html,
-  .prose-invert,
-  #hero,
-  .bg-zinc-900 {
-    background: white !important;
-    background-color: white !important;
-    color: black !important;
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
 
-  /* Force high contrast for all text elements */
-  .print\:text-black {
-    color: #000000 !important;
+  .reveal,
+  .rise {
+    opacity: 1;
+    transform: none;
+    transition: none;
+    animation: none;
   }
-
-  .print\:text-zinc-700,
-  .text-zinc-400,
-  .text-zinc-500,
-  .text-zinc-300,
-  .text-zinc-200 {
-    color: #1a1a1a !important; /* Force to dark grey/black */
-  }
-
-  .print\:text-pacers-navy,
-  .text-pacers-gold,
-  .text-pacers-gold-light {
-    color: #002d62 !important; /* Switch gold to Navy for better contrast on white */
-  }
-
-  .print\:border-black\/20,
-  .border-white\/10,
-  .border-white\/5 {
-    border-color: #d1d5db !important;
-  }
-
-  /* Ensure we use bold/proper weights */
-  .font-bold,
-  .font-black,
-  .font-semibold {
-    font-weight: 700 !important;
-  }
-
-  /* Hide UI elements not needed in document */
-  .no-print,
-  button,
-  .hero__scroll-indicator,
-  nav {
-    display: none !important;
-  }
-
-  /* Reset layout for print */
-  .grow,
-  .overflow-y-auto {
-    overflow: visible !important;
-    height: auto !important;
-  }
-}
-
-@theme inline {
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-  --radius-2xl: calc(var(--radius) + 8px);
-  --radius-3xl: calc(var(--radius) + 12px);
-  --radius-4xl: calc(var(--radius) + 16px);
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
-  --color-sidebar: var(--sidebar);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-ring: var(--sidebar-ring);
-}
-
-:root {
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.129 0.042 264.695);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.208 0.042 265.755);
-  --primary-foreground: oklch(0.984 0.003 247.858);
-  --secondary: oklch(0.968 0.007 247.896);
-  --secondary-foreground: oklch(0.208 0.042 265.755);
-  --muted: oklch(0.968 0.007 247.896);
-  --muted-foreground: oklch(0.554 0.046 257.417);
-  --accent: oklch(0.968 0.007 247.896);
-  --accent-foreground: oklch(0.208 0.042 265.755);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.929 0.013 255.508);
-  --input: oklch(0.929 0.013 255.508);
-  --ring: oklch(0.704 0.04 256.788);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.984 0.003 247.858);
-  --sidebar-foreground: oklch(0.129 0.042 264.695);
-  --sidebar-primary: oklch(0.208 0.042 265.755);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-accent: oklch(0.968 0.007 247.896);
-  --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
-  --sidebar-border: oklch(0.929 0.013 255.508);
-  --sidebar-ring: oklch(0.704 0.04 256.788);
-}
-
-.dark {
-  --background: oklch(0.129 0.042 264.695);
-  --foreground: oklch(0.984 0.003 247.858);
-  --card: oklch(0.208 0.042 265.755);
-  --card-foreground: oklch(0.984 0.003 247.858);
-  --popover: oklch(0.208 0.042 265.755);
-  --popover-foreground: oklch(0.984 0.003 247.858);
-  --primary: oklch(0.929 0.013 255.508);
-  --primary-foreground: oklch(0.208 0.042 265.755);
-  --secondary: oklch(0.279 0.041 260.031);
-  --secondary-foreground: oklch(0.984 0.003 247.858);
-  --muted: oklch(0.279 0.041 260.031);
-  --muted-foreground: oklch(0.704 0.04 256.788);
-  --accent: oklch(0.279 0.041 260.031);
-  --accent-foreground: oklch(0.984 0.003 247.858);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.551 0.027 264.364);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.208 0.042 265.755);
-  --sidebar-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-accent: oklch(0.279 0.041 260.031);
-  --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.551 0.027 264.364);
 }
