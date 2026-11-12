@@ -16,10 +16,11 @@ export default function IntroLoader({ setPhase }) {
     const pre = textRef.current;
     const overlay = overlayRef.current;
 
-    // Size the character grid to the viewport. 8×18px approximates a
-    // 13px monospace glyph; overshoot just gets clipped by the overlay.
-    const cols = Math.ceil(window.innerWidth / 8);
-    const rows = Math.ceil(window.innerHeight / 18);
+    // Size the character grid to the viewport. Deliberately overshoot
+    // (7×16px per 13px monospace glyph, plus margin rows/cols) so digits
+    // always cover the whole screen; the extra is clipped by the overlay.
+    const cols = Math.ceil(window.innerWidth / 7) + 4;
+    const rows = Math.ceil(window.innerHeight / 16) + 4;
     const digits = Array.from({ length: rows * cols }, () => (Math.random() < 0.5 ? "1" : "0"));
 
     // textContent straight into the DOM — flicking hundreds of digits
