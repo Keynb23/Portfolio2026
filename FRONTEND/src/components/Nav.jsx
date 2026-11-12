@@ -1,4 +1,6 @@
 import { profile } from "../content";
+import Magnetic from "../animation/Magnetic";
+import swayScrollTo from "../animation/swayScrollTo";
 
 const links = [
   { href: "#experience", label: "Experience" },
@@ -8,10 +10,15 @@ const links = [
 ];
 
 export default function Nav({ onOpenResume }) {
+  const goTo = (e, href) => {
+    e.preventDefault();
+    swayScrollTo(href);
+  };
+
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-ink/75 backdrop-blur-xl backdrop-saturate-150">
       <nav className="mx-auto flex h-12 max-w-6xl items-center justify-between px-5 md:px-8">
-        <a href="#top" className="text-sm font-semibold tracking-tight text-white">
+        <a href="#top" onClick={(e) => goTo(e, "#top")} className="text-sm font-semibold tracking-tight text-white">
           {profile.name}
         </a>
         <div className="flex items-center gap-7">
@@ -20,6 +27,7 @@ export default function Nav({ onOpenResume }) {
               <li key={link.href}>
                 <a
                   href={link.href}
+                  onClick={(e) => goTo(e, link.href)}
                   className="text-xs text-neutral-300 transition-colors hover:text-white"
                 >
                   {link.label}
@@ -27,13 +35,15 @@ export default function Nav({ onOpenResume }) {
               </li>
             ))}
           </ul>
-          <button
-            type="button"
-            onClick={onOpenResume}
-            className="cursor-pointer rounded-full bg-white px-3.5 py-1 text-xs font-medium text-ink transition-colors hover:bg-sage"
-          >
-            Résumé
-          </button>
+          <Magnetic strength={0.2}>
+            <button
+              type="button"
+              onClick={onOpenResume}
+              className="cursor-pointer rounded-full bg-white px-3.5 py-1 text-xs font-medium text-ink transition-colors hover:bg-sage"
+            >
+              Résumé
+            </button>
+          </Magnetic>
         </div>
       </nav>
     </header>

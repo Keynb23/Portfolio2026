@@ -2,6 +2,7 @@ import { ArrowUpRight } from "lucide-react";
 import { featuredProjects, moreProjects } from "../content";
 import Reveal from "./Reveal";
 import SectionHeading from "./SectionHeading";
+import TiltCard from "../animation/TiltCard";
 
 // Bolds the first half of each word, the way the Bionic Reading app does.
 function Bionic({ text }) {
@@ -91,11 +92,11 @@ export default function Projects() {
 
         <div className="space-y-8">
           {featuredProjects.map((project) => (
-            <Reveal
-              key={project.name}
-              as="article"
-              className="grid gap-10 rounded-3xl bg-neutral-900 p-6 md:p-10 lg:grid-cols-2 lg:items-stretch lg:gap-14"
-            >
+            <Reveal key={project.name} stagger="li">
+              <TiltCard
+                as="article"
+                className="grid gap-10 rounded-3xl bg-neutral-900 p-6 md:p-10 lg:grid-cols-2 lg:items-stretch lg:gap-14"
+              >
               <div className="flex flex-col justify-between gap-10 lg:py-4">
                 <div>
                   <p className="mb-3 text-sm font-medium text-sage">{project.kind}</p>
@@ -118,12 +119,13 @@ export default function Projects() {
                   </div>
                 </div>
               </div>
-              {project.visual === "bionic" ? <BionicVisual /> : <SiteVisual url={project.live} />}
+                {project.visual === "bionic" ? <BionicVisual /> : <SiteVisual url={project.live} />}
+              </TiltCard>
             </Reveal>
           ))}
         </div>
 
-        <Reveal className="mt-24">
+        <Reveal className="mt-24" stagger="li">
           <h3 className="mb-6 text-sm font-semibold tracking-wide text-neutral-400">More projects</h3>
           <ul className="divide-y divide-white/10 border-y border-white/10">
             {moreProjects.map((project) => (

@@ -7,6 +7,7 @@ import Skills from "./components/Skills";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import ResumeDialog from "./components/ResumeDialog";
+import CursorGlow from "./animation/CursorGlow";
 
 export default function App() {
   const resumeRef = useRef(null);
@@ -14,6 +15,7 @@ export default function App() {
 
   return (
     <>
+      <CursorGlow />
       <Nav onOpenResume={openResume} />
       <main>
         <Hero onOpenResume={openResume} />

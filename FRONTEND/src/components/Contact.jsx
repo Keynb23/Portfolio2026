@@ -1,6 +1,7 @@
 import { ArrowUpRight } from "lucide-react";
 import { profile } from "../content";
 import Reveal from "./Reveal";
+import Magnetic from "../animation/Magnetic";
 
 export default function Contact({ onOpenResume }) {
   const pill =
@@ -27,15 +28,21 @@ export default function Contact({ onOpenResume }) {
         </a>
 
         <div className="mt-12 flex flex-wrap justify-center gap-3">
-          <a href={profile.links.linkedin} target="_blank" rel="noopener noreferrer" className={pill}>
-            LinkedIn <ArrowUpRight size={16} />
-          </a>
-          <a href={profile.links.github} target="_blank" rel="noopener noreferrer" className={pill}>
-            GitHub <ArrowUpRight size={16} />
-          </a>
-          <button type="button" onClick={onOpenResume} className={pill}>
-            Résumé
-          </button>
+          <Magnetic>
+            <a href={profile.links.linkedin} target="_blank" rel="noopener noreferrer" className={pill}>
+              LinkedIn <ArrowUpRight size={16} />
+            </a>
+          </Magnetic>
+          <Magnetic>
+            <a href={profile.links.github} target="_blank" rel="noopener noreferrer" className={pill}>
+              GitHub <ArrowUpRight size={16} />
+            </a>
+          </Magnetic>
+          <Magnetic>
+            <button type="button" onClick={onOpenResume} className={pill}>
+              Résumé
+            </button>
+          </Magnetic>
         </div>
       </Reveal>
     </section>

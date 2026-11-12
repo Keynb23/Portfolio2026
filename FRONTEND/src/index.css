@@ -29,6 +29,9 @@
 
   body {
     @apply bg-ink font-sans text-white;
+    /* The sway-scroll shifts <main> sideways a few px; clip so that can
+       never produce a horizontal scrollbar. */
+    overflow-x: clip;
   }
 
   ::selection {

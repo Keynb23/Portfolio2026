@@ -13,6 +13,7 @@ export default function Skills() {
             <Reveal
               key={s.group}
               delay={i * 80}
+              stagger="li"
               className={`border-t border-ink/15 pt-6 ${s.group === "Libraries" ? "lg:row-span-2" : ""}`}
             >
               <h3 className="mb-5 text-sm font-semibold tracking-wide text-forest">{s.group}</h3>
