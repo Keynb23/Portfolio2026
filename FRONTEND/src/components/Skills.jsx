@@ -19,7 +19,7 @@ export default function Skills() {
               <h3 className="mb-5 text-sm font-semibold tracking-wide text-forest">{s.group}</h3>
               <ul className="space-y-2">
                 {s.items.map((item) => (
-                  <li key={item} className="text-2xl font-medium tracking-tight">
+                  <li key={item} className="skill-word w-fit text-2xl font-medium tracking-tight">
                     {item}
                   </li>
                 ))}

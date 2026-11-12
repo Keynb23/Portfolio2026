@@ -1,6 +1,12 @@
+import { useLayoutEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { experience } from "../content";
+import { prefersReducedMotion } from "../animation/motion";
 import Reveal from "./Reveal";
 import SectionHeading from "./SectionHeading";
+
+gsap.registerPlugin(ScrollTrigger);
 
 function BulletList({ items }) {
   return (
@@ -16,8 +22,40 @@ function BulletList({ items }) {
 }
 
 export default function Experience() {
+  const sectionRef = useRef(null);
+  const lineRef = useRef(null);
+
+  // A forest-green line draws itself down the section's left edge,
+  // scrubbed to scroll position — a reading-progress timeline.
+  useLayoutEffect(() => {
+    if (prefersReducedMotion()) return;
+    const tween = gsap.fromTo(
+      lineRef.current,
+      { scaleY: 0 },
+      {
+        scaleY: 1,
+        ease: "none", // scrubbed animations should be linear; the scroll provides the easing
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 65%",
+          end: "bottom 65%",
+          scrub: true,
+        },
+      },
+    );
+    return () => {
+      tween.scrollTrigger?.kill();
+      tween.kill();
+    };
+  }, []);
+
   return (
-    <section id="experience" className="bg-paper py-28 text-ink md:py-40">
+    <section ref={sectionRef} id="experience" className="relative bg-paper py-28 text-ink md:py-40">
+      <div
+        ref={lineRef}
+        aria-hidden="true"
+        className="absolute top-0 left-0 h-full w-0.5 origin-top bg-forest"
+      />
       <div className="mx-auto max-w-6xl px-5 md:px-8">
         <SectionHeading
           tone="light"

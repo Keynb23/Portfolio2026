@@ -2,6 +2,7 @@ import { ArrowUpRight } from "lucide-react";
 import { profile } from "../content";
 import Reveal from "./Reveal";
 import Magnetic from "../animation/Magnetic";
+import Spotlight from "../animation/Spotlight";
 
 export default function Contact({ onOpenResume }) {
   const pill =
@@ -45,6 +46,8 @@ export default function Contact({ onOpenResume }) {
           </Magnetic>
         </div>
       </Reveal>
+
+      <Spotlight />
     </section>
   );
 }

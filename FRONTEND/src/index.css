@@ -19,6 +19,9 @@
   html {
     scroll-behavior: smooth;
     scroll-padding-top: 3rem;
+    /* Reserve scrollbar space so the page doesn't shift sideways when the
+       dialog opens and html:has(dialog[open]) hides the scrollbar. */
+    scrollbar-gutter: stable;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -73,9 +76,62 @@
   animation: rise 1s cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
 
+/* Skills: words render as hollow outlines and fill with ink left-to-right
+   on hover. The "fill" is a background gradient clipped to the text, so
+   animating background-size sweeps it across. Hover-only devices get the
+   outline treatment; touch screens keep normal solid text. */
+@media (hover: hover) {
+  .skill-word {
+    color: transparent;
+    -webkit-text-stroke: 1px var(--color-ink);
+    background-image: linear-gradient(var(--color-ink), var(--color-ink));
+    background-repeat: no-repeat;
+    background-size: 0% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    transition: background-size 0.4s ease;
+  }
+
+  .skill-word:hover {
+    background-size: 100% 100%;
+  }
+}
+
 dialog::backdrop {
   background: rgb(0 0 0 / 0.75);
   backdrop-filter: blur(8px);
+}
+
+/* Résumé dialog pop-in. @starting-style supplies the first-frame values
+   when the dialog flips from display:none to open, so the browser can
+   transition from them — no JS needed. Close stays instant on purpose.
+   Browsers without @starting-style simply open instantly. */
+dialog[open] {
+  opacity: 1;
+  transform: scale(1);
+  transition:
+    opacity 0.2s ease-out,
+    transform 0.25s cubic-bezier(0.2, 0.7, 0.2, 1);
+
+  @starting-style {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+}
+
+/* Opacity alone doesn't fade a backdrop-filter — the blur would land at
+   full strength on frame one — so the blur radius is transitioned too. */
+dialog[open]::backdrop {
+  opacity: 1;
+  backdrop-filter: blur(8px);
+  transition:
+    opacity 0.25s ease-out,
+    backdrop-filter 0.25s ease-out;
+
+  @starting-style {
+    opacity: 0;
+    backdrop-filter: blur(0px);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -89,5 +145,10 @@ dialog::backdrop {
     transform: none;
     transition: none;
     animation: none;
+  }
+
+  dialog[open],
+  dialog[open]::backdrop {
+    transition: none;
   }
 }
