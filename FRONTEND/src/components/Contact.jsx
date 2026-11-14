@@ -1,8 +1,9 @@
-import { ArrowUpRight } from "lucide-react";
-import { profile } from "../content";
+import { ArrowUpRight, Youtube } from "lucide-react";
+import { profile, show } from "../content";
 import Reveal from "./Reveal";
 import Magnetic from "../animation/Magnetic";
 import Spotlight from "../animation/Spotlight";
+import { SpotifyIcon } from "./Podcast";
 
 export default function Contact({ onOpenResume }) {
   const pill =
@@ -37,6 +38,16 @@ export default function Contact({ onOpenResume }) {
           <Magnetic>
             <a href={profile.links.github} target="_blank" rel="noopener noreferrer" className={pill}>
               GitHub <ArrowUpRight size={16} />
+            </a>
+          </Magnetic>
+          <Magnetic>
+            <a href={show.spotify} target="_blank" rel="noopener noreferrer" className={pill}>
+              <SpotifyIcon size={16} /> Spotify
+            </a>
+          </Magnetic>
+          <Magnetic>
+            <a href={show.youtube} target="_blank" rel="noopener noreferrer" className={pill}>
+              <Youtube size={16} /> YouTube
             </a>
           </Magnetic>
           <Magnetic>

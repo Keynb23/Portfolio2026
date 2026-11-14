@@ -175,6 +175,21 @@ export const skills = [
   { group: "Tools", items: ["Git", "GitHub", "VS Code"] },
 ];
 
+export const show = {
+  name: "I think, because you asked",
+  tagline: "Sleep stories that teach you something.",
+  description:
+    "A podcast I write and produce: long, slow stories that walk through how the world works, made to fall asleep to. Each episode takes one big question and answers it gently over a few hours.",
+  spotify: "https://open.spotify.com/show/6KzLHRteBsorgK8df0F8Js",
+  spotifyEmbed: "https://open.spotify.com/embed/show/6KzLHRteBsorgK8df0F8Js?utm_source=generator&theme=0",
+  youtube: "https://www.youtube.com/channel/UCdPGe4ZHuvZD5skidgLB_FQ",
+  // Newest first. The YouTube video ID is the part after "watch?v=".
+  episodes: [
+    { number: 2, title: "The Errand", topic: "Why do we sleep?", youtubeId: "xBZKyMnbE68" },
+    { number: 1, title: "Inside the Machine", topic: "How does AI work?", youtubeId: "siwOVlcGn8g" },
+  ],
+};
+
 export const education = {
   school: "Coding Temple",
   credential: "Software Engineering Certificate",

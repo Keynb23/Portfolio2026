@@ -4,6 +4,7 @@ import Hero from "./components/Hero";
 import Experience from "./components/Experience";
 import Projects from "./components/Projects";
 import Skills from "./components/Skills";
+import Podcast from "./components/Podcast";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import ResumeDialog from "./components/ResumeDialog";
@@ -34,6 +35,7 @@ export default function App() {
             <Experience />
             <Projects />
             <Skills />
+            <Podcast />
             <Contact onOpenResume={openResume} />
           </main>
           <Footer />
